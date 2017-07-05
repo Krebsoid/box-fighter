@@ -34,6 +34,4 @@ export class Bullet extends Shape{
     this.travelled += this.speed;
   }
 
-
-
 }

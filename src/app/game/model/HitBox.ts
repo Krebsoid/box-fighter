@@ -27,6 +27,7 @@ export class HitBox extends Shape {
   hit?(game: Game) {
     this.hits += 1;
     this.label.text = this.hits.toString();
+    this.colliding = true;
   }
 
 }

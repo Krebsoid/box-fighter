@@ -6,6 +6,7 @@ import {Camera} from "../model/Camera";
 export class GameArea {
 
   elements: Element[] = [];
+  graveyard: Element[] = [];
   camera: Camera;
 
   addElement(element: Element) {
@@ -16,6 +17,7 @@ export class GameArea {
     let index = this.elements.indexOf(element);
     if(index > -1) {
       this.elements.splice(index, 1);
+      this.graveyard.push(element);
     }
   }
 

@@ -3,7 +3,7 @@
   <div>
     {{ game.gameTime }}
   </div>
-  <div>
-    {{ game.controls }}
+  <div *ngFor="let entry of game.gameArea.graveyard">
+    {{ entry.toString() }}
   </div>
 </div>

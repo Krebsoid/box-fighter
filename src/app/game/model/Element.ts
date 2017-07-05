@@ -16,8 +16,6 @@ export abstract class Element {
   xOffset: number;
   yOffset: number;
 
-  deleted: boolean;
-
   constructor(x: number, y: number, z:number) {
     this.x = x;
     this.y = y;
@@ -41,12 +39,12 @@ export abstract class Element {
     this.y += y;
   }
 
-  markToRemove() {
-    this.deleted = true;
-  }
-
-  context() {
+  static context() {
     let canvas: any = document.getElementById('game');
     return canvas.getContext("2d");
+  }
+
+  toString() {
+    return this.constructor.name + "(" + this.id + ")";
   }
 }

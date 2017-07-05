@@ -21,12 +21,12 @@ export class Shape extends Element {
   render(camera: Camera) {
     super.render(camera);
     if(this.colliding) {
-      this.context().fillStyle = "#ff0000";
+      Element.context().fillStyle = "#ff0000";
     } else {
-      this.context().fillStyle = this.color;
+      Element.context().fillStyle = this.color;
     }
 
-    this.context().fillRect(this.xOffset, this.yOffset, this.h, this.w);
+    Element.context().fillRect(this.xOffset, this.yOffset, this.h, this.w);
   }
 
   addBehaviour(name: string, behaviour: (game: Game, shape: Shape) => void) {
