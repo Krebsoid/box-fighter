@@ -27,8 +27,7 @@ export class GameArea {
   }
 
   repaint() {
-    this.context().fillStyle = "#FFF";
-    this.context().fillRect(0, 0, 1024, 500);
+    this.context().clearRect(0, 0, 1024, 500);
   }
 
   context() {

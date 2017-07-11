@@ -6,6 +6,7 @@ import {Player} from "./model/Player";
 import {Camera} from "./model/Camera";
 import {Weapon} from "./model/Weapon";
 import {HitBox} from "./model/HitBox";
+import {Engine} from "./model/parts/engine/Engine";
 
 @Component({
   templateUrl: './game.component.html',
@@ -18,9 +19,9 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     let player = new Player();
-    player.setElement(new Weapon(player));
+    player.setWeapon(new Weapon(player));
+    player.setEngine(new Engine(player));
     this.gameArea.addElement(player);
 
     let camera = new Camera(player);

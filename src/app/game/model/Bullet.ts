@@ -6,11 +6,11 @@ import {Weapon} from "./Weapon";
 export class Bullet extends Shape{
 
   maxRange: number = 800;
-  speed: number = 3;
+  speed: number = 5;
   travelled: number = 0;
 
   constructor(weapon: Weapon) {
-    super(weapon.x + weapon.bulletHole.x, weapon.y + weapon.bulletHole.y, weapon.z, 5, 5, "#000");
+    super(weapon.bulletHole.x, weapon.bulletHole.y, weapon.z, 5, 5, "#000");
   }
 
   render(camera: Camera) {

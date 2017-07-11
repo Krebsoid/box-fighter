@@ -6,6 +6,10 @@ export class Controls {
   right: boolean = false;
   shoot: boolean = false;
 
+  isMoving(): boolean {
+    return this.down || this.left || this.right || this.up;
+  }
+
   addControl(key: string) {
     if(key == "w") {
       this.up = true;

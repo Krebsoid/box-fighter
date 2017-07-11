@@ -2,10 +2,14 @@ import { Element } from './Element';
 import {Shape} from "./Shape";
 import {Camera} from "./Camera";
 import {Game} from "../service/Game";
+import {Engine} from "./parts/engine/Engine";
+import {Weapon} from "./Weapon";
 
 export class Player extends Element{
 
   elements: Element[] = [];
+  engine: Engine;
+  weapon: Weapon;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -19,31 +23,37 @@ export class Player extends Element{
     this.elements.forEach((value, index, array) => value.render(camera));
   }
 
-  setElement(element: Element) {
-    this.elements.push(element);
+  setEngine(engine: Engine) {
+    this.elements.push(engine);
+    this.engine = engine;
+  }
+  setWeapon(weapon: Weapon) {
+    this.elements.push(weapon);
+    this.weapon = weapon;
   }
 
   update(game: Game) {
     this.elements.forEach((value, index, array) => value.update(game));
+    let acceleration = this.engine ? this.engine.acceleration : 0;
     if(game.controls.down) {
       if(this.y <= 450) {
-        this.move(0, 1);
-        this.elements.forEach((value, index, array) => value.move(0, 1));
+        this.move(0, acceleration);
+        this.elements.forEach((value, index, array) => value.move(0, acceleration));
       }
     }
     if(game.controls.up) {
       if(this.y >= 0) {
-        this.move(0, -1);
-        this.elements.forEach((value, index, array) => value.move(0, -1));
+        this.move(0, -acceleration);
+        this.elements.forEach((value, index, array) => value.move(0, -acceleration));
       }
     }
     if(game.controls.right) {
-      this.move(1, 0);
-      this.elements.forEach((value, index, array) => value.move(1, 0));
+      this.move(acceleration, 0);
+      this.elements.forEach((value, index, array) => value.move(acceleration, 0));
     }
     if(game.controls.left) {
-      this.move(-1, 0);
-      this.elements.forEach((value, index, array) => value.move(-1, 0));
+      this.move(-acceleration, 0);
+      this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
     }
   }
 

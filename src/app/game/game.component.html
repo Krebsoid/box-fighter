@@ -1,9 +1,6 @@
 <div id="content">
   <canvas id="game" width="1024px" height="500px"></canvas>
   <div>
-    {{ game.gameTime }}
-  </div>
-  <div *ngFor="let entry of game.gameArea.graveyard">
-    {{ entry.toString() }}
+    {{ game.dt }}
   </div>
 </div>
