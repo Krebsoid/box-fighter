@@ -7,6 +7,7 @@ import {Camera} from "./model/Camera";
 import {Weapon} from "./model/Weapon";
 import {HitBox} from "./model/HitBox";
 import {Engine} from "./model/parts/engine/Engine";
+import {Sprite} from "./model/Sprite";
 
 @Component({
   templateUrl: './game.component.html',
@@ -53,6 +54,10 @@ export class GameComponent implements OnInit {
     this.gameArea.addElement(new Shape(3000, 0, 3, 2, 500, "#000000"));
 
     this.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7"));
+
+    this.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 2, "assets/sprite.png"));
+    this.gameArea.addElement(new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png"));
+    this.gameArea.addElement(new Sprite(500, 400, 1, 30, 30, false, 200, "assets/sprite.png"));
 
     this.game.init();
   }
