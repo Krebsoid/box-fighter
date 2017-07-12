@@ -24,7 +24,7 @@ export class GameComponent implements OnInit {
     player.setEngine(new Engine(player));
     this.gameArea.addElement(player);
 
-    let camera = new Camera(player);
+    let camera = new Camera(player, this.gameArea);
     this.gameArea.setCamera(camera);
 
     let shape = new Shape(50, 50, 1, 50, 50, "#00ff16");

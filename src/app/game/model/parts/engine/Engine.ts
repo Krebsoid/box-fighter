@@ -18,10 +18,6 @@ export class Engine extends Equipment {
 
   update(game: Game) {
     super.update(game);
-    if(game.gameTime % 5 == 0 && game.controls.isMoving()) {
-      game.gameArea.addElement(new EngineParticle(this, "#ee0000"));
-      game.gameArea.addElement(new EngineParticle(this, "#eeb900"));
-    }
   }
 
   move(x: number, y: number) {

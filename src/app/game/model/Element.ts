@@ -1,5 +1,6 @@
 import {Camera} from "./Camera";
 import {Game} from "../service/Game";
+
 namespace Id {
   let index: number = 0;
   export function retrieveNextElementId() {
@@ -37,11 +38,6 @@ export abstract class Element {
   move(x: number, y: number) {
     this.x += x;
     this.y += y;
-  }
-
-  static context() {
-    let canvas: any = document.getElementById('game');
-    return canvas.getContext("2d");
   }
 
   toString() {

@@ -16,9 +16,9 @@ export class Text extends Element {
 
   render(camera: Camera) {
     super.render(camera);
-    Element.context().font = this.style;
-    Element.context().fillStyle = this.color;
-    Element.context().fillText(this.text, this.xOffset, this.yOffset);
+    camera.gameArea.getContext().font = this.style;
+    camera.gameArea.getContext().fillStyle = this.color;
+    camera.gameArea.getContext().fillText(this.text, this.xOffset, this.yOffset);
   }
 
   update(game: Game) {

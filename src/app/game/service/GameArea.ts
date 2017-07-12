@@ -8,6 +8,7 @@ export class GameArea {
   elements: Element[] = [];
   graveyard: Element[] = [];
   camera: Camera;
+  context: any;
 
   addElement(element: Element) {
     this.elements.push(element);
@@ -27,12 +28,17 @@ export class GameArea {
   }
 
   repaint() {
-    this.context().clearRect(0, 0, 1024, 500);
+    this.getContext().clearRect(0, 0, 1024, 500);
   }
 
-  context() {
-    let canvas: any = document.getElementById('game');
-    return canvas.getContext("2d");
+  getContext() {
+    if(this.context) {
+      return this.context;
+    } else {
+      let canvas: any = document.getElementById('game');
+      this.context = canvas.getContext("2d");
+      return this.context;
+    }
   }
 
   clear() {
