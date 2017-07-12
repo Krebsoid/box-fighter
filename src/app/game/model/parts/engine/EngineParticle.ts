@@ -1,9 +1,9 @@
-import {Shape} from "../../Shape";
 import {Engine} from "./Engine";
 import {Camera} from "../../Camera";
 import {Game} from "../../../service/Game";
+import {ColoredShape} from "../../ColoredShape";
 
-export class EngineParticle extends Shape{
+export class EngineParticle extends ColoredShape {
 
   maxRange: number = 50;
   speed: number = 5;

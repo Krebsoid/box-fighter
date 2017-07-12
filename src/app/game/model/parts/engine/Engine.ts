@@ -1,9 +1,8 @@
-import {Shape} from "../../Shape";
 import {Element} from "../../Element";
 import {Equipment} from "../Equipment";
 import {Position} from "../../Position";
 import {Game} from "../../../service/Game";
-import {EngineParticle} from "./EngineParticle";
+import {ColoredShape} from "../../ColoredShape";
 
 export class Engine extends Equipment {
 
@@ -12,7 +11,7 @@ export class Engine extends Equipment {
 
   constructor(target: Element) {
     super(target);
-    this.elements.push(new Shape(target.x-10, target.y+20, target.z, 10, 10, "#ee0000"));
+    this.elements.push(new ColoredShape(target.x-10, target.y+20, target.z, 10, 10, "#ee0000"));
     this.engineHole = new Position(target.x-12, target.y+24);
   }
 

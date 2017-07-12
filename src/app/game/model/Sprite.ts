@@ -1,11 +1,9 @@
-import { Element } from './Element';
 import {Camera} from "./Camera";
 import {Game} from "../service/Game";
+import {Shape} from "./Shape";
 
-export class Sprite extends Element {
+export class Sprite extends Shape {
 
-  h: number;
-  w: number;
   looping: boolean;
   image: HTMLImageElement = new Image();
   activeFrame: number = 1;
@@ -14,9 +12,7 @@ export class Sprite extends Element {
 
   constructor(x: number, y: number, z: number, h: number, w: number,
               looping: boolean, speed: number, src: string) {
-    super(x, y, z);
-    this.h = h;
-    this.w = w;
+    super(x, y, z, h, w);
     this.looping = looping;
     this.image.src = src;
     this.numberOfFrames = this.image.width / this.w;
@@ -38,5 +34,6 @@ export class Sprite extends Element {
         }
       }
     }
+    super.update(game);
   }
 }

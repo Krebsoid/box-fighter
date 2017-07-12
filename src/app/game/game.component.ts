@@ -1,5 +1,4 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {Shape} from "./model/Shape";
 import {GameArea} from "./service/GameArea";
 import {Game} from "./service/Game";
 import {Player} from "./model/Player";
@@ -8,6 +7,7 @@ import {Weapon} from "./model/Weapon";
 import {HitBox} from "./model/HitBox";
 import {Engine} from "./model/parts/engine/Engine";
 import {Sprite} from "./model/Sprite";
+import {ColoredShape} from "./model/ColoredShape";
 
 @Component({
   templateUrl: './game.component.html',
@@ -28,7 +28,7 @@ export class GameComponent implements OnInit {
     let camera = new Camera(player, this.gameArea);
     this.gameArea.setCamera(camera);
 
-    let shape = new Shape(50, 50, 1, 50, 50, "#00ff16");
+    let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16");
     shape.addBehaviour("little-forward", (game, shape) => {
       if(game.gameTime > 300) {
         shape.move(3,0);
@@ -42,21 +42,33 @@ export class GameComponent implements OnInit {
     });
     this.gameArea.addElement(shape);
 
-    let shape2 = new Shape(300, 100, 1, 50, 50, "#0002ff");
+    let shape2 = new ColoredShape(300, 100, 1, 50, 50, "#0002ff");
     shape2.addBehaviour("sinus-freak", (game, shape) => {
       if(game.gameTime > 100) {
         shape.move(2, 6 * Math.sin(shape.x/10));
       }
     });
     this.gameArea.addElement(shape2);
-    this.gameArea.addElement(new Shape(800, 100, 1, 50, 50, "#ff000f"));
-    this.gameArea.addElement(new Shape(2000, 100, 1, 50, 50, "#fff300"));
-    this.gameArea.addElement(new Shape(3000, 0, 3, 2, 500, "#000000"));
+    this.gameArea.addElement(new ColoredShape(800, 100, 1, 50, 50, "#ff000f"));
+    let coloredShape = new ColoredShape(2000, 100, 1, 50, 50, "#fff300");
+    this.gameArea.addElement(coloredShape);
+    this.gameArea.addElement(new ColoredShape(3000, 0, 3, 2, 500, "#000000"));
 
     this.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7"));
 
     this.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 2, "assets/sprite.png"));
-    this.gameArea.addElement(new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png"));
+    let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
+    sprite.addBehaviour("sinus-freak", (game, shape) => {
+      if(game.gameTime > 100) {
+        shape.move(.4, 2 * Math.sin(shape.x/5));
+      }
+    });
+    sprite.addBehaviour("little-forward", (game, shape) => {
+      if(game.gameTime % 1000 == 0) {
+        shape.setPosition(500, 300);
+      }
+    });
+    this.gameArea.addElement(sprite);
     this.gameArea.addElement(new Sprite(500, 400, 1, 30, 30, false, 200, "assets/sprite.png"));
 
     this.game.init();

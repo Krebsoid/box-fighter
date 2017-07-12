@@ -2,8 +2,9 @@ import {Shape} from "./Shape";
 import {Camera} from "./Camera";
 import {Game} from "../service/Game";
 import {Weapon} from "./Weapon";
+import {ColoredShape} from "./ColoredShape";
 
-export class Bullet extends Shape{
+export class Bullet extends ColoredShape {
 
   maxRange: number = 800;
   speed: number = 5;

@@ -1,9 +1,9 @@
-import {Shape} from "./Shape";
 import {Game} from "../service/Game";
 import {Text} from "./Text";
 import {Camera} from "./Camera";
+import {ColoredShape} from "./ColoredShape";
 
-export class HitBox extends Shape {
+export class HitBox extends ColoredShape {
 
   hits: number = 0;
 
