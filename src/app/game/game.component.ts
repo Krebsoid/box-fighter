@@ -59,17 +59,38 @@ export class GameComponent implements OnInit {
     this.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 2, "assets/sprite.png"));
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
     sprite.addBehaviour("sinus-freak", (game, shape) => {
-      if(game.gameTime > 100) {
+      if(shape.x < 1000) {
         shape.move(.4, 2 * Math.sin(shape.x/5));
       }
     });
-    sprite.addBehaviour("little-forward", (game, shape) => {
-      if(game.gameTime % 1000 == 0) {
-        shape.setPosition(500, 300);
+    sprite.addBehaviour("sinus-freak-backwards", (game, shape) => {
+      if(shape.x > 700) {
+        shape.removeBehaviour("sinus-freak");
+      }
+      if(shape.x > 500 && !shape.behaviours.has("sinus-freak")) {
+        shape.move(-2, 2 * Math.sin(shape.x/5));
+      } else {
+        shape.addBehaviour("sinus-freak", (game, shape) => {
+          if(shape.x < 700) {
+            shape.move(.4, 2 * Math.sin(shape.x/5));
+          }
+        });
       }
     });
     this.gameArea.addElement(sprite);
-    this.gameArea.addElement(new Sprite(500, 400, 1, 30, 30, false, 200, "assets/sprite.png"));
+
+    let sprite2 = new Sprite(500, 250, 1, 30, 30, true, 200, "assets/sprite.png");
+    let angle = Math.PI / 180;
+    let radius = 200;
+    sprite2.addBehaviour("circle", (game, shape) => {
+        angle += Math.PI / 180;
+        let x = 500 + radius * (Math.cos(angle));
+        let y = 250 + radius * (Math.sin(angle));
+        shape.setPosition(x, y);
+    });
+    this.gameArea.addElement(sprite2);
+    this.gameArea.addElement(new ColoredShape(500, 250, 2, 2, 2, "#000000"));
+
 
     this.game.init();
   }
