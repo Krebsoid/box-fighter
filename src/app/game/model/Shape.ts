@@ -42,7 +42,7 @@ export class Shape extends Element {
       this.h + this.y > shape.y;
   }
 
-  hit?(game: Game) {
+  onHit(game: Game) {
     game.gameArea.removeElement(this);
   }
 

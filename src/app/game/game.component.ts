@@ -15,7 +15,7 @@ import {ColoredShape} from "./model/ColoredShape";
 })
 export class GameComponent implements OnInit {
 
-  constructor(private gameArea: GameArea, public game: Game) {
+  constructor(public gameArea: GameArea, public game: Game) {
 
   }
 
@@ -96,12 +96,12 @@ export class GameComponent implements OnInit {
   }
 
   @HostListener('document:keydown', ['$event'])
-  playerMovement(event: KeyboardEvent) {
+  public playerMovement(event: KeyboardEvent) {
     this.game.controls.addControl(event.key);
   }
 
   @HostListener('document:keyup', ['$event'])
-  movementStop(event: KeyboardEvent) {
+  public movementStop(event: KeyboardEvent) {
     this.game.controls.removeControl(event.key);
   }
 }

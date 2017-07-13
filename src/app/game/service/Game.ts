@@ -1,16 +1,15 @@
-import {HostListener, Injectable} from "@angular/core";
+import {Injectable} from "@angular/core";
 import { GameArea } from "./GameArea";
 import {Controls} from "../model/Controls";
 
 @Injectable()
 export class Game {
   state: string = 'READY';
-  frameRate: number;
   gameTime: number = 0;
 
   controls: Controls = new Controls();
 
-  constructor(public  gameArea: GameArea) {
+  constructor(public gameArea: GameArea) {
 
   }
 

@@ -52,8 +52,10 @@ export class Player extends Element{
       this.elements.forEach((value, index, array) => value.move(acceleration, 0));
     }
     if(game.controls.left) {
-      this.move(-acceleration, 0);
-      this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
+      if(this.x >= 0) {
+        this.move(-acceleration, 0);
+        this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
+      }
     }
   }
 
