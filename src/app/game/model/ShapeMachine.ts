@@ -1,5 +1,5 @@
 import {Element} from "./Element";
-import {Game} from "../service/Game";
+import {Game, Random} from "../service/Game";
 import {ColoredShape} from "./ColoredShape";
 
 export class ShapeMachine extends Element {
@@ -9,10 +9,11 @@ export class ShapeMachine extends Element {
   }
 
   update(game: Game) {
-    if(game.gameTime % 200 == 0) {
-      let shape = new ColoredShape(1500, 200, 5, 100, 100, "#31ffb1");
+    if(game.gameTime % 50 == 0) {
+      let shape = new ColoredShape(1500, Random.nextNumber(0, 300), 5, 50, 50, Random.nextColor());
+      let speed = Random.nextNumber(1, 7);
       shape.addBehaviour("left", (game, shape) => {
-        shape.move(-7, 0);
+        shape.move(speed * -1, 0);
         if(shape.x < 0) {
           game.gameArea.removeElement(shape);
         }
