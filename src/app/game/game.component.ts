@@ -8,6 +8,7 @@ import {HitBox} from "./model/HitBox";
 import {Engine} from "./model/parts/engine/Engine";
 import {Sprite} from "./model/Sprite";
 import {ColoredShape} from "./model/ColoredShape";
+import {ShapeMachine} from "./model/ShapeMachine";
 
 @Component({
   templateUrl: './game.component.html',
@@ -56,7 +57,7 @@ export class GameComponent implements OnInit {
 
     this.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7"));
 
-    this.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 2, "assets/sprite.png"));
+    this.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 200, "assets/sprite.png"));
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
     sprite.addBehaviour("sinus-freak", (game, shape) => {
       if(shape.x < 1000) {
@@ -91,6 +92,7 @@ export class GameComponent implements OnInit {
     this.gameArea.addElement(sprite2);
     this.gameArea.addElement(new ColoredShape(500, 250, 2, 2, 2, "#000000"));
 
+    this.gameArea.addElement(new ShapeMachine());
 
     this.game.init();
   }

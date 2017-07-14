@@ -1,5 +1,5 @@
 import {Camera} from "./Camera";
-import {Game} from "../service/Game";
+import {Game, GameTime} from "../service/Game";
 
 namespace Id {
   let index: number = 0;
@@ -14,14 +14,18 @@ export abstract class Element {
   y: number;
   z: number;
 
+  birth: number;
+  destructible: boolean = false;
+
   xOffset: number;
   yOffset: number;
 
-  constructor(x: number, y: number, z:number) {
+  constructor(x: number, y: number, z: number) {
     this.x = x;
     this.y = y;
     this.z = z;
     this.id = Id.retrieveNextElementId();
+    this.birth = GameTime.frame();
   }
 
   render(camera: Camera) {

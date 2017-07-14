@@ -2,10 +2,20 @@ import {Injectable} from "@angular/core";
 import { GameArea } from "./GameArea";
 import {Controls} from "../model/Controls";
 
+export class GameTime {
+  static frames: number = 0;
+  static nextFrame() {
+    return GameTime.frames++;
+  }
+  static frame() {
+    return GameTime.frames;
+  }
+}
+
 @Injectable()
 export class Game {
   state: string = 'READY';
-  gameTime: number = 0;
+  gameTime: number;
 
   controls: Controls = new Controls();
 
@@ -19,7 +29,7 @@ export class Game {
       self.gameArea.repaint();
       self.update();
       self.render();
-      self.gameTime += 1;
+      self.gameTime = GameTime.nextFrame();
       requestAnimationFrame(main);
     }
     main();
