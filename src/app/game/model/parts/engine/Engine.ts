@@ -11,7 +11,7 @@ export class Engine extends Equipment {
 
   constructor(target: Element) {
     super(target);
-    this.elements.push(new ColoredShape(target.x-10, target.y+20, target.z, 10, 10, "#ee0000"));
+    this.elements.push(new ColoredShape(target.x-10, target.y+20, target.z, 10, 10, "#ee0000", false));
     this.engineHole = new Position(target.x-12, target.y+24);
   }
 

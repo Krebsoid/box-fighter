@@ -15,13 +15,17 @@ export class Sprite extends Shape {
     super(x, y, z, h, w);
     this.looping = looping;
     this.image.src = src;
-    this.numberOfFrames = this.image.width / this.w;
+    this.image.onload = () => this.setNumberOfFrames(this.image.width / this.w);
     this.speed = speed;
   }
 
   render(camera: Camera) {
     super.render(camera);
-    camera.gameArea.getContext().drawImage(this.image, this.activeFrame * this.w, 0, this.w, this.h, this.xOffset, this.yOffset, this.w, this.h)
+    camera.gameArea.getContext().drawImage(this.image, this.activeFrame * this.w, 0, this.w, this.h, this.xOffset, this.yOffset, this.w, this.h);
+  }
+
+  setNumberOfFrames(numberOfFrames: number) {
+      this.numberOfFrames = numberOfFrames;
   }
 
   update(game: Game) {

@@ -13,10 +13,10 @@ export class Player extends Element{
 
   constructor() {
     super(100, 500/2 - 25, 5);
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c"));
-    this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c"));
+    this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242", false));
+    this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c", false));
+    this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242", false));
+    this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c", false));
   }
 
   render(camera: Camera) {
