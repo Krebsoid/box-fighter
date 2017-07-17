@@ -1,17 +1,7 @@
 import {Injectable} from "@angular/core";
 import { GameArea } from "./GameArea";
 import {Controls} from "../model/Controls";
-
-export class Random {
-  static nextNumber(x: number, y: number) {
-    return Math.floor((Math.random()*y)+x);
-  }
-  static nextColor() {
-    return '#' + (function co(lor){   return (lor +=
-        [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)])
-      && (lor.length == 6) ?  lor : co(lor); })('');
-  }
-}
+import {Scene} from "../model/Scene";
 
 export class GameTime {
   static frames: number = 0;
@@ -25,7 +15,8 @@ export class GameTime {
 
 @Injectable()
 export class Game {
-  state: string = 'READY';
+  state: string;
+  scenes: Scene[] = [];
   gameTime: number;
 
   controls: Controls = new Controls();
@@ -44,6 +35,12 @@ export class Game {
       requestAnimationFrame(main);
     }
     main();
+  }
+
+  changeGameState(newGameState: string) {
+    let oldState: string = this.state;
+    this.state = newGameState;
+    this.scenes.forEach((value) => value.onGameStateChange(oldState, this));
   }
 
   update() {

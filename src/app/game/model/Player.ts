@@ -57,6 +57,9 @@ export class Player extends Element{
         this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
       }
     }
-  }
 
+    if(game.gameTime > 1000) {
+      game.changeGameState('DEAD');
+    }
+  }
 }
