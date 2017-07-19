@@ -13,8 +13,6 @@ export class Player extends Element{
   engine: Engine;
   weapon: Weapon;
 
-  destroyed: boolean;
-
   constructor() {
     super(100, 500/2 - 25, 5);
     this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242", false));
@@ -40,6 +38,30 @@ export class Player extends Element{
   }
 
   update(game: Game) {
+    this.doMovement(game);
+    this.checkForHits(game);
+  }
+
+  checkForHits(game: Game) {
+    game.gameArea.elementsOnCamera().forEach((value) => {
+      if(value instanceof ColoredShape) {
+        this.hitboxes.forEach((hitbox) => {
+          if(hitbox.collision(value)) {
+            value.onHit(game);
+            game.gameArea.removeElement(this);
+            game.changeGameState('DEAD', 1500);
+            this.elements.forEach((colored) => {
+              if(colored instanceof ColoredShape) {
+                colored.explode(game);
+              }
+            });
+          }
+        })
+      }
+    });
+  }
+
+  doMovement(game: Game) {
     this.elements.forEach((value, index, array) => value.update(game));
     let acceleration = this.engine ? this.engine.acceleration : 0;
     if(game.controls.down) {
@@ -64,23 +86,5 @@ export class Player extends Element{
         this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
       }
     }
-
-    game.gameArea.elementsOnCamera().forEach((value) => {
-      if(value instanceof ColoredShape) {
-        this.hitboxes.forEach((hitbox) => {
-          if(hitbox.collision(value)) {
-            value.onHit(game);
-            game.gameArea.removeElement(this);
-            this.destroyed = true;
-            game.changeGameState('DEAD', 1500);
-            this.elements.forEach((colored) => {
-              if(colored instanceof ColoredShape) {
-                colored.explode(game);
-              }
-            });
-          }
-        })
-      }
-    });
   }
 }
