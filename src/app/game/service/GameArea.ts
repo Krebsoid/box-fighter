@@ -10,6 +10,10 @@ export class GameArea {
   camera: Camera;
   context: any;
 
+  elementsOnCamera(): Element[] {
+    return this.elements.filter((value, index, array) => value.x >= this.camera.x && value.x <= this.camera.x + 1024);
+  }
+
   addElement(element: Element) {
     this.elements.push(element);
   }

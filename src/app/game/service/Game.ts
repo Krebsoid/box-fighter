@@ -37,10 +37,15 @@ export class Game {
     main();
   }
 
-  changeGameState(newGameState: string) {
+  changeGameState(newGameState: string, delay: number = 0) {
     let oldState: string = this.state;
     this.state = newGameState;
-    this.scenes.forEach((value) => value.onGameStateChange(oldState, this));
+    if(oldState !== newGameState) {
+      let self = this;
+      setTimeout(function() {
+        self.scenes.forEach((value) => value.onGameStateChange(oldState, self));
+      }, delay);
+    }
   }
 
   update() {

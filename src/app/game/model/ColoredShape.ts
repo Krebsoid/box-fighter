@@ -29,12 +29,12 @@ export class ColoredShape extends Shape {
 
   onHit(game: Game): any {
     if(this.destructible) {
-      this.explosion(game);
+      this.explode(game);
       super.onHit(game);
     }
   }
 
-  private explosion(game: Game) {
+  explode(game: Game) {
     game.gameArea.addElement(this.generateFragment(-1, -1));
     game.gameArea.addElement(this.generateFragment(1, -1));
     game.gameArea.addElement(this.generateFragment(1, 1));

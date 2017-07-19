@@ -4,12 +4,16 @@ import {Game} from "../service/Game";
 import {Engine} from "./parts/engine/Engine";
 import {Weapon} from "./Weapon";
 import {ColoredShape} from "./ColoredShape";
+import {Shape} from "./Shape";
 
 export class Player extends Element{
 
   elements: Element[] = [];
+  hitboxes: Shape[] = [];
   engine: Engine;
   weapon: Weapon;
+
+  destroyed: boolean;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -17,6 +21,9 @@ export class Player extends Element{
     this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c", false));
     this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242", false));
     this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c", false));
+    let hitbox = new Shape(this.x, this.y, this.z, 50, 50);
+    this.hitboxes.push(hitbox);
+    this.elements.push(hitbox)
   }
 
   render(camera: Camera) {
@@ -58,8 +65,22 @@ export class Player extends Element{
       }
     }
 
-    if(game.gameTime > 1000) {
-      game.changeGameState('DEAD');
-    }
+    game.gameArea.elementsOnCamera().forEach((value) => {
+      if(value instanceof ColoredShape) {
+        this.hitboxes.forEach((hitbox) => {
+          if(hitbox.collision(value)) {
+            value.onHit(game);
+            game.gameArea.removeElement(this);
+            this.destroyed = true;
+            game.changeGameState('DEAD', 1500);
+            this.elements.forEach((colored) => {
+              if(colored instanceof ColoredShape) {
+                colored.explode(game);
+              }
+            });
+          }
+        })
+      }
+    });
   }
 }
