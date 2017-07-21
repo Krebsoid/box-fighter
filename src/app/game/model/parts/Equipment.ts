@@ -1,6 +1,6 @@
-import {Element} from "../Element";
+import {Element} from "../base/Element";
 import {Game} from "../../service/Game";
-import {Camera} from "../Camera";
+import {Camera} from "../base/Camera";
 
 export class Equipment extends Element {
 

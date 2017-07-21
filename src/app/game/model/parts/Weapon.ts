@@ -1,9 +1,9 @@
-import { Element } from './Element';
-import {Game} from "../service/Game";
+import { Element } from '../base/Element';
+import {Game} from "../../service/Game";
 import {Bullet} from "./Bullet";
-import {Position} from "./Position";
-import {Equipment} from "./parts/Equipment";
-import {ColoredShape} from "./ColoredShape";
+import {Position} from "../base/Position";
+import {Equipment} from "./Equipment";
+import {ColoredShape} from "../base/ColoredShape";
 
 export class Weapon extends Equipment {
 

@@ -1,8 +1,8 @@
-import {Element} from "../../Element";
-import {Equipment} from "../Equipment";
-import {Position} from "../../Position";
-import {Game} from "../../../service/Game";
-import {ColoredShape} from "../../ColoredShape";
+import {Element} from "../base/Element";
+import {Equipment} from "./Equipment";
+import {Position} from "../base/Position";
+import {Game} from "../../service/Game";
+import {ColoredShape} from "../base/ColoredShape";
 
 export class Engine extends Equipment {
 

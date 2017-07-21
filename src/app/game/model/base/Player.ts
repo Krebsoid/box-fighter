@@ -1,8 +1,8 @@
 import { Element } from './Element';
 import {Camera} from "./Camera";
-import {Game} from "../service/Game";
-import {Engine} from "./parts/engine/Engine";
-import {Weapon} from "./Weapon";
+import {Game} from "../../service/Game";
+import {Engine} from "../parts/Engine";
+import {Weapon} from "../parts/Weapon";
 import {ColoredShape} from "./ColoredShape";
 import {Shape} from "./Shape";
 

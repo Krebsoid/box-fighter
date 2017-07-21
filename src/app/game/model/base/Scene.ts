@@ -1,4 +1,4 @@
-import {Game} from "../service/Game";
+import {Game} from "../../service/Game";
 
 export abstract class Scene {
   abstract gameState: string;

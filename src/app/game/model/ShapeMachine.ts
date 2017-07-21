@@ -1,6 +1,6 @@
-import {Element} from "./Element";
+import {Element} from "./base/Element";
 import {Game} from "../service/Game";
-import {ColoredShape} from "./ColoredShape";
+import {ColoredShape} from "./base/ColoredShape";
 import {Random} from "../service/util/Random";
 
 export class ShapeMachine extends Element {

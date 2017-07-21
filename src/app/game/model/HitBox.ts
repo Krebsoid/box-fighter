@@ -1,7 +1,7 @@
 import {Game} from "../service/Game";
-import {Text} from "./Text";
-import {Camera} from "./Camera";
-import {ColoredShape} from "./ColoredShape";
+import {Text} from "./base/Text";
+import {Camera} from "./base/Camera";
+import {ColoredShape} from "./base/ColoredShape";
 
 export class HitBox extends ColoredShape {
 

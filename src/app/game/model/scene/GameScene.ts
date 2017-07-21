@@ -1,12 +1,12 @@
-import {Scene} from "../Scene";
+import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
-import {Engine} from "../parts/engine/Engine";
-import {Weapon} from "../Weapon";
-import {Player} from "../Player";
-import {Camera} from "../Camera";
-import {ColoredShape} from "../ColoredShape";
+import {Engine} from "../parts/Engine";
+import {Weapon} from "../parts/Weapon";
+import {Player} from "../base/Player";
+import {Camera} from "../base/Camera";
+import {ColoredShape} from "../base/ColoredShape";
 import {HitBox} from "../HitBox";
-import {Sprite} from "../Sprite";
+import {Sprite} from "../base/Sprite";
 import {ShapeMachine} from "../ShapeMachine";
 
 export class GameScene extends Scene {

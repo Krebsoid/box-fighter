@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import { GameArea } from "./GameArea";
-import {Controls} from "../model/Controls";
-import {Scene} from "../model/Scene";
+import {Controls} from "../model/base/Controls";
+import {Scene} from "../model/base/Scene";
 
 export class GameTime {
   static frames: number = 0;

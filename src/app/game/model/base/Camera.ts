@@ -1,6 +1,6 @@
 import { Element } from "./Element";
 import { Player } from "./Player";
-import {GameArea} from "../service/GameArea";
+import {GameArea} from "../../service/GameArea";
 
 export class Camera extends Element {
 

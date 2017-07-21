@@ -1,6 +1,6 @@
 import { Element } from './Element';
 import {Camera} from "./Camera";
-import {Game} from "../service/Game";
+import {Game} from "../../service/Game";
 
 export class Text extends Element {
 

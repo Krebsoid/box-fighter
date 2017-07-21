@@ -1,6 +1,6 @@
-import { Element } from "../model/Element";
+import { Element } from "../model/base/Element";
 import { Injectable } from "@angular/core";
-import {Camera} from "../model/Camera";
+import {Camera} from "../model/base/Camera";
 
 @Injectable()
 export class GameArea {

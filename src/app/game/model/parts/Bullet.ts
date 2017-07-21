@@ -1,8 +1,8 @@
-import {Shape} from "./Shape";
-import {Camera} from "./Camera";
-import {Game} from "../service/Game";
+import {Shape} from "../base/Shape";
+import {Camera} from "../base/Camera";
+import {Game} from "../../service/Game";
 import {Weapon} from "./Weapon";
-import {ColoredShape} from "./ColoredShape";
+import {ColoredShape} from "../base/ColoredShape";
 
 export class Bullet extends ColoredShape {
 

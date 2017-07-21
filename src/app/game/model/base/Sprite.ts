@@ -1,5 +1,5 @@
 import {Camera} from "./Camera";
-import {Game} from "../service/Game";
+import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
 
 export class Sprite extends Shape {

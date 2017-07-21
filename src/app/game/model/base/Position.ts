@@ -1,5 +1,5 @@
 import {Element} from "./Element";
-import {Game} from "../service/Game";
+import {Game} from "../../service/Game";
 
 export class Position extends Element {
 

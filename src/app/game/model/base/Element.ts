@@ -1,5 +1,5 @@
 import {Camera} from "./Camera";
-import {Game, GameTime} from "../service/Game";
+import {Game, GameTime} from "../../service/Game";
 
 namespace Id {
   let index: number = 0;
