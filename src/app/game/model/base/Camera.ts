@@ -1,20 +1,25 @@
 import { Element } from "./Element";
-import { Player } from "./Player";
 import {GameArea} from "../../service/GameArea";
+import {Shape} from "./Shape";
 
 export class Camera extends Element {
 
-  player: Player;
+  element: Element;
   gameArea: GameArea;
 
-  constructor(player: Player, gameArea: GameArea) {
+  staticCamera: Camera;
+
+  constructor(element: Element, gameArea: GameArea) {
     super(0,0,0);
-    this.player = player;
+    this.element = element;
     this.gameArea = gameArea;
   }
 
-  update() {
-    this.setPosition(this.player.x, 0);
+  initializeStaticCamera() {
+    this.staticCamera = new Camera(new Shape(0, 0, 0, 500, 1024), this.gameArea);
   }
 
+  update() {
+    this.setPosition(this.element.x, 0);
+  }
 }

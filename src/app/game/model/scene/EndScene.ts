@@ -3,6 +3,7 @@ import {Game} from "../../service/Game";
 import {Text} from "../base/Text";
 
 export class EndScene extends Scene {
+
   gameState: string = 'DEAD';
 
   init(game: Game) {

@@ -21,7 +21,7 @@ export class Player extends Element{
     this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c", false));
     let hitbox = new Shape(this.x, this.y, this.z, 50, 50);
     this.hitboxes.push(hitbox);
-    this.elements.push(hitbox)
+    this.elements.push(hitbox);
   }
 
   render(camera: Camera) {
@@ -34,12 +34,17 @@ export class Player extends Element{
   }
   setWeapon(weapon: Weapon) {
     this.elements.push(weapon);
+    weapon.elements.forEach(element => {
+      if(element instanceof ColoredShape) {
+        this.hitboxes.push(element);
+      }
+    });
     this.weapon = weapon;
   }
 
   update(game: Game) {
     this.doMovement(game);
-    this.checkForHits(game);
+    //this.checkForHits(game);
   }
 
   checkForHits(game: Game) {
@@ -63,27 +68,32 @@ export class Player extends Element{
 
   doMovement(game: Game) {
     this.elements.forEach((value, index, array) => value.update(game));
-    let acceleration = this.engine ? this.engine.acceleration : 0;
-    if(game.controls.down) {
-      if(this.y <= 450) {
-        this.move(0, acceleration);
-        this.elements.forEach((value, index, array) => value.move(0, acceleration));
+    if(this.engine.level > 0) {
+      let acceleration = this.engine ? this.engine.acceleration : 0;
+      if(game.controls.down) {
+        if(this.y <= 450) {
+          this.move(0, acceleration);
+          this.elements.forEach((value, index, array) => value.move(0, acceleration));
+        }
       }
-    }
-    if(game.controls.up) {
-      if(this.y >= 0) {
-        this.move(0, -acceleration);
-        this.elements.forEach((value, index, array) => value.move(0, -acceleration));
+      if(game.controls.up) {
+        if(this.y >= 0) {
+          this.move(0, -acceleration);
+          this.elements.forEach((value, index, array) => value.move(0, -acceleration));
+        }
       }
-    }
-    if(game.controls.right) {
-      this.move(acceleration, 0);
-      this.elements.forEach((value, index, array) => value.move(acceleration, 0));
-    }
-    if(game.controls.left) {
-      if(this.x >= 0) {
-        this.move(-acceleration, 0);
-        this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
+      if(game.controls.right) {
+        this.move(acceleration, 0);
+        this.elements.forEach((value, index, array) => value.move(acceleration, 0));
+      }
+      if(game.controls.left) {
+        if(this.x >= 0) {
+          this.move(-acceleration, 0);
+          this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
+        }
+      }
+      if(game.controls.isMoving()) {
+        this.engine.consumeFuel(Math.abs(acceleration));
       }
     }
   }

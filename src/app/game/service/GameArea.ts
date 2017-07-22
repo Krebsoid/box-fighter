@@ -1,6 +1,7 @@
 import { Element } from "../model/base/Element";
 import { Injectable } from "@angular/core";
 import {Camera} from "../model/base/Camera";
+import {Shape} from "../model/base/Shape";
 
 @Injectable()
 export class GameArea {
@@ -11,7 +12,8 @@ export class GameArea {
   context: any;
 
   elementsOnCamera(): Element[] {
-    return this.elements.filter((value, index, array) => value.x >= this.camera.x && value.x <= this.camera.x + 1024);
+    return this.elements.filter((value, index, array) =>
+      value.isStatic || value.x + 200 >= this.camera.x && value.x - 100 <= this.camera.x + 1024);
   }
 
   addElement(element: Element) {

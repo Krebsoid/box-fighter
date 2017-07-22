@@ -13,6 +13,7 @@ export abstract class Element {
   x: number;
   y: number;
   z: number;
+  isStatic: boolean;
 
   birth: number;
   destructible: boolean = false;
@@ -20,10 +21,11 @@ export abstract class Element {
   xOffset: number;
   yOffset: number;
 
-  constructor(x: number, y: number, z: number) {
+  constructor(x: number, y: number, z: number, isStatic: boolean = false) {
     this.x = x;
     this.y = y;
     this.z = z;
+    this.isStatic = isStatic;
     this.id = Id.retrieveNextElementId();
     this.birth = GameTime.frame();
   }

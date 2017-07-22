@@ -11,7 +11,7 @@ export class Weapon extends Equipment {
 
   constructor(target: Element) {
     super(target);
-    this.elements.push(new ColoredShape(target.x+50, target.y+20+1, target.z, 30, 8, "#0206ee", false));
+    this.elements.push(new ColoredShape(target.x+50, target.y+20+1, target.z, 8, 30, "#0206ee", false));
     this.bulletHole = new Position(target.x+80+2, target.y+28-6);
   }
 

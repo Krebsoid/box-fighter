@@ -8,6 +8,8 @@ import {ColoredShape} from "../base/ColoredShape";
 import {HitBox} from "../HitBox";
 import {Sprite} from "../base/Sprite";
 import {ShapeMachine} from "../ShapeMachine";
+import {FuelMeter} from "../ui/FuelMeter";
+import {Fuel} from "../Fuel";
 
 export class GameScene extends Scene {
 
@@ -20,6 +22,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(player);
 
     let camera = new Camera(player, game.gameArea);
+    camera.initializeStaticCamera();
     game.gameArea.setCamera(camera);
 
     let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16");
@@ -84,7 +87,11 @@ export class GameScene extends Scene {
     });
     game.gameArea.addElement(sprite2);
     game.gameArea.addElement(new ColoredShape(500, 250, 2, 2, 2, "#000000"));
-    game.gameArea.addElement(new ShapeMachine());
+    //game.gameArea.addElement(new ShapeMachine());
+
+    game.gameArea.addElement(new Fuel(300, 300, 300));
+    game.gameArea.addElement(new Fuel(1000, 300, 300));
+    game.gameArea.addElement(new FuelMeter(player));
   }
 
   cleanUp(game: Game) {

@@ -53,6 +53,6 @@ export class Game {
   }
 
   render() {
-    this.gameArea.elements.sort((a, b) => a.z - b.z).forEach(element => element.render(this.gameArea.camera));
+    this.gameArea.elementsOnCamera().sort((a, b) => a.z - b.z).forEach(element => element.render(this.gameArea.camera));
   }
 }

@@ -5,6 +5,7 @@ import {Shape} from "./Shape";
 export class ColoredShape extends Shape {
 
   color: string;
+  gradient: any;
 
   constructor(x: number, y: number, z: number, h: number, w: number, color: string, destructible: boolean = true) {
     super(x, y, z, h, w);
@@ -19,8 +20,11 @@ export class ColoredShape extends Shape {
     } else {
       camera.gameArea.getContext().fillStyle = this.color;
     }
+    if(this.gradient) {
+      camera.gameArea.getContext().fillStyle = this.gradient;
+    }
 
-    camera.gameArea.getContext().fillRect(this.xOffset, this.yOffset, this.h, this.w);
+    camera.gameArea.getContext().fillRect(this.xOffset, this.yOffset, this.w, this.h);
   }
 
   update(game: Game) {
