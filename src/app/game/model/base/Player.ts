@@ -44,7 +44,7 @@ export class Player extends Element{
 
   update(game: Game) {
     this.doMovement(game);
-    //this.checkForHits(game);
+    this.checkForHits(game);
   }
 
   checkForHits(game: Game) {
