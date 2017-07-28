@@ -11,11 +11,12 @@ export class FuelMeter extends Element {
   filling: ColoredShape;
 
   constructor(player: Player) {
-    super(300, 450, 10000, true);
+    super(300, 450, 10000);
+    this.isFixed(true);
     this.player = player;
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 30, player.engine.capacity + 6, "#000", false));
-    this.elements.push(new ColoredShape(this.x + 3, this.y + 3, this.z + 1, 24, player.engine.capacity, "#FFF", false));
-    this.filling = new ColoredShape(this.x + 3, this.y + 3, this.x + 2, 24, player.engine.level, "#FF0000", false);
+    this.elements.push(new ColoredShape(this.x, this.y, this.z, 30, player.engine.capacity + 6, "#000"));
+    this.elements.push(new ColoredShape(this.x + 3, this.y + 3, this.z + 1, 24, player.engine.capacity, "#FFF"));
+    this.filling = new ColoredShape(this.x + 3, this.y + 3, this.x + 2, 24, player.engine.level, "#FF0000");
     this.elements.push(this.filling);
   }
 

@@ -13,12 +13,12 @@ export class Fuel extends Element {
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
-    this.elements.push(new ColoredShape(this.x-10, this.y-5, this.z, 5, 40, "#000000", false));
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 20, 10, "#010bff", false));
-    this.elements.push(new ColoredShape(this.x+10, this.y, this.z, 20, 10, "#ee0011", false));
-    this.elements.push(new ColoredShape(this.x+10, this.y+20, this.z, 20, 10, "#010bff", false));
-    this.elements.push(new ColoredShape(this.x, this.y+20, this.z, 20, 10, "#ee0011", false));
-    this.elements.push(new ColoredShape(this.x-10, this.y+40, this.z, 5, 40, "#000000", false));
+    this.elements.push(new ColoredShape(this.x-10, this.y-5, this.z, 5, 40, "#000000").isDangerous(false));
+    this.elements.push(new ColoredShape(this.x, this.y, this.z, 20, 10, "#010bff").isDangerous(false));
+    this.elements.push(new ColoredShape(this.x+10, this.y, this.z, 20, 10, "#ee0011").isDangerous(false));
+    this.elements.push(new ColoredShape(this.x+10, this.y+20, this.z, 20, 10, "#010bff").isDangerous(false));
+    this.elements.push(new ColoredShape(this.x, this.y+20, this.z, 20, 10, "#ee0011").isDangerous(false));
+    this.elements.push(new ColoredShape(this.x-10, this.y+40, this.z, 5, 40, "#000000").isDangerous(false));
     let hitbox = new Shape(this.x, this.y, this.z, 20, 40);
     this.hitboxes.push(hitbox);
     let hitbox2 = new Shape(this.x-10, this.y-5, this.z, 5, 40);

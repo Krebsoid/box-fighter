@@ -13,6 +13,7 @@ export class ShapeMachine extends Element {
     if(game.gameTime % 50 == 0) {
       let size = Random.nextNumber(20, 70);
       let shape = new ColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor());
+      shape.isDestructible(true);
       let speed = Random.nextNumber(1, 7);
       shape.addBehaviour("left", (game, shape) => {
         shape.move(speed * -1, 0);

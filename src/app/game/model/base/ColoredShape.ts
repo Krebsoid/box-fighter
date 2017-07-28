@@ -7,10 +7,9 @@ export class ColoredShape extends Shape {
   color: string;
   gradient: any;
 
-  constructor(x: number, y: number, z: number, h: number, w: number, color: string, destructible: boolean = true) {
+  constructor(x: number, y: number, z: number, h: number, w: number, color: string) {
     super(x, y, z, h, w);
     this.color = color;
-    this.destructible = destructible;
   }
 
   render(camera: Camera) {
@@ -46,7 +45,9 @@ export class ColoredShape extends Shape {
   }
 
   private generateFragment(directionX: number, directionY: number) : ColoredShape {
-    let fragment = new ColoredShape(this.x + this.h / 4, this.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color, false);
+    let fragment = new ColoredShape(this.x + this.h / 4, this.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color);
+    fragment.isDestructible(false);
+    fragment.isDangerous(false);
     fragment.addBehaviour("drift-off", (game, shape) => {
       shape.move(directionX, directionY);
       if((game.gameTime - shape.birth) > 35) {

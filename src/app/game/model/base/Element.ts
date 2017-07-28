@@ -13,19 +13,20 @@ export abstract class Element {
   x: number;
   y: number;
   z: number;
-  isStatic: boolean;
 
   birth: number;
+
   destructible: boolean = false;
+  dangerous: boolean = true;
+  fixed: boolean = false;
 
   xOffset: number;
   yOffset: number;
 
-  constructor(x: number, y: number, z: number, isStatic: boolean = false) {
+  constructor(x: number, y: number, z: number) {
     this.x = x;
     this.y = y;
     this.z = z;
-    this.isStatic = isStatic;
     this.id = Id.retrieveNextElementId();
     this.birth = GameTime.frame();
   }
@@ -39,6 +40,21 @@ export abstract class Element {
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  isDangerous(dangerous: boolean) {
+    this.dangerous = dangerous;
+    return this;
+  }
+
+  isDestructible(destructible: boolean) {
+    this.destructible = destructible;
+    return this;
+  }
+
+  isFixed(fixed: boolean) {
+    this.fixed = fixed;
+    return this;
   }
 
   move(x: number, y: number) {

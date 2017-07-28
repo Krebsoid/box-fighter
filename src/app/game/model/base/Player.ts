@@ -15,10 +15,10 @@ export class Player extends Element{
 
   constructor() {
     super(100, 500/2 - 25, 5);
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242", false));
-    this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c", false));
-    this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242", false));
-    this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c", false));
+    this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c"));
+    this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c"));
     let hitbox = new Shape(this.x, this.y, this.z, 50, 50);
     this.hitboxes.push(hitbox);
     this.elements.push(hitbox);
@@ -49,7 +49,7 @@ export class Player extends Element{
 
   checkForHits(game: Game) {
     game.gameArea.elementsOnCamera().forEach((value) => {
-      if(value instanceof ColoredShape) {
+      if(value instanceof ColoredShape && value.dangerous) {
         this.hitboxes.forEach((hitbox) => {
           if(hitbox.collision(value)) {
             value.onHit(game);
