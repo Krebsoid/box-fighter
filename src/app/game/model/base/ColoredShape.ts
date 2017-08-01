@@ -14,15 +14,10 @@ export class ColoredShape extends Shape {
 
   render(camera: Camera) {
     super.render(camera);
-    if(this.colliding) {
-      camera.gameArea.getContext().fillStyle = "#ff0000";
-    } else {
-      camera.gameArea.getContext().fillStyle = this.color;
-    }
+    camera.gameArea.getContext().fillStyle = this.color;
     if(this.gradient) {
       camera.gameArea.getContext().fillStyle = this.gradient;
     }
-
     camera.gameArea.getContext().fillRect(this.xOffset, this.yOffset, this.w, this.h);
   }
 
@@ -48,7 +43,7 @@ export class ColoredShape extends Shape {
     let fragment = new ColoredShape(this.x + this.h / 4, this.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color);
     fragment.isDestructible(false);
     fragment.isDangerous(false);
-    fragment.addBehaviour("drift-off", (game, shape) => {
+    fragment.addBehaviour<Shape>("drift-off", (game, shape) => {
       shape.move(directionX, directionY);
       if((game.gameTime - shape.birth) > 35) {
         game.gameArea.removeElement(shape);

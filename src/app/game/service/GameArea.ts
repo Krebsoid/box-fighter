@@ -1,6 +1,7 @@
-import { Element } from "../model/base/Element";
-import { Injectable } from "@angular/core";
+import {Element} from "../model/base/Element";
+import {Injectable} from "@angular/core";
 import {Camera} from "../model/base/Camera";
+import {Player} from "../model/base/Player";
 
 @Injectable()
 export class GameArea {
@@ -11,8 +12,7 @@ export class GameArea {
   context: any;
 
   elementsOnCamera(): Element[] {
-    return this.elements.filter((value, index, array) =>
-      value.fixed || value.x + 200 >= this.camera.x && value.x - 100 <= this.camera.x + 1024);
+    return this.elements.filter(value => value.fixed || value.x + 200 >= this.camera.x && value.x - 100 <= this.camera.x + 1024);
   }
 
   addElement(element: Element) {
@@ -30,6 +30,10 @@ export class GameArea {
   setCamera(camera: Camera) {
     this.camera = camera;
     this.addElement(camera);
+  }
+
+  getPlayer(): Player {
+    return <Player>this.elementsOnCamera().find((value, index, array) => value.constructor.name === 'Player');
   }
 
   repaint() {

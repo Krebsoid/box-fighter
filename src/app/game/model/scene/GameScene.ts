@@ -10,6 +10,7 @@ import {Sprite} from "../base/Sprite";
 import {ShapeMachine} from "../ShapeMachine";
 import {FuelMeter} from "../ui/FuelMeter";
 import {Fuel} from "../Fuel";
+import {Shape} from "../base/Shape";
 
 export class GameScene extends Scene {
 
@@ -26,12 +27,12 @@ export class GameScene extends Scene {
     game.gameArea.setCamera(camera);
 
     let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16").isDestructible(true);
-    shape.addBehaviour("little-forward", (game, shape) => {
+    shape.addBehaviour<Shape>("little-forward", (game, shape) => {
       if(game.gameTime > 300) {
         shape.move(3,0);
       }
     });
-    shape.addBehaviour("fast-backward", (game, shape) => {
+    shape.addBehaviour<Shape>("fast-backward", (game, shape) => {
       if(game.gameTime > 1000) {
         shape.removeBehaviour("little-forward");
         shape.move(-10,0);
@@ -40,7 +41,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(shape);
 
     let shape2 = new ColoredShape(300, 100, 1, 50, 50, "#0002ff").isDestructible(true);
-    shape2.addBehaviour("sinus-freak", (game, shape) => {
+    shape2.addBehaviour<Shape>("sinus-freak", (game, shape) => {
       if(game.gameTime > 100) {
         shape.move(2, 6 * Math.sin(shape.x/10));
       }
@@ -55,19 +56,19 @@ export class GameScene extends Scene {
 
     game.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true));
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
-    sprite.addBehaviour("sinus-freak", (game, shape) => {
+    sprite.addBehaviour<Shape>("sinus-freak", (game, shape) => {
       if(shape.x < 1000) {
         shape.move(.4, 2 * Math.sin(shape.x/5));
       }
     });
-    sprite.addBehaviour("sinus-freak-backwards", (game, shape) => {
+    sprite.addBehaviour<Shape>("sinus-freak-backwards", (game, shape) => {
       if(shape.x > 700) {
         shape.removeBehaviour("sinus-freak");
       }
       if(shape.x > 500 && !shape.behaviours.has("sinus-freak")) {
         shape.move(-2, 2 * Math.sin(shape.x/5));
       } else {
-        shape.addBehaviour("sinus-freak", (game, shape) => {
+        shape.addBehaviour<Shape>("sinus-freak", (game, shape) => {
           if(shape.x < 700) {
             shape.move(.4, 2 * Math.sin(shape.x/5));
           }
@@ -79,7 +80,7 @@ export class GameScene extends Scene {
     let sprite2 = new Sprite(500, 250, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true);
     let angle = Math.PI / 180;
     let radius = 200;
-    sprite2.addBehaviour("circle", (game, shape) => {
+    sprite2.addBehaviour<Shape>("circle", (game, shape) => {
       angle += Math.PI / 180;
       let x = 500 + radius * (Math.cos(angle));
       let y = 250 + radius * (Math.sin(angle));

@@ -1,4 +1,4 @@
-import { Element } from './Element';
+import {Element} from './Element';
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 
@@ -8,7 +8,7 @@ export class Shape extends Element {
   w: number;
   colliding: boolean;
 
-  behaviours : Map<string, (game: Game, shape: Shape) => void> = new Map<string, (game: Game, shape: Shape) => void>();
+  behaviours : Map<string, (game: Game, shape: any) => void> = new Map<string, (game: Game, shape: any) => void>();
 
   constructor(x: number, y: number, z: number, h: number, w: number) {
     super(x, y, z);
@@ -20,7 +20,7 @@ export class Shape extends Element {
     super.render(camera);
   }
 
-  addBehaviour(name: string, behaviour: (game: Game, shape: Shape) => void) {
+  addBehaviour<SHAPE>(name: string, behaviour: (game: Game, shape: SHAPE) => void) {
     this.behaviours.set(name, behaviour);
   }
 
@@ -31,7 +31,7 @@ export class Shape extends Element {
   update(game: Game) {
     this.colliding = false;
     if(this.behaviours.size > 0) {
-      this.behaviours.forEach((value, index, array) => value(game, this));
+      this.behaviours.forEach(value => value(game, this));
     }
   }
 

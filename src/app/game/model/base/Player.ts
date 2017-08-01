@@ -1,4 +1,4 @@
-import { Element } from './Element';
+import {Element} from './Element';
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
@@ -6,7 +6,7 @@ import {Weapon} from "../parts/Weapon";
 import {ColoredShape} from "./ColoredShape";
 import {Shape} from "./Shape";
 
-export class Player extends Element{
+export class Player extends Element {
 
   elements: Element[] = [];
   hitboxes: Shape[] = [];
@@ -25,7 +25,7 @@ export class Player extends Element{
   }
 
   render(camera: Camera) {
-    this.elements.forEach((value, index, array) => value.render(camera));
+    this.elements.forEach(value => value.render(camera));
   }
 
   setEngine(engine: Engine) {
@@ -50,12 +50,12 @@ export class Player extends Element{
   checkForHits(game: Game) {
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof ColoredShape && value.dangerous) {
-        this.hitboxes.forEach((hitbox) => {
+        this.hitboxes.forEach(hitbox => {
           if(hitbox.collision(value)) {
             value.onHit(game);
             game.gameArea.removeElement(this);
             game.changeGameState('DEAD', 1500);
-            this.elements.forEach((colored) => {
+            this.elements.forEach(colored => {
               if(colored instanceof ColoredShape) {
                 colored.explode(game);
               }
@@ -67,29 +67,29 @@ export class Player extends Element{
   }
 
   doMovement(game: Game) {
-    this.elements.forEach((value, index, array) => value.update(game));
+    this.elements.forEach(value => value.update(game));
     if(this.engine.level > 0) {
       let acceleration = this.engine ? this.engine.acceleration : 0;
       if(game.controls.down) {
         if(this.y <= 450) {
           this.move(0, acceleration);
-          this.elements.forEach((value, index, array) => value.move(0, acceleration));
+          this.elements.forEach(value => value.move(0, acceleration));
         }
       }
       if(game.controls.up) {
         if(this.y >= 0) {
           this.move(0, -acceleration);
-          this.elements.forEach((value, index, array) => value.move(0, -acceleration));
+          this.elements.forEach(value => value.move(0, -acceleration));
         }
       }
       if(game.controls.right) {
         this.move(acceleration, 0);
-        this.elements.forEach((value, index, array) => value.move(acceleration, 0));
+        this.elements.forEach(value => value.move(acceleration, 0));
       }
       if(game.controls.left) {
         if(this.x >= 0) {
           this.move(-acceleration, 0);
-          this.elements.forEach((value, index, array) => value.move(-acceleration, 0));
+          this.elements.forEach(value => value.move(-acceleration, 0));
         }
       }
       if(game.controls.isMoving()) {

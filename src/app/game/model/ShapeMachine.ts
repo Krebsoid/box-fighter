@@ -1,7 +1,7 @@
 import {Element} from "./base/Element";
 import {Game} from "../service/Game";
-import {ColoredShape} from "./base/ColoredShape";
 import {Random} from "../service/util/Random";
+import {HomingColoredShape} from "./base/HomingColoredShape";
 
 export class ShapeMachine extends Element {
 
@@ -12,16 +12,19 @@ export class ShapeMachine extends Element {
   update(game: Game) {
     if(game.gameTime % 50 == 0) {
       let size = Random.nextNumber(20, 70);
-      let shape = new ColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor());
-      shape.isDestructible(true);
-      let speed = Random.nextNumber(1, 7);
-      shape.addBehaviour("left", (game, shape) => {
-        shape.move(speed * -1, 0);
-        if(shape.x < 0) {
-          game.gameArea.removeElement(shape);
-        }
-      });
-      game.gameArea.addElement(shape);
+      let player = game.gameArea.getPlayer();
+      if(player) {
+        let shape = new HomingColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor(), player);
+        shape.isDestructible(true);
+        let speed = Random.nextNumber(1, 7);
+        shape.addBehaviour<HomingColoredShape>("left", (game, shape) => {
+          shape.moveTo(speed);
+          if(shape.x < 0) {
+            game.gameArea.removeElement(shape);
+          }
+        });
+        game.gameArea.addElement(shape);
+      }
     }
   }
 }
