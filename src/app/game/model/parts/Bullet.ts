@@ -20,7 +20,7 @@ export class Bullet extends ColoredShape {
 
   update(game: Game) {
     let self = this;
-    game.gameArea.elements.forEach((value) => {
+    game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Shape) {
         if(this.collision(value) && value != self) {
           value.onHit(game);
