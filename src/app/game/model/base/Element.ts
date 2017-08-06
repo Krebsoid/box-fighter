@@ -32,8 +32,8 @@ export abstract class Element {
   }
 
   render(camera: Camera) {
-    this.xOffset = this.x - camera.x + 50;
-    this.yOffset = this.y - camera.y;
+    this.xOffset = this.fixed ? this.x : this.x - camera.x + 50;
+    this.yOffset = this.fixed ? this.y : this.y - camera.y;
   }
   abstract update(game: Game);
 

@@ -16,6 +16,7 @@ import {Heart} from "../shapes/Heart";
 import {ShapeMachine} from "../ShapeMachine";
 import {CircleBehaviour} from "../behaviour/CircleBehaviour";
 import {SinusBehaviour} from "../behaviour/SinusBehaviour";
+import {StrokedText} from "../base/StrokedText";
 
 export class GameScene extends Scene {
 
@@ -28,7 +29,6 @@ export class GameScene extends Scene {
     game.gameArea.addElement(player);
 
     let camera = new Camera(player, game.gameArea);
-    camera.initializeStaticCamera();
     game.gameArea.setCamera(camera);
 
     let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16").isDestructible(true);
@@ -95,6 +95,10 @@ export class GameScene extends Scene {
     let heart = new GenericShape(700, 320, 10, "red", new Heart());
     heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100));
     game.gameArea.addElement(heart);
+
+    let staticTextWithStroke = new StrokedText(340, 100, 20, "green", "40pt Calibri", 8, "black").isFixed(true);
+    staticTextWithStroke.text = "Hallo";
+    game.gameArea.addElement(staticTextWithStroke);
   }
 
   cleanUp(game: Game) {
