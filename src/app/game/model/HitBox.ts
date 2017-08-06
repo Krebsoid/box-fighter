@@ -30,4 +30,5 @@ export class HitBox extends ColoredShape {
     this.colliding = true;
   }
 
+  type: string = "HitBox";
 }

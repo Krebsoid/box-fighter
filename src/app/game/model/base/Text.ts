@@ -25,4 +25,5 @@ export class Text extends Element {
 
   }
 
+  type: string = "Text";
 }

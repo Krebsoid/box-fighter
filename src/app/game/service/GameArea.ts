@@ -32,8 +32,8 @@ export class GameArea {
     this.addElement(camera);
   }
 
-  getPlayer(): Player {
-    return <Player>this.elementsOnCamera().find((value, index, array) => value.constructor.name === 'Player');
+  getPlayer() {
+    return this.elementsOnCamera().find(value => value.type === 'Player');
   }
 
   repaint() {

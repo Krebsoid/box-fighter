@@ -35,4 +35,5 @@ export class Bullet extends ColoredShape {
     this.travelled += this.speed;
   }
 
+  type: string = "Bullet";
 }

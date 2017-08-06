@@ -19,7 +19,7 @@ import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 import {StrokedText} from "../base/StrokedText";
 
 export class GameScene extends Scene {
-
+  name: string = "Game";
   gameState: string = 'RUNNING';
 
   init(game: Game) {

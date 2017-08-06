@@ -51,4 +51,5 @@ export class Shape extends Element {
     game.gameArea.removeElement(this);
   }
 
+  type: string = "Shape";
 }

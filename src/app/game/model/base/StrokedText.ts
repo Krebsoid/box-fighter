@@ -20,4 +20,6 @@ export class StrokedText extends Text {
     camera.gameArea.getContext().fillStyle = this.color;
     camera.gameArea.getContext().fillText(this.text, this.xOffset, this.yOffset);
   }
+
+  type: string = "Stroked Text";
 }

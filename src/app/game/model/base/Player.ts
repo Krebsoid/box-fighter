@@ -97,4 +97,6 @@ export class Player extends Element {
       }
     }
   }
+
+  type: string = "Player";
 }

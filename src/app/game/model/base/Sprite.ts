@@ -40,4 +40,6 @@ export class Sprite extends Shape {
     }
     super.update(game);
   }
+
+  type: string = "Sprite";
 }

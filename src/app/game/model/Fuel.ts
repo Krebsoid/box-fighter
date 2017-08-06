@@ -57,4 +57,6 @@ export class Fuel extends Element {
       }
     });
   }
+
+  type: string = "Fuel";
 }

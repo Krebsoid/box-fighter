@@ -51,4 +51,6 @@ export class ColoredShape extends Shape {
     });
     return fragment;
   }
+
+  type: string = "Colored Shape";
 }

@@ -19,4 +19,6 @@ export class HomingColoredShape extends ColoredShape {
   moveTo(speed: number) {
     this.move(-(this.percentageX * speed), -(this.percentageY * speed));
   }
+
+  type: string = "Homing Colored Shape";
 }

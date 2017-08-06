@@ -63,6 +63,8 @@ export abstract class Element {
   }
 
   toString() {
-    return this.constructor.name + "(" + this.id + ")";
+    return this.type + "(" + this.id + ")";
   }
+
+  type: string = "Element";
 }

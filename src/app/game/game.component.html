@@ -1,5 +1,5 @@
 <div id="content">
-  <h1>Box Fighter v0.18</h1>
+  <h1>Box Fighter v0.19</h1>
   <canvas id="game" width="1024px" height="500px"></canvas>
   <div>
     {{ game.gameTime }}
@@ -9,7 +9,7 @@
       Elements on screen: {{ game.gameArea.elementsOnCamera().length }}
     </div>
     <span *ngFor="let element of game.gameArea.elementsOnCamera(); let last = last">
-      {{ element.constructor.name }}{{ !last ? "," : "" }}
+      {{ element.type }}{{ !last ? "," : "" }}
     </span>
   </div>
 </div>

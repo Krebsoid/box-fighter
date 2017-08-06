@@ -23,4 +23,6 @@ export class GenericShape extends Shape {
     this.descriptor.forEach(position => context.lineTo(this.xOffset + position.x, this.yOffset + position.y));
     context.fill();
   }
+
+  type: string = "Generic Shape";
 }
