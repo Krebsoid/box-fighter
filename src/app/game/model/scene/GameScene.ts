@@ -7,10 +7,15 @@ import {Camera} from "../base/Camera";
 import {ColoredShape} from "../base/ColoredShape";
 import {HitBox} from "../HitBox";
 import {Sprite} from "../base/Sprite";
-import {ShapeMachine} from "../ShapeMachine";
 import {FuelMeter} from "../ui/FuelMeter";
 import {Fuel} from "../Fuel";
 import {Shape} from "../base/Shape";
+import {GenericShape} from "../base/GenericShape";
+import {Triangle} from "../shapes/Triangle";
+import {Heart} from "../shapes/Heart";
+import {ShapeMachine} from "../ShapeMachine";
+import {CircleBehaviour} from "../behaviour/CircleBehaviour";
+import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 
 export class GameScene extends Scene {
 
@@ -56,11 +61,7 @@ export class GameScene extends Scene {
 
     game.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true));
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
-    sprite.addBehaviour<Shape>("sinus-freak", (game, shape) => {
-      if(shape.x < 1000) {
-        shape.move(.4, 2 * Math.sin(shape.x/5));
-      }
-    });
+    sprite.addGenericBehaviour<Shape>("sinus-freak", new SinusBehaviour());
     sprite.addBehaviour<Shape>("sinus-freak-backwards", (game, shape) => {
       if(shape.x > 700) {
         shape.removeBehaviour("sinus-freak");
@@ -78,14 +79,9 @@ export class GameScene extends Scene {
     game.gameArea.addElement(sprite);
 
     let sprite2 = new Sprite(500, 250, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true);
-    let angle = Math.PI / 180;
-    let radius = 200;
-    sprite2.addBehaviour<Shape>("circle", (game, shape) => {
-      angle += Math.PI / 180;
-      let x = 500 + radius * (Math.cos(angle));
-      let y = 250 + radius * (Math.sin(angle));
-      shape.setPosition(x, y);
-    });
+
+    sprite2.addGenericBehaviour<Sprite>("circle", new CircleBehaviour(200));
+
     game.gameArea.addElement(sprite2);
     game.gameArea.addElement(new ColoredShape(500, 250, 2, 2, 2, "#000000").isDestructible(true));
     game.gameArea.addElement(new ShapeMachine());
@@ -93,6 +89,12 @@ export class GameScene extends Scene {
     game.gameArea.addElement(new Fuel(300, 300, 300));
     game.gameArea.addElement(new Fuel(1000, 300, 300));
     game.gameArea.addElement(new FuelMeter(player));
+
+    game.gameArea.addElement(new GenericShape(500, 320, 10, "green", new Triangle()));
+
+    let heart = new GenericShape(700, 320, 10, "red", new Heart());
+    heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100));
+    game.gameArea.addElement(heart);
   }
 
   cleanUp(game: Game) {

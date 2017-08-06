@@ -1,6 +1,7 @@
 import {Element} from './Element';
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
+import {Behaviour} from "../behaviour/Behaviour";
 
 export class Shape extends Element {
 
@@ -22,6 +23,10 @@ export class Shape extends Element {
 
   addBehaviour<SHAPE>(name: string, behaviour: (game: Game, shape: SHAPE) => void) {
     this.behaviours.set(name, behaviour);
+  }
+
+  addGenericBehaviour<SHAPE>(name: string, behaviour: Behaviour<SHAPE>) {
+    this.behaviours.set(name, behaviour.behaviour);
   }
 
   removeBehaviour(name: string) {
