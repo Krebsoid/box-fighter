@@ -22,7 +22,7 @@ export class Bullet extends ColoredShape {
     let self = this;
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Shape) {
-        if(this.collision(value) && value != self) {
+        if(value.destructible && this.collision(value) && value != self) {
           value.onHit(game);
           game.gameArea.removeElement(self);
         }
