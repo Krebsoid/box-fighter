@@ -1,8 +1,9 @@
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
+import {Valuable} from "./Valuable";
 
-export class ColoredShape extends Shape {
+export class ColoredShape extends Shape implements Valuable {
 
   color: string;
   gradient: any;
@@ -50,6 +51,12 @@ export class ColoredShape extends Shape {
       }
     });
     return fragment;
+  }
+
+  value: number = 20;
+
+  setValue(value: number) {
+    this.value = value;
   }
 
   type: string = "Colored Shape";

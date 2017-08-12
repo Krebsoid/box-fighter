@@ -3,15 +3,18 @@ import {Camera} from "../base/Camera";
 import {Game} from "../../service/Game";
 import {Weapon} from "./Weapon";
 import {ColoredShape} from "../base/ColoredShape";
+import {Valuable} from "../base/Valuable";
+import {Player} from "../base/Player";
 
 export class Bullet extends ColoredShape {
-
   maxRange: number = 800;
   speed: number = 5;
   travelled: number = 0;
+  weapon: Weapon;
 
   constructor(weapon: Weapon) {
     super(weapon.bulletHole.x, weapon.bulletHole.y, weapon.z, 5, 5, "#000");
+    this.weapon = weapon;
   }
 
   render(camera: Camera) {
@@ -20,11 +23,19 @@ export class Bullet extends ColoredShape {
 
   update(game: Game) {
     let self = this;
+
+    function instanceOfValuable(valuable: any): valuable is Valuable {
+      return 'value' in valuable;
+    }
+
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Shape) {
         if(value.destructible && this.collision(value) && value != self) {
           value.onHit(game);
           game.gameArea.removeElement(self);
+          if(instanceOfValuable(value)) {
+            (<Player>this.weapon.target).consume(value);
+          }
         }
       }
     });

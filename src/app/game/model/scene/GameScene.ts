@@ -17,6 +17,7 @@ import {ShapeMachine} from "../ShapeMachine";
 import {CircleBehaviour} from "../behaviour/CircleBehaviour";
 import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 import {StrokedText} from "../base/StrokedText";
+import {CurrencyMeter} from "../ui/CurrencyMeter";
 
 export class GameScene extends Scene {
   name: string = "Game";
@@ -24,9 +25,12 @@ export class GameScene extends Scene {
 
   init(game: Game) {
     let player = new Player();
-    player.setWeapon(new Weapon(player));
-    player.setEngine(new Engine(player));
+    //player.setWeapon(new Weapon(0,0,0));
+    player.setEngine(new Engine(0,0,0));
     game.gameArea.addElement(player);
+
+    let newWeapon = new Weapon(200,400,10);
+    game.gameArea.addElement(newWeapon);
 
     let camera = new Camera(player, game.gameArea);
     game.gameArea.setCamera(camera);
@@ -57,7 +61,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(coloredShape);
     game.gameArea.addElement(new ColoredShape(3000, 0, 3, 2, 500, "#000000").isDestructible(true));
 
-    game.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7"));
+    game.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7").isDestructible(true));
 
     game.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true));
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
@@ -89,6 +93,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(new Fuel(300, 300, 300));
     game.gameArea.addElement(new Fuel(1000, 300, 300));
     game.gameArea.addElement(new FuelMeter(player));
+    game.gameArea.addElement(new CurrencyMeter(player));
 
     game.gameArea.addElement(new GenericShape(500, 320, 10, "green", new Triangle()));
 
@@ -96,8 +101,8 @@ export class GameScene extends Scene {
     heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100));
     game.gameArea.addElement(heart);
 
-    let staticTextWithStroke = new StrokedText(340, 100, 20, "green", "40pt Calibri", 8, "black").isFixed(true);
-    staticTextWithStroke.text = "Hallo";
+    let staticTextWithStroke = new StrokedText(100, 60, 20, "green", "30pt Calibri", 3, "black");
+    staticTextWithStroke.text = "Hallo, am besten flieg erstmal gegen die Mini Wumme";
     game.gameArea.addElement(staticTextWithStroke);
   }
 

@@ -1,27 +1,33 @@
 import {Element} from "../base/Element";
 import {Game} from "../../service/Game";
 import {Camera} from "../base/Camera";
+import {Shape} from "../base/Shape";
 
-export class Equipment extends Element {
+export abstract class Equipment extends Element {
 
   target: Element;
-  elements: Element[] = [];
+  elements: Shape[] = [];
 
-  constructor(target: Element) {
-    super(target.x, target.y, target.z);
-    this.target = target;
+  constructor(x: number, y: number, z: number) {
+    super(x, y, z);
+  }
+
+  abstract attach(target: Element);
+
+  isAttached() : boolean {
+    return !!this.target;
   }
 
   render(camera: Camera) {
-    this.elements.forEach((value, index, array) => value.render(camera));
+    this.elements.forEach(value => value.render(camera));
   }
 
   update(game: Game) {
-    this.elements.forEach((value, index, array) => value.update(game));
+    this.elements.forEach(value => value.update(game));
   }
 
   move(x: number, y: number) {
-    this.elements.forEach((value, index, array) => value.move(x, y));
+    this.elements.forEach(value => value.move(x, y));
   }
 
 }

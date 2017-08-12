@@ -5,13 +5,18 @@ import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
 import {ColoredShape} from "./ColoredShape";
 import {Shape} from "./Shape";
+import {Valuable} from "./Valuable";
+import {ValuableConsumer} from "./ValuableConsumer";
+import {Buyable} from "./Buyable";
 
-export class Player extends Element {
+export class Player extends Element implements ValuableConsumer {
 
   elements: Element[] = [];
   hitboxes: Shape[] = [];
   engine: Engine;
   weapon: Weapon;
+
+  currency: number = 1000;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -29,10 +34,20 @@ export class Player extends Element {
   }
 
   setEngine(engine: Engine) {
+    if(this.engine) {
+      let enginePosition = this.elements.indexOf(this.engine);
+      this.elements = this.elements.slice(enginePosition, enginePosition + 1);
+    }
+    engine.attach(this);
     this.elements.push(engine);
     this.engine = engine;
   }
   setWeapon(weapon: Weapon) {
+    if(this.weapon) {
+      let weaponPosition = this.elements.indexOf(this.weapon);
+      this.elements = this.elements.slice(weaponPosition, weaponPosition + 1);
+    }
+    weapon.attach(this);
     this.elements.push(weapon);
     weapon.elements.forEach(element => {
       if(element instanceof ColoredShape) {
@@ -48,10 +63,12 @@ export class Player extends Element {
   }
 
   checkForHits(game: Game) {
+    let colliding = false;
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof ColoredShape && value.dangerous) {
         this.hitboxes.forEach(hitbox => {
-          if(hitbox.collision(value)) {
+          if(!colliding && hitbox.collision(value)) {
+            colliding = true;
             value.onHit(game);
             game.gameArea.removeElement(this);
             game.changeGameState('DEAD', 1500);
@@ -64,6 +81,15 @@ export class Player extends Element {
         })
       }
     });
+  }
+
+  consume(valuable: Valuable) {
+    this.currency += valuable.value;
+    console.log("player got " + this.currency + " currency");
+  }
+  buy(buyable: Buyable) {
+    this.currency -= buyable.value;
+    console.log("player got " + this.currency + " currency");
   }
 
   doMovement(game: Game) {
