@@ -47,7 +47,7 @@ export class CurrencyMeter extends Element {
       return 5;
     } else if(delta < 50 && delta >= 20) {
       return 2;
-    } else if(delta < 50 && delta >= 20) {
+    } else if(delta < 20 && delta >= 0) {
       return 1;
     }
   }
