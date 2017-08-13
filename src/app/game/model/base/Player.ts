@@ -36,7 +36,7 @@ export class Player extends Element implements ValuableConsumer {
   setEngine(engine: Engine) {
     if(this.engine) {
       let enginePosition = this.elements.indexOf(this.engine);
-      this.elements = this.elements.slice(enginePosition, enginePosition + 1);
+      this.elements.splice(enginePosition, 1);
     }
     engine.attach(this);
     this.elements.push(engine);
@@ -45,7 +45,8 @@ export class Player extends Element implements ValuableConsumer {
   setWeapon(weapon: Weapon) {
     if(this.weapon) {
       let weaponPosition = this.elements.indexOf(this.weapon);
-      this.elements = this.elements.slice(weaponPosition, weaponPosition + 1);
+      this.weapon.detach();
+      this.elements.splice(weaponPosition, 1);
     }
     weapon.attach(this);
     this.elements.push(weapon);
