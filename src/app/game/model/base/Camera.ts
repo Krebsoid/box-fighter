@@ -1,5 +1,6 @@
 import {Element} from "./Element";
 import {GameArea} from "../../service/GameArea";
+import {Shape} from "./Shape";
 
 export class Camera extends Element {
 
@@ -10,6 +11,10 @@ export class Camera extends Element {
     super(0,0,0);
     this.element = element;
     this.gameArea = gameArea;
+  }
+
+  shape(): Shape {
+    return new Shape(this.x, this.y, 0, 500, 1024);
   }
 
   update() {
