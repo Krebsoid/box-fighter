@@ -20,6 +20,10 @@ export abstract class Element {
   dangerous: boolean = true;
   fixed: boolean = false;
 
+  isOnScreen(camera: Camera): boolean {
+    return this.x >= camera.x && this.x <= camera.x + 1024
+  }
+
   xOffset: number;
   yOffset: number;
 

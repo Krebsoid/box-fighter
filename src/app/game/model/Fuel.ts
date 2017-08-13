@@ -30,6 +30,10 @@ export class Fuel extends Element {
     this.elements.push(hitbox3);
   }
 
+  isOnScreen(camera: Camera): boolean {
+    return this.hitboxes.some(hitbox => hitbox.isOnScreen(camera));
+  }
+
   render(camera: Camera) {
     this.elements.forEach((value, index, array) => value.render(camera));
   }

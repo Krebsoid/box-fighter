@@ -18,6 +18,10 @@ export abstract class Equipment extends Element {
     return !!this.target;
   }
 
+  isOnScreen(camera: Camera): boolean {
+    return this.elements.some(shape => shape.isOnScreen(camera));
+  }
+
   render(camera: Camera) {
     this.elements.forEach(value => value.render(camera));
   }

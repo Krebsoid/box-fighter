@@ -7,7 +7,6 @@ import {ColoredShape} from "../base/ColoredShape";
 import {Buyable} from "../base/Buyable";
 import {Camera} from "../base/Camera";
 import {Player} from "../base/Player";
-import {Text} from "../base/Text";
 import {StrokedText} from "../base/StrokedText";
 
 export class Weapon extends Equipment implements Buyable {
@@ -39,10 +38,18 @@ export class Weapon extends Equipment implements Buyable {
     this.bulletHole = new Position(target.x+80+2, target.y+28-6);
   }
 
+  detach() {
+    this.target = undefined;
+  }
+
+  isOnScreen(camera: Camera): boolean {
+    return super.isOnScreen(camera) || this.label.isOnScreen(camera);
+  }
+
   update(game: Game) {
     super.update(game);
     if(this.isAttached() && game.gameTime % 20 == 0 && game.controls.shoot) {
-      game.gameArea.addElement(new Bullet(this));
+      game.gameArea.addElement(new Bullet(this, this.bulletHole));
     }
     if(!this.isAttached()) {
       this.checkForHit(game);
@@ -74,15 +81,17 @@ export class Weapon extends Equipment implements Buyable {
         this.elements.forEach(element => {
           value.hitboxes.forEach(hitboxPlayer => {
             if(!colliding && element.collision(hitboxPlayer)) {
-              colliding = true;
-              game.gameArea.removeElement(this);
-              value.buy(this);
-              value.setWeapon(this);
-              this.elements.forEach((colored) => {
-                if(colored instanceof ColoredShape) {
-                  colored.explode(game);
-                }
-              });
+              if(value.currency >= this.value) {
+                colliding = true;
+                game.gameArea.removeElement(this);
+                value.buy(this);
+                this.elements.forEach((colored) => {
+                  if(colored instanceof ColoredShape) {
+                    colored.explode(game);
+                  }
+                });
+                value.setWeapon(this);
+              }
             }
           });
         })

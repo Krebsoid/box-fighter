@@ -12,7 +12,7 @@ export class GameArea {
   context: any;
 
   elementsOnCamera(): Element[] {
-    return this.elements.filter(value => value.fixed || value.x + 200 >= this.camera.x && value.x - 100 <= this.camera.x + 1024);
+    return this.elements.filter(value => value.fixed || value.isOnScreen(this.camera));
   }
 
   addElement(element: Element) {
@@ -32,8 +32,8 @@ export class GameArea {
     this.addElement(camera);
   }
 
-  getPlayer() {
-    return this.elementsOnCamera().find(value => value.type === 'Player');
+  getPlayer(): Player {
+    return <Player>this.elementsOnCamera().find(value => value.type === 'Player');
   }
 
   repaint() {

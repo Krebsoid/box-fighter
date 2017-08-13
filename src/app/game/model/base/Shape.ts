@@ -2,6 +2,7 @@ import {Element} from './Element';
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Behaviour} from "../behaviour/Behaviour";
+import {Position} from "./Position";
 
 export class Shape extends Element {
 
@@ -15,6 +16,14 @@ export class Shape extends Element {
     super(x, y, z);
     this.h = h;
     this.w = w;
+  }
+
+  isOnScreen(camera: Camera): boolean {
+    let cameraShape: Shape = camera.shape();
+    return cameraShape.containsPosition(new Position(this.x + 50, this.y)) ||
+      cameraShape.containsPosition(new Position(this.x + 50, this.y + this.h)) ||
+      cameraShape.containsPosition(new Position(this.x + 50 + this.w, this.y)) ||
+      cameraShape.containsPosition(new Position(this.x + + 50 + this.w, this.y + this.h));
   }
 
   render(camera: Camera) {
@@ -38,6 +47,10 @@ export class Shape extends Element {
     if(this.behaviours.size > 0) {
       this.behaviours.forEach(value => value(game, this));
     }
+  }
+
+  containsPosition?(position: Position): boolean {
+    return position.x > this.x && position.x < this.x + this.w && position.y > this.y && position.y < this.y + this.h;
   }
 
   collision?(shape: Shape) : boolean {

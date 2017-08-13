@@ -18,6 +18,7 @@ import {CircleBehaviour} from "../behaviour/CircleBehaviour";
 import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 import {StrokedText} from "../base/StrokedText";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
+import {DoubleWeapon} from "../parts/DoubleWeapon";
 
 export class GameScene extends Scene {
   name: string = "Game";
@@ -25,11 +26,11 @@ export class GameScene extends Scene {
 
   init(game: Game) {
     let player = new Player();
-    //player.setWeapon(new Weapon(0,0,0));
+    player.setWeapon(new Weapon(0,0,0));
     player.setEngine(new Engine(0,0,0));
     game.gameArea.addElement(player);
 
-    let newWeapon = new Weapon(200,400,10);
+    let newWeapon = new DoubleWeapon(200,400,10);
     game.gameArea.addElement(newWeapon);
 
     let camera = new Camera(player, game.gameArea);
@@ -102,7 +103,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(heart);
 
     let staticTextWithStroke = new StrokedText(100, 60, 20, "green", "30pt Calibri", 3, "black");
-    staticTextWithStroke.text = "Hallo, am besten flieg erstmal gegen die Mini Wumme";
+    staticTextWithStroke.text = "Hallo, am besten hol dir erstmal die Doppel-Wumme";
     game.gameArea.addElement(staticTextWithStroke);
   }
 
