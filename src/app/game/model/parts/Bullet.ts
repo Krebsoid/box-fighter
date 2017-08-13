@@ -5,6 +5,7 @@ import {Weapon} from "./Weapon";
 import {ColoredShape} from "../base/ColoredShape";
 import {Valuable} from "../base/Valuable";
 import {Player} from "../base/Player";
+import {Position} from "../base/Position";
 
 export class Bullet extends ColoredShape {
   maxRange: number = 800;
@@ -12,8 +13,8 @@ export class Bullet extends ColoredShape {
   travelled: number = 0;
   weapon: Weapon;
 
-  constructor(weapon: Weapon) {
-    super(weapon.bulletHole.x, weapon.bulletHole.y, weapon.z, 5, 5, "#000");
+  constructor(weapon: Weapon, origin: Position) {
+    super(origin.x, origin.y, origin.z, 5, 5, "#000");
     this.weapon = weapon;
   }
 
