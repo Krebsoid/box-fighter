@@ -4,17 +4,5 @@
   <div>
     {{ game.gameTime }}
   </div>
-  <div>
-    <div>
-      Elements on screen: {{ game.gameArea.elementsOnCamera().length }}
-    </div>
-    <span *ngFor="let element of game.gameArea.elementsOnCamera(); let last = last">
-      {{ element.type }}{{ !last ? "," : "" }}
-    </span>
-    <div style="font-size: 20px; color: dodgerblue">
-      <span *ngFor="let element of game.gameArea.getPlayer().elements; let last = last">
-      {{ element.type }}{{ !last ? "," : "" }}
-    </span>
-    </div>
-  </div>
+
 </div>

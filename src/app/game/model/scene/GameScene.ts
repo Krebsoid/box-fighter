@@ -22,7 +22,7 @@ import {DoubleWeapon} from "../parts/DoubleWeapon";
 
 export class GameScene extends Scene {
   name: string = "Game";
-  gameState: string = 'RUNNING';
+  gameState: string = 'LEVEL2';
 
   init(game: Game) {
     let player = new Player();
@@ -105,9 +105,5 @@ export class GameScene extends Scene {
     let staticTextWithStroke = new StrokedText(100, 60, 20, "green", "30pt Calibri", 3, "black");
     staticTextWithStroke.text = "Hallo, am besten hol dir erstmal die Doppel-Wumme";
     game.gameArea.addElement(staticTextWithStroke);
-  }
-
-  cleanUp(game: Game) {
-    game.gameArea.clear();
   }
 }

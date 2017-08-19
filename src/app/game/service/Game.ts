@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import { GameArea } from "./GameArea";
+import {GameArea} from "./GameArea";
 import {Controls} from "../model/base/Controls";
 import {Scene} from "../model/base/Scene";
 
@@ -16,7 +16,7 @@ export class GameTime {
 @Injectable()
 export class Game {
   state: string;
-  scenes: Scene[] = [];
+  scenes: Map<string, Scene> = new Map();
   gameTime: number;
 
   controls: Controls = new Controls();
@@ -43,8 +43,9 @@ export class Game {
     if(oldState !== newGameState) {
       let self = this;
       setTimeout(function() {
-        self.scenes.forEach((value) => value.onGameStateChange(oldState, self));
-      }, delay);
+        oldState ? self.scenes.get(oldState).cleanUp(self) : undefined;
+        self.scenes.get(newGameState).init(self);
+      }, delay || 1000);
     }
   }
 

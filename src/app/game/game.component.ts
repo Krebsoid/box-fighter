@@ -3,6 +3,9 @@ import {GameArea} from "./service/GameArea";
 import {Game} from "./service/Game";
 import {GameScene} from "./model/scene/GameScene";
 import {EndScene} from "./model/scene/EndScene";
+import {Level1} from "./model/scene/Level1";
+import {WinningScene} from "./model/scene/WinningScene";
+import {Scene} from "./model/base/Scene";
 
 @Component({
   templateUrl: './game.component.html',
@@ -15,10 +18,16 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.game.scenes.push(new GameScene());
-    this.game.scenes.push(new EndScene());
-    this.game.changeGameState('RUNNING');
+    this.addScene(new GameScene());
+    this.addScene(new EndScene());
+    this.addScene(new Level1());
+    this.addScene(new WinningScene());
+    this.game.changeGameState('LEVEL1');
     this.game.init();
+  }
+
+  private addScene(scene: Scene) {
+    this.game.scenes.set(scene.gameState, scene);
   }
 
   @HostListener('document:keydown', ['$event'])

@@ -49,7 +49,7 @@ export class Weapon extends Equipment implements Buyable {
   update(game: Game) {
     super.update(game);
     if(this.isAttached() && game.gameTime % 20 == 0 && game.controls.shoot) {
-      game.gameArea.addElement(new Bullet(this, this.bulletHole));
+      game.gameArea.addElement(new Bullet(this, this.bulletHole).isDangerous(false));
     }
     if(!this.isAttached()) {
       this.checkForHit(game);

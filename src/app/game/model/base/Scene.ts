@@ -11,13 +11,13 @@ export abstract class Scene {
   }
 
   onGameStateChange(oldGameState: string, game: Game) {
-    if(game.state === this.gameState) {
-      this.init(game);
-      console.log('Initiating scene: ' + this.name);
-    }
     if(oldGameState === this.gameState) {
       this.cleanUp(game);
       console.log('Cleaning up scene: ' + this.name);
+    }
+    if(game.state === this.gameState) {
+      this.init(game);
+      console.log('Initiating scene: ' + this.name);
     }
   }
 }

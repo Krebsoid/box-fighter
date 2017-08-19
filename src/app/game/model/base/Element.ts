@@ -20,6 +20,8 @@ export abstract class Element {
   dangerous: boolean = true;
   fixed: boolean = false;
 
+  key: string = "";
+
   isOnScreen(camera: Camera): boolean {
     return this.x >= camera.x && this.x <= camera.x + 1024
   }
@@ -44,6 +46,11 @@ export abstract class Element {
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  setKey(key: string) {
+    this.key = key;
+    return this;
   }
 
   isDangerous(dangerous: boolean) {
