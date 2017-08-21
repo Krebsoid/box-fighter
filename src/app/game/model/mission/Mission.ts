@@ -20,12 +20,11 @@ export abstract class Task extends Element {
 export class HitBoxes extends Task {
   constructor() {
     super(0,0,0);
-    this.isFixed(true);
     this.label = new StrokedText(200, 50, 0, "red", "30pt Calibri",0,"black").isFixed(true)
   }
 
   description: string = "Hit all red boxes but no green";
-
+  fixed: boolean = true;
   label: StrokedText;
 
   onSuccess: (game: Game) => void = (game: Game) => {
