@@ -13,7 +13,7 @@ export class Engine extends Equipment {
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
-    this.fuelConsumption = acceleration => acceleration / 10;
+    this.fuelConsumption = acceleration => acceleration / 20;
     this.level = this.capacity;
   }
 
