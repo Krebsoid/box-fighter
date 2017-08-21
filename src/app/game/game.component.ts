@@ -6,6 +6,7 @@ import {EndScene} from "./model/scene/EndScene";
 import {Level1} from "./model/scene/Level1";
 import {WinningScene} from "./model/scene/WinningScene";
 import {Scene} from "./model/base/Scene";
+import {Maze} from "./model/scene/Maze";
 
 @Component({
   templateUrl: './game.component.html',
@@ -22,7 +23,8 @@ export class GameComponent implements OnInit {
     this.addScene(new EndScene());
     this.addScene(new Level1());
     this.addScene(new WinningScene());
-    this.game.changeGameState('LEVEL1');
+    this.addScene(new Maze());
+    this.game.changeGameState('MAZE');
     this.game.init();
   }
 
