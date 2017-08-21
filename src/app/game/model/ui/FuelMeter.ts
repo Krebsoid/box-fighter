@@ -34,11 +34,23 @@ export class FuelMeter extends Element {
   update(game: Game) {
     if(this.player.engine) {
       if(this.player.engine.level > this.filling.w) {
-        this.filling.w += 2;
+        this.filling.w += this.updateMapping(Math.abs(this.player.engine.level - this.filling.w));
       }
       if(this.player.engine.level < this.filling.w) {
-        this.filling.w -= 2;
+        this.filling.w -= this.updateMapping(Math.abs(this.player.engine.level - this.filling.w));
       }
+    }
+  }
+
+  updateMapping(delta: number) : number {
+    if(delta >= 50) {
+      return 5;
+    } else if(delta < 50 && delta >= 20) {
+      return 2;
+    } else if(delta < 20 && delta >= 5) {
+      return 1;
+    } else if(delta < 5 && delta >= 0) {
+      return .5;
     }
   }
 }
