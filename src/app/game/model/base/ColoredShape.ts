@@ -26,11 +26,9 @@ export class ColoredShape extends Shape implements Valuable {
     super.update(game);
   }
 
-  onHit(game: Game): any {
-    if(this.destructible) {
-      this.explode(game);
-      super.onHit(game);
-    }
+  onKill(game: Game): any {
+    this.explode(game);
+    super.onKill(game);
   }
 
   explode(game: Game) {
@@ -44,6 +42,7 @@ export class ColoredShape extends Shape implements Valuable {
     let fragment = new ColoredShape(this.x + this.h / 4, this.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color);
     fragment.isDestructible(false);
     fragment.isDangerous(false);
+    fragment.isCollidable(false);
     fragment.addBehaviour<Shape>("drift-off", (game, shape) => {
       shape.move(directionX, directionY);
       if((game.gameTime - shape.birth) > 35) {

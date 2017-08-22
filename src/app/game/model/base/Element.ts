@@ -16,6 +16,7 @@ export abstract class Element {
 
   birth: number;
 
+  collidable: boolean = true;
   destructible: boolean = false;
   dangerous: boolean = true;
   fixed: boolean = false;
@@ -65,6 +66,11 @@ export abstract class Element {
 
   isFixed(fixed: boolean) {
     this.fixed = fixed;
+    return this;
+  }
+
+  isCollidable(collidable: boolean) {
+    this.collidable = collidable;
     return this;
   }
 

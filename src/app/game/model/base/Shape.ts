@@ -3,12 +3,14 @@ import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Behaviour} from "../behaviour/Behaviour";
 import {Position} from "./Position";
+import {Damage} from "./Damage";
 
 export class Shape extends Element {
 
   h: number;
   w: number;
   colliding: boolean;
+  life: number = 1;
 
   behaviours : Map<string, (game: Game, shape: any) => void> = new Map<string, (game: Game, shape: any) => void>();
 
@@ -54,13 +56,21 @@ export class Shape extends Element {
   }
 
   collision?(shape: Shape) : boolean {
-    return this.x < shape.x + shape.w &&
+    return shape.collidable && this.x < shape.x + shape.w &&
       this.x + this.w > shape.x &&
       this.y < shape.y + shape.h &&
       this.h + this.y > shape.y;
   }
 
+  onDamage(damage: Damage) {
+    this.life -= damage.damage;
+  }
+
   onHit(game: Game) {
+    this.life <= 0 && this.destructible ? this.onKill(game) : undefined;
+  }
+
+  onKill(game: Game) {
     game.gameArea.removeElement(this);
   }
 

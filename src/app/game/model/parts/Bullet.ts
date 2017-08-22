@@ -6,11 +6,14 @@ import {ColoredShape} from "../base/ColoredShape";
 import {Valuable} from "../base/Valuable";
 import {Player} from "../base/Player";
 import {Position} from "../base/Position";
+import {Damage, DamageType} from "../base/Damage";
 
-export class Bullet extends ColoredShape {
+export class Bullet extends ColoredShape implements Damage {
   maxRange: number = 800;
   speed: number = 5;
   travelled: number = 0;
+  damage: number = 1;
+  damageType: DamageType = DamageType.BASIC;
   weapon: Weapon;
 
   constructor(weapon: Weapon, origin: Position) {
@@ -33,9 +36,10 @@ export class Bullet extends ColoredShape {
       if(value instanceof Shape) {
         if(this.collision(value) && value != self) {
           if(value.destructible) {
+            value.onDamage(this);
             value.onHit(game);
           }
-          game.gameArea.removeElement(self);
+          this.onKill(game);
           if(instanceOfValuable(value)) {
             (<Player>this.weapon.target).consume(value);
           }

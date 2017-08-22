@@ -27,7 +27,6 @@ export class HitBox extends ColoredShape {
   onHit(game: Game) {
     this.hits += 1;
     this.label.text = this.hits.toString();
-    this.colliding = true;
   }
 
   value: number = 200;
