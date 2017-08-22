@@ -86,11 +86,9 @@ export class Player extends Element implements ValuableConsumer {
 
   consume(valuable: Valuable) {
     this.currency += valuable.value;
-    console.log("player got " + this.currency + " currency");
   }
   buy(buyable: Buyable) {
     this.currency -= buyable.value;
-    console.log("player got " + this.currency + " currency");
   }
 
   doMovement(game: Game) {

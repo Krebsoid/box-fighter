@@ -8,6 +8,9 @@ import {ColoredShape} from "../base/ColoredShape";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
 import {Shape} from "../base/Shape";
+import {HomingColoredShape} from "../base/HomingColoredShape";
+import {PathBehaviour} from "../behaviour/PathBehaviour";
+import {Position} from "../base/Position";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -66,37 +69,25 @@ export class Maze extends Scene {
     this.createEnvironment(game, 1100, 100);
     this.createEnvironment(game, 1150, 100);
 
-    let dangerousShape1 = new ColoredShape(1250, 350, 5, 100, 100, "red");
-
-    let state = "up";
-    dangerousShape1.addBehaviour<Shape>("path", (game, shape) => {
-      if(state == "up" && shape.y > 0) {
-        shape.move(0, -5);
-        if(shape.y <= 0) {
-          state = "left";
-        }
-      }
-      if(state == "left" && shape.x > 600) {
-        shape.move(-5, 0);
-        if(shape.x <= 600) {
-          state = "down";
-        }
-      }
-      if(state == "down" && shape.y < 400) {
-        shape.move(0, 5);
-        if(shape.y >= 400) {
-          state = "right";
-        }
-      }
-      if(state == "right" && shape.x < 1250) {
-        shape.move(5, 0);
-        if(shape.x >= 1250) {
-          state = "up";
-        }
-      }
-    });
+    let dangerousShape1 = new HomingColoredShape(1250, 350, 5, 100, 100, "red");
+    let dangerousShape2 = new HomingColoredShape(600, 0, 5, 100, 100, "red");
+    let pathBehaviour = new PathBehaviour(5, [
+      (game: Game) => new Position(1250, 0),
+      (game: Game) => new Position(600, 0),
+      (game: Game) => new Position(600, 400),
+      (game: Game) => new Position(1250, 400)
+    ]);
+    let pathBehaviour2 = new PathBehaviour(5, [
+      (game: Game) => new Position(600, 400),
+      (game: Game) => new Position(1250, 400),
+      (game: Game) => new Position(1250, 0),
+      (game: Game) => new Position(600, 0)
+    ]);
+    dangerousShape1.addGenericBehaviour<HomingColoredShape>("path", pathBehaviour);
+    dangerousShape2.addGenericBehaviour<HomingColoredShape>("path", pathBehaviour2);
 
     game.gameArea.addElement(dangerousShape1);
+    game.gameArea.addElement(dangerousShape2);
 
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));

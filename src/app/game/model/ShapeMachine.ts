@@ -14,7 +14,8 @@ export class ShapeMachine extends Element {
       let size = Random.nextNumber(20, 70);
       let player = game.gameArea.getPlayer();
       if(player) {
-        let shape = new HomingColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor(), player);
+        let shape = new HomingColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor());
+        shape.setTarget(player);
         shape.isDestructible(true);
         let speed = Random.nextNumber(1, 7);
         shape.addBehaviour<HomingColoredShape>("left", (game, shape) => {
