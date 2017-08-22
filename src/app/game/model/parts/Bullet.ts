@@ -31,8 +31,10 @@ export class Bullet extends ColoredShape {
 
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Shape) {
-        if(value.destructible && this.collision(value) && value != self) {
-          value.onHit(game);
+        if(this.collision(value) && value != self) {
+          if(value.destructible) {
+            value.onHit(game);
+          }
           game.gameArea.removeElement(self);
           if(instanceOfValuable(value)) {
             (<Player>this.weapon.target).consume(value);
