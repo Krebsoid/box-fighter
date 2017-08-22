@@ -5,7 +5,7 @@ import {Game} from "../../service/Game";
 import {ColoredShape} from "../base/ColoredShape";
 
 export class Engine extends Equipment {
-  acceleration: number = 1;
+  acceleration: number = 2;
   capacity: number = 100;
   level: number;
   engineHole: Position;
