@@ -24,7 +24,7 @@ export class GameComponent implements OnInit {
     this.addScene(new Level1());
     this.addScene(new WinningScene());
     this.addScene(new Maze());
-    this.game.changeGameState('MAZE');
+    this.game.changeGameState('LEVEL2');
     this.game.init();
   }
 
