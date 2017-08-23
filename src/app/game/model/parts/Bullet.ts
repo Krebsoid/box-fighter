@@ -26,22 +26,20 @@ export class Bullet extends ColoredShape implements Damage {
   }
 
   update(game: Game) {
-    let self = this;
-
     function instanceOfValuable(valuable: any): valuable is Valuable {
       return 'value' in valuable;
     }
 
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Shape) {
-        if(this.collision(value) && value != self) {
+        if(this.collision(value)) {
           if(value.destructible) {
             value.onDamage(this);
             value.onHit(game);
           }
           this.onKill(game);
           if(instanceOfValuable(value)) {
-            (<Player>this.weapon.target).consume(value);
+            this.weapon.target && (<Player>this.weapon.target).consume(value);
           }
         }
       }
