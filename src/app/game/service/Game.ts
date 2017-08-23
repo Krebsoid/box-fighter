@@ -49,6 +49,10 @@ export class Game {
     }
   }
 
+  getActiveScene() : Scene {
+    return this.scenes.get(this.state);
+  }
+
   update() {
     this.gameArea.elements.forEach(element => element.update(this))
   }
