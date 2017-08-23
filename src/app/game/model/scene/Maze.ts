@@ -3,18 +3,19 @@ import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
 import {Player} from "../base/Player";
-import {Camera} from "../base/Camera";
 import {ColoredShape} from "../base/ColoredShape";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
-import {Shape} from "../base/Shape";
 import {HomingColoredShape} from "../base/HomingColoredShape";
 import {PathBehaviour} from "../behaviour/PathBehaviour";
 import {Position} from "../base/Position";
+import {ExtendedCamera} from "../base/ExtendedCamera";
+import {Shape} from "../base/Shape";
 
 export class Maze extends Scene {
   name: string = "Maze";
   gameState: string = 'MAZE';
+  levelBorders: Shape = new Shape(0, 0, 0, 3000, 3000);
 
   init(game: Game) {
     let player = new Player();
@@ -23,7 +24,7 @@ export class Maze extends Scene {
     player.setEngine(new Engine(0,0,0));
     game.gameArea.addElement(player);
 
-    let camera = new Camera(player, game.gameArea);
+    let camera = new ExtendedCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
     this.createEnvironment(game, 500, 0);

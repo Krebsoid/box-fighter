@@ -1,15 +1,18 @@
 import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
 import {Text} from "../base/Text";
+import {StaticCamera} from "../base/StaticCamera";
+import {Shape} from "../base/Shape";
 
 export class WinningScene extends Scene {
   name: string = "Win";
   gameState: string = 'WIN';
+  levelBorders: Shape = new Shape(0, 0, 0, 500, 1024);
 
   init(game: Game) {
+    game.gameArea.setCamera(new StaticCamera(game.gameArea));
     let text = new Text(40, 200, 1, "#000", "80pt Calibri");
     text.text = "Du hast gewonnen!";
     game.gameArea.addElement(text);
-    game.gameArea.camera.setPosition(0, 0);
   }
 }

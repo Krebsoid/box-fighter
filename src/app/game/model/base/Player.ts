@@ -60,7 +60,7 @@ export class Player extends Element implements ValuableConsumer {
 
   update(game: Game) {
     this.doMovement(game);
-    this.checkForHits(game);
+    //this.checkForHits(game);
   }
 
   checkForHits(game: Game) {
@@ -95,24 +95,27 @@ export class Player extends Element implements ValuableConsumer {
     this.elements.forEach(value => value.update(game));
     if(this.engine.level > 0) {
       let acceleration = this.engine ? this.engine.acceleration : 0;
+      let levelBorders = game.getActiveScene().levelBorders;
       if(game.controls.down) {
-        if(this.y <= 450) {
+        if(this.y <= levelBorders.h) {
           this.move(0, acceleration);
           this.elements.forEach(value => value.move(0, acceleration));
         }
       }
       if(game.controls.up) {
-        if(this.y >= 0) {
+        if(this.y >= levelBorders.y) {
           this.move(0, -acceleration);
           this.elements.forEach(value => value.move(0, -acceleration));
         }
       }
       if(game.controls.right) {
-        this.move(acceleration, 0);
-        this.elements.forEach(value => value.move(acceleration, 0));
+        if(this.x <= levelBorders.w) {
+          this.move(acceleration, 0);
+          this.elements.forEach(value => value.move(acceleration, 0));
+        }
       }
       if(game.controls.left) {
-        if(this.x >= 0) {
+        if(this.x >= levelBorders.x) {
           this.move(-acceleration, 0);
           this.elements.forEach(value => value.move(-acceleration, 0));
         }

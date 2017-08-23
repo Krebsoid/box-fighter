@@ -3,7 +3,6 @@ import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
 import {Player} from "../base/Player";
-import {Camera} from "../base/Camera";
 import {ColoredShape} from "../base/ColoredShape";
 import {HitBox} from "../HitBox";
 import {Sprite} from "../base/Sprite";
@@ -19,10 +18,12 @@ import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 import {StrokedText} from "../base/StrokedText";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {DoubleWeapon} from "../parts/DoubleWeapon";
+import {BasicCamera} from "../base/BasicCamera";
 
 export class GameScene extends Scene {
   name: string = "Game";
   gameState: string = 'LEVEL2';
+  levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
     let player = new Player();
@@ -33,7 +34,7 @@ export class GameScene extends Scene {
     let newWeapon = new DoubleWeapon(200,400,10);
     game.gameArea.addElement(newWeapon);
 
-    let camera = new Camera(player, game.gameArea);
+    let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
     let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16").isDestructible(true);

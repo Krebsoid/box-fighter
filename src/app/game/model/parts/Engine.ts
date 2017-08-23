@@ -6,7 +6,7 @@ import {ColoredShape} from "../base/ColoredShape";
 
 export class Engine extends Equipment {
   acceleration: number = 2;
-  capacity: number = 100;
+  capacity: number = 200;
   level: number;
   engineHole: Position;
   fuelConsumption: (acceleration: number) => number;

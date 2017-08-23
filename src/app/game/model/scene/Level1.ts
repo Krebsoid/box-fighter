@@ -3,8 +3,6 @@ import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
 import {Player} from "../base/Player";
-import {Camera} from "../base/Camera";
-import {ColoredShape} from "../base/ColoredShape";
 import {GenericShape} from "../base/GenericShape";
 import {Triangle} from "../shapes/Triangle";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
@@ -12,10 +10,13 @@ import {FuelMeter} from "../ui/FuelMeter";
 import {HitBoxes} from "../mission/Mission";
 import {Fuel} from "../Fuel";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
+import {BasicCamera} from "../base/BasicCamera";
+import {Shape} from "../base/Shape";
 
 export class Level1 extends Scene {
   name: string = "Level1";
   gameState: string = 'LEVEL1';
+  levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
     let player = new Player();
@@ -26,7 +27,7 @@ export class Level1 extends Scene {
 
     game.gameArea.addElement(new HitBoxes());
 
-    let camera = new Camera(player, game.gameArea);
+    let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
     game.gameArea.addElement(new ShrinkingColoredShape(300, 100, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));

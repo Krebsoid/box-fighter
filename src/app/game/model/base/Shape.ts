@@ -57,7 +57,7 @@ export class Shape extends Element {
   }
 
   collision?(shape: Shape) : boolean {
-    return shape.collidable && this.x < shape.x + shape.w &&
+    return shape != this && shape.collidable && this.x < shape.x + shape.w &&
       this.x + this.w > shape.x &&
       this.y < shape.y + shape.h &&
       this.h + this.y > shape.y;
