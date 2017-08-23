@@ -53,7 +53,8 @@ export class DoubleWeapon extends Weapon {
   update(game: Game) {
     super.update(game);
     if(this.isAttached() && game.gameTime % 20 == 0 && game.controls.shoot) {
-      game.gameArea.addElement(new Bullet(this, this.bulletHole2));
+      let bullet = new Bullet(this, this.bulletHole2).isDangerous(false);
+      game.gameArea.addElement(bullet);
     }
   }
 
