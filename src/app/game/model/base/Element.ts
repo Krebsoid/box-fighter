@@ -24,7 +24,7 @@ export abstract class Element {
   key: string = "";
 
   isOnScreen(camera: Camera): boolean {
-    return this.x >= camera.x && this.x <= camera.x + 1024
+    return this.x >= camera.x + camera.xOffset && this.x <= camera.x + 1024 + camera.xOffset
   }
 
   xOffset: number;
@@ -39,8 +39,8 @@ export abstract class Element {
   }
 
   render(camera: Camera) {
-    this.xOffset = this.fixed ? this.x : this.x - camera.x + 50;
-    this.yOffset = this.fixed ? this.y : this.y - camera.y;
+    this.xOffset = this.fixed ? this.x : this.x - camera.x + camera.xOffset;
+    this.yOffset = this.fixed ? this.y : this.y - camera.y + camera.yOffset;
   }
   abstract update(game: Game);
 

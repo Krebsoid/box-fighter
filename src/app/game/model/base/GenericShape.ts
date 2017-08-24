@@ -15,7 +15,7 @@ export class GenericShape extends Shape {
   }
 
   isOnScreen(camera: Camera): boolean {
-    return this.descriptor.some(position => camera.shape().containsPosition(new Position(this.x + position.x + 50, this.y + position.y)));
+    return this.descriptor.some(position => camera.shape().containsPosition(new Position(this.x + camera.xOffset + position.x, this.y + camera.yOffset + position.y)));
   }
 
   render(camera: Camera) {

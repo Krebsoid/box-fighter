@@ -23,10 +23,10 @@ export class Shape extends Element {
 
   isOnScreen(camera: Camera): boolean {
     let cameraShape: Shape = camera.shape();
-    return cameraShape.containsPosition(new Position(this.x + 50, this.y)) ||
-      cameraShape.containsPosition(new Position(this.x + 50, this.y + this.h)) ||
-      cameraShape.containsPosition(new Position(this.x + 50 + this.w, this.y)) ||
-      cameraShape.containsPosition(new Position(this.x + + 50 + this.w, this.y + this.h));
+    return cameraShape.containsPosition(new Position(this.x + camera.xOffset, this.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.x + camera.xOffset, this.y + camera.yOffset + this.h)) ||
+      cameraShape.containsPosition(new Position(this.x + camera.xOffset + this.w, this.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.x + camera.xOffset + this.w, this.y + camera.yOffset + this.h));
   }
 
   render(camera: Camera) {

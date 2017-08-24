@@ -6,12 +6,15 @@ export class ExtendedCamera extends Camera {
   element: Element;
   gameArea: GameArea;
 
+  xOffset: number = 370;
+  yOffset: number = 210;
+
   constructor(element: Element, gameArea: GameArea) {
     super(gameArea);
     this.element = element;
   }
 
   update() {
-    this.setPosition(this.element.x - 320, this.element.y - 210);
+    this.setPosition(this.element.x, this.element.y);
   }
 }

@@ -6,6 +6,9 @@ export class BasicCamera extends Camera {
   element: Element;
   gameArea: GameArea;
 
+  xOffset: number = 300;
+  yOffset: number = 0;
+
   constructor(element: Element, gameArea: GameArea) {
     super(gameArea);
     this.element = element;
