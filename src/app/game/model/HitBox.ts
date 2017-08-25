@@ -2,6 +2,7 @@ import {Game} from "../service/Game";
 import {Text} from "./base/Text";
 import {Camera} from "./base/Camera";
 import {ColoredShape} from "./base/ColoredShape";
+import {ElementType} from "./base/ElementType";
 
 export class HitBox extends ColoredShape {
 
@@ -35,5 +36,5 @@ export class HitBox extends ColoredShape {
     this.value = value;
   }
 
-  type: string = "HitBox";
+  type: ElementType = ElementType.HITBOX;
 }

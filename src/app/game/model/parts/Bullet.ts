@@ -7,6 +7,7 @@ import {Valuable} from "../base/Valuable";
 import {Player} from "../base/Player";
 import {Position} from "../base/Position";
 import {Damage, DamageType} from "../base/Damage";
+import {ElementType} from "../base/ElementType";
 
 export class Bullet extends ColoredShape implements Damage {
   maxRange: number = 800;
@@ -51,5 +52,5 @@ export class Bullet extends ColoredShape implements Damage {
     this.travelled += this.speed;
   }
 
-  type: string = "Bullet";
+  type: ElementType = ElementType.BULLET;
 }

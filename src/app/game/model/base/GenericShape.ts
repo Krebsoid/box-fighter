@@ -2,6 +2,7 @@ import {Camera} from "./Camera";
 import {Position} from "./Position";
 import {ShapeDescriptor} from "../shapes/ShapeDescriptor";
 import {Shape} from "./Shape";
+import {ElementType} from "./ElementType";
 
 export class GenericShape extends Shape {
 
@@ -28,5 +29,5 @@ export class GenericShape extends Shape {
     context.fill();
   }
 
-  type: string = "Generic Shape";
+  type: ElementType = ElementType.GENERIC_SHAPE;
 }

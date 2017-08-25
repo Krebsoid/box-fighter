@@ -8,6 +8,8 @@ import {Shape} from "./Shape";
 import {Valuable} from "./Valuable";
 import {ValuableConsumer} from "./ValuableConsumer";
 import {Buyable} from "./Buyable";
+import {ElementType} from "./ElementType";
+import {SceneType} from "../scene/SceneType";
 
 export class Player extends Element implements ValuableConsumer {
 
@@ -15,8 +17,9 @@ export class Player extends Element implements ValuableConsumer {
   hitboxes: Shape[] = [];
   engine: Engine;
   weapon: Weapon;
+  height: number;
 
-  currency: number = 1000;
+  currency: number = 2000;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -27,6 +30,11 @@ export class Player extends Element implements ValuableConsumer {
     let hitbox = new Shape(this.x, this.y, this.z, 50, 50);
     this.hitboxes.push(hitbox);
     this.elements.push(hitbox);
+    this.height = this.calculateHeight();
+  }
+
+  isOnScreen(): boolean {
+    return true;
   }
 
   render(camera: Camera) {
@@ -58,9 +66,17 @@ export class Player extends Element implements ValuableConsumer {
     this.weapon = weapon;
   }
 
+  calculateHeight(): number {
+    let minX = this.x;
+    let maxX = this.x;
+    this.elements.forEach(value => value instanceof Shape && minX >= value.x ? minX = value.x : minX);
+    this.elements.forEach(value => value instanceof Shape && maxX <= value.x + value.h ? maxX = value.x + value.h : maxX);
+    return maxX - minX;
+  }
+
   update(game: Game) {
     this.doMovement(game);
-    //this.checkForHits(game);
+    this.checkForHits(game);
   }
 
   checkForHits(game: Game) {
@@ -72,7 +88,7 @@ export class Player extends Element implements ValuableConsumer {
             colliding = true;
             value.onHit(game);
             game.gameArea.removeElement(this);
-            game.changeGameState('DEAD', 1500);
+            game.changeGameState(SceneType.DEAD, 1500);
             this.elements.forEach(colored => {
               if(colored instanceof ColoredShape) {
                 colored.explode(game);
@@ -97,7 +113,7 @@ export class Player extends Element implements ValuableConsumer {
       let acceleration = this.engine ? this.engine.acceleration : 0;
       let levelBorders = game.getActiveScene().levelBorders;
       if(game.controls.down) {
-        if(this.y <= levelBorders.h) {
+        if(this.y <= levelBorders.h - this.height) {
           this.move(0, acceleration);
           this.elements.forEach(value => value.move(0, acceleration));
         }
@@ -126,5 +142,5 @@ export class Player extends Element implements ValuableConsumer {
     }
   }
 
-  type: string = "Player";
+  type: ElementType = ElementType.PLAYER;
 }

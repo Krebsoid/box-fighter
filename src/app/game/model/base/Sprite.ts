@@ -1,6 +1,7 @@
 import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
+import {ElementType} from "./ElementType";
 
 export class Sprite extends Shape {
 
@@ -41,5 +42,5 @@ export class Sprite extends Shape {
     super.update(game);
   }
 
-  type: string = "Sprite";
+  type: ElementType = ElementType.SPRITE;
 }

@@ -1,8 +1,9 @@
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
+import {SceneType} from "../scene/SceneType";
 
 export abstract class Scene {
-  abstract gameState: string;
+  abstract type: SceneType;
   abstract name: string;
   abstract levelBorders: Shape;
 

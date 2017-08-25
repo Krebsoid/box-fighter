@@ -3,6 +3,7 @@ import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
 import {Position} from "./Position";
+import {ElementType} from "./ElementType";
 
 export class Text extends Element {
 
@@ -41,5 +42,5 @@ export class Text extends Element {
 
   }
 
-  type: string = "Text";
+  type: ElementType = ElementType.TEXT;
 }

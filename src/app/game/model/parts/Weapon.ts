@@ -1,4 +1,4 @@
-import { Element } from '../base/Element';
+import {Element} from '../base/Element';
 import {Game} from "../../service/Game";
 import {Bullet} from "./Bullet";
 import {Position} from "../base/Position";
@@ -8,6 +8,7 @@ import {Buyable} from "../base/Buyable";
 import {Camera} from "../base/Camera";
 import {Player} from "../base/Player";
 import {StrokedText} from "../base/StrokedText";
+import {ElementType} from "../base/ElementType";
 
 export class Weapon extends Equipment implements Buyable {
   value: number = 600;
@@ -99,5 +100,5 @@ export class Weapon extends Equipment implements Buyable {
     });
   }
 
-  type: string = "Weapon";
+  type: ElementType = ElementType.WEAPON;
 }

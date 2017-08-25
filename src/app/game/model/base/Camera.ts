@@ -1,6 +1,7 @@
 import {Element} from "./Element";
 import {GameArea} from "../../service/GameArea";
 import {Shape} from "./Shape";
+import {ElementType} from "./ElementType";
 
 export abstract class Camera extends Element {
   gameArea: GameArea;
@@ -13,4 +14,6 @@ export abstract class Camera extends Element {
   shape(): Shape {
     return new Shape(this.x, this.y, 0, 500, 1024);
   }
+
+  type: ElementType = ElementType.CAMERA;
 }

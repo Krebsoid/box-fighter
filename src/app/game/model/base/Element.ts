@@ -1,6 +1,7 @@
 import {Camera} from "./Camera";
 import {Game, GameTime} from "../../service/Game";
 import {Position} from "./Position";
+import {ElementType} from "./ElementType";
 
 namespace Id {
   let index: number = 0;
@@ -105,5 +106,5 @@ export abstract class Element {
     return this.type + "(" + this.id + ")";
   }
 
-  type: string = "Element";
+  type: ElementType = ElementType.ELEMENT;
 }

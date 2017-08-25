@@ -1,5 +1,6 @@
 import {Element} from "./Element";
 import {Game} from "../../service/Game";
+import {ElementType} from "./ElementType";
 
 export class Position extends Element {
 
@@ -11,4 +12,5 @@ export class Position extends Element {
 
   }
 
+  type: ElementType = ElementType.POSITION;
 }

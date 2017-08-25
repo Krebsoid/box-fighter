@@ -1,5 +1,6 @@
 import {Camera} from "./Camera";
 import {Text} from "./Text";
+import {ElementType} from "./ElementType";
 
 export class StrokedText extends Text {
   stroke: number;
@@ -21,5 +22,5 @@ export class StrokedText extends Text {
     camera.gameArea.getContext().fillText(this.text, this.xOffset, this.yOffset);
   }
 
-  type: string = "Stroked Text";
+  type: ElementType = ElementType.STROKED_TEXT;
 }

@@ -3,6 +3,7 @@ import {Equipment} from "./Equipment";
 import {Position} from "../base/Position";
 import {Game} from "../../service/Game";
 import {ColoredShape} from "../base/ColoredShape";
+import {ElementType} from "../base/ElementType";
 
 export class Engine extends Equipment {
   acceleration: number = 2;
@@ -48,5 +49,5 @@ export class Engine extends Equipment {
     }
   }
 
-  type: string = "Engine";
+  type: ElementType = ElementType.ENGINE;
 }

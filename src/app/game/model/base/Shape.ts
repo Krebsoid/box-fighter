@@ -4,6 +4,7 @@ import {Game} from "../../service/Game";
 import {Behaviour} from "../behaviour/Behaviour";
 import {Position} from "./Position";
 import {Damage} from "./Damage";
+import {ElementType} from "./ElementType";
 
 export class Shape extends Element {
 
@@ -75,5 +76,5 @@ export class Shape extends Element {
     game.gameArea.removeElement(this);
   }
 
-  type: string = "Shape";
+  type: ElementType = ElementType.SHAPE;
 }

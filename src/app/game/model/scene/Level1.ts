@@ -12,10 +12,11 @@ import {Fuel} from "../Fuel";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {BasicCamera} from "../base/BasicCamera";
 import {Shape} from "../base/Shape";
+import {SceneType} from "./SceneType";
 
 export class Level1 extends Scene {
   name: string = "Level1";
-  gameState: string = 'LEVEL1';
+  type: SceneType = SceneType.LEVEL1;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {

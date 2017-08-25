@@ -2,6 +2,7 @@ import {Element} from "./base/Element";
 import {Game} from "../service/Game";
 import {Random} from "../service/util/Random";
 import {ColoredShape} from "./base/ColoredShape";
+import {ElementType} from "./base/ElementType";
 
 export class ShapeMachine extends Element {
 
@@ -29,5 +30,5 @@ export class ShapeMachine extends Element {
     }
   }
 
-  type: string = "ShapeMachine";
+  type: ElementType = ElementType.SHAPE_MACHINE;
 }

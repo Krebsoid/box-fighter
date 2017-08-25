@@ -7,6 +7,8 @@ import {Level1} from "./model/scene/Level1";
 import {WinningScene} from "./model/scene/WinningScene";
 import {Scene} from "./model/base/Scene";
 import {Maze} from "./model/scene/Maze";
+import {ZombieScene} from "./model/scene/ZombieScene";
+import {SceneType} from "./model/scene/SceneType";
 
 @Component({
   templateUrl: './game.component.html',
@@ -24,12 +26,13 @@ export class GameComponent implements OnInit {
     this.addScene(new Level1());
     this.addScene(new WinningScene());
     this.addScene(new Maze());
-    this.game.changeGameState('LEVEL2');
+    this.addScene(new ZombieScene());
+    this.game.changeGameState(SceneType.LEVEL1);
     this.game.init();
   }
 
   private addScene(scene: Scene) {
-    this.game.scenes.set(scene.gameState, scene);
+    this.game.scenes.set(scene.type, scene);
   }
 
   @HostListener('document:keydown', ['$event'])

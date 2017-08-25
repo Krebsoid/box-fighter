@@ -4,6 +4,7 @@ import {ColoredShape} from "./base/ColoredShape";
 import {Camera} from "./base/Camera";
 import {Game} from "../service/Game";
 import {Player} from "./base/Player";
+import {ElementType} from "./base/ElementType";
 
 export class Fuel extends Element {
 
@@ -62,5 +63,5 @@ export class Fuel extends Element {
     });
   }
 
-  type: string = "Fuel";
+  type: ElementType = ElementType.FUEL;
 }

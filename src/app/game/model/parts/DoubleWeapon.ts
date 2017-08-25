@@ -1,4 +1,4 @@
-import { Element } from '../base/Element';
+import {Element} from '../base/Element';
 import {Game} from "../../service/Game";
 import {Bullet} from "./Bullet";
 import {Position} from "../base/Position";
@@ -64,6 +64,4 @@ export class DoubleWeapon extends Weapon {
       this.bulletHole2.move(x, y);
     }
   }
-
-  type: string = "Weapon";
 }
