@@ -1,5 +1,6 @@
 import {Camera} from "./Camera";
 import {Game, GameTime} from "../../service/Game";
+import {Position} from "./Position";
 
 namespace Id {
   let index: number = 0;
@@ -44,11 +45,6 @@ export abstract class Element {
   }
   abstract update(game: Game);
 
-  setPosition(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-
   setKey(key: string) {
     this.key = key;
     return this;
@@ -74,9 +70,31 @@ export abstract class Element {
     return this;
   }
 
+  destination: Position;
+  private percentageX: number;
+  private percentageY: number;
+  setDestination(destination: Position) {
+    this.destination = destination;
+    let deltaX = this.x - destination.x;
+    let deltaY = this.y - destination.y;
+    let max = Math.abs(deltaX) + Math.abs(deltaY);
+    this.percentageX = deltaX / max;
+    this.percentageY = deltaY / max;
+    return this;
+  }
+
+  moveTo(speed: number) {
+    this.move(-(this.percentageX * speed), -(this.percentageY * speed));
+  }
+
   move(x: number, y: number) {
     this.x += x;
     this.y += y;
+  }
+
+  setPosition(x: number, y: number) {
+    this.x = x;
+    this.y = y;
   }
 
   distanceToTarget(target: Element) {

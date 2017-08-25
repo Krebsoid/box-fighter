@@ -1,9 +1,9 @@
 import {Behaviour} from "./Behaviour";
 import {Game} from "../../service/Game";
 import {Position} from "../base/Position";
-import {HomingColoredShape} from "../base/HomingColoredShape";
+import {ColoredShape} from "../base/ColoredShape";
 
-export class PathBehaviour implements Behaviour<HomingColoredShape> {
+export class PathBehaviour implements Behaviour<ColoredShape> {
   speed: number;
   path: Array<(game: Game) => Position>;
   private active: number = 0;
@@ -14,14 +14,14 @@ export class PathBehaviour implements Behaviour<HomingColoredShape> {
     this.path = path;
   }
 
-  behaviour: (game: Game, shape: HomingColoredShape) => void = (game, shape) => {
+  behaviour: (game: Game, shape: ColoredShape) => void = (game, shape) => {
     if(this.needForNewTarget) {
-      shape.setTarget(this.path[this.active](game));
+      shape.setDestination(this.path[this.active](game));
       this.needForNewTarget = false;
     }
     shape.moveTo(this.speed);
-    if(shape.distanceToTarget(shape.target) < this.speed) {
-      shape.setPosition(shape.target.x, shape.target.y);
+    if(shape.distanceToTarget(shape.destination) < this.speed) {
+      shape.setPosition(shape.destination.x, shape.destination.y);
       this.active = this.active + 1 < this.path.length ? this.active + 1 : 0;
       this.needForNewTarget = true;
     }
