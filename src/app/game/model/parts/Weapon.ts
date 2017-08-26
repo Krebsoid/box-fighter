@@ -12,7 +12,7 @@ import {ElementType} from "../base/ElementType";
 
 export class Weapon extends Equipment implements Buyable {
   value: number = 600;
-  reloadSpeed: number = 20;
+  reloadSpeed: number = 40;
   label: StrokedText;
 
   bulletHole: Position;
@@ -50,6 +50,7 @@ export class Weapon extends Equipment implements Buyable {
 
   private reloading: boolean = false;
   private lastShoot: number;
+  timeTillReloaded: number;
   update(game: Game) {
     super.update(game);
     if(this.isAttached() && !this.reloading && game.controls.shoot) {
@@ -60,9 +61,13 @@ export class Weapon extends Equipment implements Buyable {
     if(!this.isAttached()) {
       this.checkForHit(game);
     }
-    let reloaded = game.gameTime - this.lastShoot > this.reloadSpeed;
+    let timeSinceLastShot = game.gameTime - this.lastShoot;
+    let reloaded = timeSinceLastShot > this.reloadSpeed;
     if(reloaded) {
       this.reloading = false;
+      this.timeTillReloaded = 0;
+    } else {
+      this.timeTillReloaded = this.reloadSpeed - timeSinceLastShot;
     }
   }
 

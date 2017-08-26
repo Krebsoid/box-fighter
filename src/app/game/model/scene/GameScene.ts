@@ -20,6 +20,7 @@ import {DoubleWeapon} from "../parts/DoubleWeapon";
 import {BasicCamera} from "../base/BasicCamera";
 import {HitManyBoxes} from "../mission/Mission";
 import {SceneType} from "./SceneType";
+import {WeaponMeter} from "../ui/WeaponMeter";
 
 export class GameScene extends Scene {
   name: string = "Game";
@@ -99,6 +100,8 @@ export class GameScene extends Scene {
 
     game.gameArea.addElement(new Fuel(300, 300, 300));
     game.gameArea.addElement(new Fuel(1000, 300, 300));
+
+    game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));
 

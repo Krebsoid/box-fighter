@@ -13,6 +13,7 @@ import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {BasicCamera} from "../base/BasicCamera";
 import {Shape} from "../base/Shape";
 import {SceneType} from "./SceneType";
+import {WeaponMeter} from "../ui/WeaponMeter";
 
 export class Level1 extends Scene {
   name: string = "Level1";
@@ -48,6 +49,7 @@ export class Level1 extends Scene {
 
     game.gameArea.addElement(new GenericShape(600, 320, 10, "green", new Triangle()));
 
+    game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));
   }

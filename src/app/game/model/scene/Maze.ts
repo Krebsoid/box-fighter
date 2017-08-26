@@ -13,6 +13,7 @@ import {EscapeMaze} from "../mission/Mission";
 import {SceneType} from "./SceneType";
 import {Weapon} from "../parts/Weapon";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
+import {WeaponMeter} from "../ui/WeaponMeter";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -61,6 +62,7 @@ export class Maze extends Scene {
     game.gameArea.addElement(dangerousShape1);
     game.gameArea.addElement(dangerousShape2);
 
+    game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));
   }

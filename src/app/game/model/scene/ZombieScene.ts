@@ -7,6 +7,9 @@ import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
 import {Player} from "../base/Player";
 import {SceneType} from "./SceneType";
+import {CurrencyMeter} from "../ui/CurrencyMeter";
+import {FuelMeter} from "../ui/FuelMeter";
+import {WeaponMeter} from "../ui/WeaponMeter";
 
 export class ZombieScene extends Scene {
   name: string = "Level 3";
@@ -24,5 +27,9 @@ export class ZombieScene extends Scene {
     game.gameArea.addElement(new ColoredShape(600, 300, 1, 20, 20, "white").isDestructible(true));
     game.gameArea.addElement(new ColoredShape(550, 300, 1, 20, 20, "white").isDestructible(true));
     game.gameArea.addElement(new ColoredShape(520, 400, 1, 20, 100, "white").isDestructible(true));
+
+    game.gameArea.addElement(new WeaponMeter(player));
+    game.gameArea.addElement(new FuelMeter(player));
+    game.gameArea.addElement(new CurrencyMeter(player));
   }
 }
