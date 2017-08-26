@@ -12,6 +12,7 @@ import {ElementType} from "../base/ElementType";
 
 export class Weapon extends Equipment implements Buyable {
   value: number = 600;
+  reloadSpeed: number = 20;
   label: StrokedText;
 
   bulletHole: Position;
@@ -47,13 +48,21 @@ export class Weapon extends Equipment implements Buyable {
     return super.isOnScreen(camera) || this.label.isOnScreen(camera);
   }
 
+  private reloading: boolean = false;
+  private lastShoot: number;
   update(game: Game) {
     super.update(game);
-    if(this.isAttached() && game.gameTime % 20 == 0 && game.controls.shoot) {
+    if(this.isAttached() && !this.reloading && game.controls.shoot) {
+      this.reloading = true;
+      this.lastShoot = game.gameTime;
       game.gameArea.addElement(new Bullet(this, this.bulletHole).isDangerous(false));
     }
     if(!this.isAttached()) {
       this.checkForHit(game);
+    }
+    let reloaded = game.gameTime - this.lastShoot > this.reloadSpeed;
+    if(reloaded) {
+      this.reloading = false;
     }
   }
 
