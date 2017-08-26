@@ -23,6 +23,9 @@ export abstract class Element {
   dangerous: boolean = true;
   fixed: boolean = false;
 
+  maxLife: number = 1;
+  life: number = 1;
+
   key: string = "";
 
   isOnScreen(camera: Camera): boolean {
@@ -96,6 +99,12 @@ export abstract class Element {
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  setLife(life: number) {
+    this.life = life;
+    this.maxLife = life;
+    return this;
   }
 
   distanceToTarget(target: Element) {

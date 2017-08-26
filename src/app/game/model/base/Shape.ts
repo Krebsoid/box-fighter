@@ -7,12 +7,9 @@ import {Damage} from "./Damage";
 import {ElementType} from "./ElementType";
 
 export class Shape extends Element {
-
   h: number;
   w: number;
   colliding: boolean;
-  maxLife: number = 1;
-  life: number = 1;
 
   behaviours : Map<string, (game: Game, shape: any) => void> = new Map<string, (game: Game, shape: any) => void>();
 
