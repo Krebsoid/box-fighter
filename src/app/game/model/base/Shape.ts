@@ -58,10 +58,15 @@ export class Shape extends Element {
   }
 
   collision?(shape: Shape) : boolean {
-    return shape != this && shape.collidable && this.x < shape.x + shape.w &&
-      this.x + this.w > shape.x &&
-      this.y < shape.y + shape.h &&
-      this.h + this.y > shape.y;
+    let hitBox = shape.getHitBox();
+    return shape != this && shape.collidable && this.x < hitBox.x + hitBox.w &&
+      this.x + this.w > hitBox.x &&
+      this.y < hitBox.y + hitBox.h &&
+      this.h + this.y > hitBox.y;
+  }
+
+  getHitBox(): Shape {
+    return this;
   }
 
   onDamage(damage: Damage) {
