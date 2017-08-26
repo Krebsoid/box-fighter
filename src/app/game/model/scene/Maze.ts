@@ -1,21 +1,23 @@
 import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
-import {Weapon} from "../parts/Weapon";
 import {Player} from "../base/Player";
 import {ColoredShape} from "../base/ColoredShape";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
-import {HomingColoredShape} from "../base/HomingColoredShape";
 import {PathBehaviour} from "../behaviour/PathBehaviour";
 import {Position} from "../base/Position";
-import {ExtendedCamera} from "../base/ExtendedCamera";
 import {Shape} from "../base/Shape";
+import {BasicCamera} from "../base/BasicCamera";
+import {EscapeMaze} from "../mission/Mission";
+import {SceneType} from "./SceneType";
+import {Weapon} from "../parts/Weapon";
+import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 
 export class Maze extends Scene {
   name: string = "Maze";
-  gameState: string = 'MAZE';
-  levelBorders: Shape = new Shape(0, 0, 0, 3000, 3000);
+  type: SceneType = SceneType.MAZE;
+  levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
     let player = new Player();
@@ -24,68 +26,37 @@ export class Maze extends Scene {
     player.setEngine(new Engine(0,0,0));
     game.gameArea.addElement(player);
 
-    let camera = new ExtendedCamera(player, game.gameArea);
+    let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
-    this.createEnvironment(game, 500, 0);
-    this.createEnvironment(game, 500, 50);
-    this.createEnvironment(game, 500, 100);
-    this.createEnvironment(game, 500, 150);
-    this.createEnvironment(game, 500, 200);
-    this.createEnvironment(game, 500, 350);
-    this.createEnvironment(game, 500, 400);
-    this.createEnvironment(game, 500, 450);
+    game.gameArea.addElement(new ColoredShape(500, 0, 1, 200, 50, "black"));
+    game.gameArea.addElement(new ColoredShape(500, 300, 1, 250, 50, "black"));
 
-    this.createEnvironment(game, 700, 100);
-    this.createEnvironment(game, 700, 150);
-    this.createEnvironment(game, 700, 200);
-    this.createEnvironment(game, 700, 250);
-    this.createEnvironment(game, 700, 300);
-    this.createEnvironment(game, 700, 350);
+    game.gameArea.addElement(new ColoredShape(700, 100, 1, 300, 550, "black"));
+    game.gameArea.addElement(new ColoredShape(750, 150, 2, 200, 450, "cyan"));
 
-    this.createEnvironment(game, 1200, 100);
-    this.createEnvironment(game, 1200, 150);
-    this.createEnvironment(game, 1200, 200);
-    this.createEnvironment(game, 1200, 250);
-    this.createEnvironment(game, 1200, 300);
-    this.createEnvironment(game, 1200, 350);
+    game.gameArea.addElement(new ColoredShape(1400, 0, 1, 200, 50, "black"));
+    game.gameArea.addElement(new ColoredShape(1400, 300, 1, 250, 50, "black"));
+    let target = new ColoredShape(1485, 200, 1, 100, 5, "white").isDangerous(false);
+    game.gameArea.addElement(target);
+    game.gameArea.addElement(new EscapeMaze(target));
 
-    this.createEnvironment(game, 750, 350);
-    this.createEnvironment(game, 800, 350);
-    this.createEnvironment(game, 850, 350);
-    this.createEnvironment(game, 900, 350);
-    this.createEnvironment(game, 950, 350);
-    this.createEnvironment(game, 1000, 350);
-    this.createEnvironment(game, 1050, 350);
-    this.createEnvironment(game, 1100, 350);
-    this.createEnvironment(game, 1150, 350);
-
-    this.createEnvironment(game, 750, 100);
-    this.createEnvironment(game, 800, 100);
-    this.createEnvironment(game, 850, 100);
-    this.createEnvironment(game, 900, 100);
-    this.createEnvironment(game, 950, 100);
-    this.createEnvironment(game, 1000, 100);
-    this.createEnvironment(game, 1050, 100);
-    this.createEnvironment(game, 1100, 100);
-    this.createEnvironment(game, 1150, 100);
-
-    let dangerousShape1 = new HomingColoredShape(1250, 350, 5, 100, 100, "red");
-    let dangerousShape2 = new HomingColoredShape(600, 0, 5, 100, 100, "red");
-    let pathBehaviour = new PathBehaviour(5, [
+    let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30);
+    let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30);
+    let pathBehaviour = new PathBehaviour(2, [
       (game: Game) => new Position(1250, 0),
       (game: Game) => new Position(600, 0),
       (game: Game) => new Position(600, 400),
       (game: Game) => new Position(1250, 400)
     ]);
-    let pathBehaviour2 = new PathBehaviour(5, [
+    let pathBehaviour2 = new PathBehaviour(2, [
       (game: Game) => new Position(600, 400),
       (game: Game) => new Position(1250, 400),
       (game: Game) => new Position(1250, 0),
       (game: Game) => new Position(600, 0)
     ]);
-    dangerousShape1.addGenericBehaviour<HomingColoredShape>("path", pathBehaviour);
-    dangerousShape2.addGenericBehaviour<HomingColoredShape>("path", pathBehaviour2);
+    dangerousShape1.addGenericBehaviour<ColoredShape>("path", pathBehaviour);
+    dangerousShape2.addGenericBehaviour<ColoredShape>("path", pathBehaviour2);
 
     game.gameArea.addElement(dangerousShape1);
     game.gameArea.addElement(dangerousShape2);
@@ -93,9 +64,4 @@ export class Maze extends Scene {
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));
   }
-
-  private createEnvironment(game: Game, x: number, y: number) {
-    game.gameArea.addElement(new ColoredShape(x, y, 1, 50, 50, "black"));
-  }
-
 }
