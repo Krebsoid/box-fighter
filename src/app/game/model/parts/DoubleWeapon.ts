@@ -8,6 +8,7 @@ import {Weapon} from "./Weapon";
 
 export class DoubleWeapon extends Weapon {
   value: number = 1500;
+  reloadSpeed: number = 20;
 
   bulletHole: Position;
   bulletHole2: Position;
