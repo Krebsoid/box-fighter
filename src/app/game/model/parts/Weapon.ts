@@ -56,7 +56,7 @@ export class Weapon extends Equipment implements Buyable {
     if(this.isAttached() && !this.reloading && game.controls.shoot) {
       this.reloading = true;
       this.lastShoot = game.gameTime;
-      game.gameArea.addElement(new Bullet(this, this.bulletHole).isDangerous(false));
+      this.shoot(game);
     }
     if(!this.isAttached()) {
       this.checkForHit(game);
@@ -69,6 +69,10 @@ export class Weapon extends Equipment implements Buyable {
     } else {
       this.timeTillReloaded = this.reloadSpeed - timeSinceLastShot;
     }
+  }
+
+  shoot(game: Game) {
+    game.gameArea.addElement(new Bullet(this, this.bulletHole).isDangerous(false));
   }
 
   move(x: number, y: number) {

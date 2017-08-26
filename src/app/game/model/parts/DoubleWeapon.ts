@@ -51,12 +51,10 @@ export class DoubleWeapon extends Weapon {
     this.bulletHole2 = new Position(target.x+80+2, target.y+28-6+10);
   }
 
-  update(game: Game) {
-    super.update(game);
-    if(this.isAttached() && game.gameTime % 20 == 0 && game.controls.shoot) {
-      let bullet = new Bullet(this, this.bulletHole2).isDangerous(false);
-      game.gameArea.addElement(bullet);
-    }
+
+  shoot(game: Game) {
+    super.shoot(game);
+    game.gameArea.addElement(new Bullet(this, this.bulletHole2).isDangerous(false));
   }
 
   move(x: number, y: number) {
