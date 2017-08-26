@@ -2,8 +2,11 @@ import {Game} from "../../service/Game";
 import {Element} from "../base/Element";
 import {Camera} from "../base/Camera";
 import {StrokedText} from "../base/StrokedText";
-import {Position} from "../base/Position";
 import {Shape} from "../base/Shape";
+import {EventListener} from "../base/EventListener";
+import {KillEvent} from "../base/Event";
+import {ElementType} from "../base/ElementType";
+import {SceneType} from "../scene/SceneType";
 
 export class Mission {
   tasks: Map<number, Task>;
@@ -12,11 +15,12 @@ export class Mission {
 export abstract class Task extends Element {
   abstract description: string;
   done: boolean = false;
+  fixed: boolean = true;
 
   abstract onSuccess: (game: Game) => void;
   abstract onFail: (game: Game) => void;
 
-  type: string = "Task";
+  type: ElementType = ElementType.TASK;
 }
 
 export class HitBoxes extends Task {
@@ -26,15 +30,14 @@ export class HitBoxes extends Task {
   }
 
   description: string = "Zerstöre alle roten Kisten aber keine grünen";
-  fixed: boolean = true;
   label: StrokedText;
 
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.changeGameState("MAZE");
+    game.changeGameState(SceneType.MAZE);
     this.done = true;
   };
   onFail: (game: Game) => void = (game: Game) => {
-    game.changeGameState("DEAD");
+    game.changeGameState(SceneType.DEAD);
     this.done = true;
   };
 
@@ -55,7 +58,6 @@ export class HitBoxes extends Task {
 }
 
 export class EscapeMaze extends Task {
-  fixed: boolean = true;
   label: StrokedText;
   target: Shape;
 
@@ -69,7 +71,7 @@ export class EscapeMaze extends Task {
 
   description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.changeGameState("LEVEL2");
+    game.changeGameState(SceneType.LEVEL2);
     this.done = true;
   };
   onFail: (game: Game) => void;
@@ -84,5 +86,41 @@ export class EscapeMaze extends Task {
       let target = <Shape>game.gameArea.elements.filter(value => value.key == "target")[0];
       game.gameArea.getPlayer().hitboxes.some(value => value.collision(target)) ? this.onSuccess(game) : undefined;
     }
+  }
+}
+
+export class HitManyBoxes extends Task implements EventListener {
+  label: StrokedText;
+  killedBoxes: number = 0;
+
+  constructor() {
+    super(0,0,0);
+    this.label = new StrokedText(100, 50, 100, "red", "30pt Calibri", 0, "black").isFixed(true);
+    this.label.text = this.description;
+  }
+
+  description: string = "Zerstöre noch weitere 50 Kisten";
+  onSuccess: (game: Game) => void = (game: Game) => {
+    game.changeGameState(SceneType.WIN);
+    this.done = true;
+  };
+  onFail: (game: Game) => void;
+
+  render(camera: Camera): any {
+    this.label.render(camera);
+    super.render(camera);
+  }
+
+  update(game: Game) {
+    this.label.text = this.description + " (" + this.killedBoxes + " schon getroffen)";
+    if(!this.done) {
+      if(this.killedBoxes >= 50) {
+        this.onSuccess(game);
+      }
+    }
+  }
+
+  onEvent(event: KillEvent) {
+    this.killedBoxes = event.object.type !== ElementType.BULLET ? this.killedBoxes + 1 : this.killedBoxes;
   }
 }

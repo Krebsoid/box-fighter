@@ -2,6 +2,8 @@ import {Camera} from "./Camera";
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
 import {Valuable} from "./Valuable";
+import {KillEvent} from "./Event";
+import {ElementType} from "./ElementType";
 
 export class ColoredShape extends Shape implements Valuable {
 
@@ -28,6 +30,7 @@ export class ColoredShape extends Shape implements Valuable {
 
   onKill(game: Game): any {
     this.explode(game);
+    game.addEvent(new KillEvent(this));
     super.onKill(game);
   }
 
@@ -52,11 +55,11 @@ export class ColoredShape extends Shape implements Valuable {
     return fragment;
   }
 
-  value: number = 20;
+  value: number;
 
   setValue(value: number) {
     this.value = value;
   }
 
-  type: string = "Colored Shape";
+  type: ElementType = ElementType.COLORED_SHAPE;
 }

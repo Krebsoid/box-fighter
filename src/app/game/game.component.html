@@ -8,8 +8,5 @@
     <div>
       Elements on screen: {{ game.gameArea.elementsOnCamera().length }}
     </div>
-    <span *ngFor="let element of game.gameArea.elementsOnCamera(); let last = last">
-      {{ element.type }}{{ !last ? "," : "" }}
-    </span>
   </div>
 </div>

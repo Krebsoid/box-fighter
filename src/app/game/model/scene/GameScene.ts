@@ -15,14 +15,15 @@ import {Heart} from "../shapes/Heart";
 import {ShapeMachine} from "../ShapeMachine";
 import {CircleBehaviour} from "../behaviour/CircleBehaviour";
 import {SinusBehaviour} from "../behaviour/SinusBehaviour";
-import {StrokedText} from "../base/StrokedText";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {DoubleWeapon} from "../parts/DoubleWeapon";
 import {BasicCamera} from "../base/BasicCamera";
+import {HitManyBoxes} from "../mission/Mission";
+import {SceneType} from "./SceneType";
 
 export class GameScene extends Scene {
   name: string = "Game";
-  gameState: string = 'LEVEL2';
+  type: SceneType = SceneType.LEVEL2;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
@@ -33,6 +34,10 @@ export class GameScene extends Scene {
 
     let newWeapon = new DoubleWeapon(200,400,10);
     game.gameArea.addElement(newWeapon);
+
+    let hitManyBoxes = new HitManyBoxes();
+    game.registerEventListener(hitManyBoxes);
+    game.gameArea.addElement(hitManyBoxes);
 
     let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
@@ -102,9 +107,5 @@ export class GameScene extends Scene {
     let heart = new GenericShape(700, 320, 10, "red", new Heart());
     heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100));
     game.gameArea.addElement(heart);
-
-    let staticTextWithStroke = new StrokedText(100, 60, 20, "green", "30pt Calibri", 3, "black");
-    staticTextWithStroke.text = "Hallo, am besten hol dir erstmal die Doppel-Wumme";
-    game.gameArea.addElement(staticTextWithStroke);
   }
 }
