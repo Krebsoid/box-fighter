@@ -14,6 +14,7 @@ import {SceneType} from "./SceneType";
 import {Weapon} from "../parts/Weapon";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {WeaponMeter} from "../ui/WeaponMeter";
+import {Text} from "../base/Text";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -58,6 +59,19 @@ export class Maze extends Scene {
     ]);
     dangerousShape1.addGenericBehaviour<ColoredShape>("path", pathBehaviour);
     dangerousShape2.addGenericBehaviour<ColoredShape>("path", pathBehaviour2);
+
+    let textUp = new Text(107, 180, 2, "black", "30pt Calibri");
+    textUp.text = "↑ W";
+    game.gameArea.addElement(textUp);
+    let textDown = new Text(107, 340, 2, "black", "30pt Calibri");
+    textDown.text = "↓ S";
+    game.gameArea.addElement(textDown);
+    let textRight = new Text(220, 261, 2, "black", "30pt Calibri");
+    textRight.text = "→ D";
+    game.gameArea.addElement(textRight);
+    let textLeft = new Text(-20, 260, 2, "black", "30pt Calibri");
+    textLeft.text = "← A";
+    game.gameArea.addElement(textLeft);
 
     game.gameArea.addElement(dangerousShape1);
     game.gameArea.addElement(dangerousShape2);

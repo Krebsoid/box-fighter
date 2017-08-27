@@ -14,6 +14,7 @@ import {BasicCamera} from "../base/BasicCamera";
 import {Shape} from "../base/Shape";
 import {SceneType} from "./SceneType";
 import {WeaponMeter} from "../ui/WeaponMeter";
+import {Text} from "../base/Text";
 
 export class Level1 extends Scene {
   name: string = "Level1";
@@ -44,10 +45,14 @@ export class Level1 extends Scene {
     noTarget.setValue(0);
     game.gameArea.addElement(noTarget);
 
-    game.gameArea.addElement(new Fuel(300, 300, 300));
+    game.gameArea.addElement(new Fuel(380, 380, 300));
     game.gameArea.addElement(new Fuel(1000, 300, 300));
 
     game.gameArea.addElement(new GenericShape(600, 320, 10, "green", new Triangle()));
+
+    let textDown = new Text(-50, 340, 2, "black", "30pt Calibri");
+    textDown.text = "Leertaste zum Schießen";
+    game.gameArea.addElement(textDown);
 
     game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));

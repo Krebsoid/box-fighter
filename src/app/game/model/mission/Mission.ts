@@ -33,7 +33,7 @@ export class HitBoxes extends Task {
   label: StrokedText;
 
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.changeGameState(SceneType.MAZE);
+    game.changeGameState(SceneType.LEVEL2);
     this.done = true;
   };
   onFail: (game: Game) => void = (game: Game) => {
@@ -71,7 +71,7 @@ export class EscapeMaze extends Task {
 
   description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.changeGameState(SceneType.LEVEL2);
+    game.changeGameState(SceneType.LEVEL1);
     this.done = true;
   };
   onFail: (game: Game) => void;
