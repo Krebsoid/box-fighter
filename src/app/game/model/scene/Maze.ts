@@ -128,10 +128,10 @@ export class MazeIntro extends Scene {
     text.text = "Level 1";
     game.gameArea.addElement(text);
     let text2 = new Text(310, 260, 1, "blue", "40pt Calibri").isFixed(true);
-    text2.text = "Learn to fly!";
+    text2.text = "Lerne Fliegen!";
     game.gameArea.addElement(text2);
     let text3 = new Text(310, 360, 1, "black", "20pt Calibri").isFixed(true);
-    text3.text = "Press SPACE to start";
+    text3.text = "Drück LEERTASTE zum Starten";
     text3.addGenericBehaviour("blink", new BlinkBehaviour(text3, game.gameTime, 50, 10));
     game.gameArea.addElement(text3);
 

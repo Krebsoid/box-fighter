@@ -37,13 +37,13 @@ export class Level1 extends Scene {
     let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
-    game.gameArea.addElement(new ShrinkingColoredShape(300, 100, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(500, 400, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(700, 200, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(500, 300, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(100, 100, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(300, 200, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(700, 300, 1, 50, 50, "#ff000f").setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(300, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(500, 400, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(700, 200, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(500, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(100, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(300, 200, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(700, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
 
     let noTarget = new ShrinkingColoredShape(350, 100, 1, 50, 50, "green").setKey("no-target").isDestructible(true);
     noTarget.setValue(0);
@@ -111,10 +111,10 @@ export class Level1Intro extends Scene {
     text.text = "Level 2";
     game.gameArea.addElement(text);
     let text2 = new Text(310, 260, 1, "blue", "40pt Calibri").isFixed(true);
-    text2.text = "Learn to shoot!";
+    text2.text = "Lerne schießen!";
     game.gameArea.addElement(text2);
     let text3 = new Text(310, 360, 1, "black", "20pt Calibri").isFixed(true);
-    text3.text = "Press SPACE to start";
+    text3.text = "Drücke LEERTASTE zum Starten";
     text3.addGenericBehaviour("blink", new BlinkBehaviour(text3, game.gameTime, 50, 10));
     game.gameArea.addElement(text3);
 

@@ -168,10 +168,10 @@ export class Level2Intro extends Scene {
     text.text = "Level 3";
     game.gameArea.addElement(text);
     let text2 = new Text(310, 260, 1, "blue", "40pt Calibri").isFixed(true);
-    text2.text = "Learn to survive!";
+    text2.text = "Lerne zu überleben!";
     game.gameArea.addElement(text2);
     let text3 = new Text(310, 360, 1, "black", "20pt Calibri").isFixed(true);
-    text3.text = "Press SPACE to start";
+    text3.text = "Drücke LEERTASTE zum Starten";
     text3.addGenericBehaviour("blink", new BlinkBehaviour(text3, game.gameTime, 50, 10));
     game.gameArea.addElement(text3);
 

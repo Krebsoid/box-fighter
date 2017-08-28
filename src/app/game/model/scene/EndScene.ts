@@ -18,8 +18,8 @@ export class EndScene extends Scene {
     text.text = "YOU DIED!";
     game.gameArea.addElement(text);
 
-    let text3 = new Text(310, 360, 1, "black", "20pt Calibri").isFixed(true);
-    text3.text = "Press SPACE to try again";
+    let text3 = new Text(250, 360, 1, "black", "20pt Calibri").isFixed(true);
+    text3.text = "Drücke LEERTASTE um neu zu beginnen";
     text3.addGenericBehaviour("blink", new BlinkBehaviour(text3, game.gameTime, 50, 10));
     game.gameArea.addElement(text3);
 
