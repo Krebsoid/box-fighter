@@ -17,6 +17,8 @@ import {Text} from "../base/Text";
 import {StrokedText} from "../base/StrokedText";
 import {Task} from "../mission/Mission";
 import {Camera} from "../base/Camera";
+import {StaticCamera} from "../base/StaticCamera";
+import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -98,7 +100,7 @@ export class EscapeMaze extends Task {
 
   description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.changeGameState(SceneType.LEVEL1);
+    game.changeGameState(SceneType.LEVEL1_INTRO);
     this.done = true;
   };
 
@@ -111,6 +113,39 @@ export class EscapeMaze extends Task {
     if(!this.done && game.gameArea.getPlayer()) {
       let target = <Shape>game.gameArea.elements.filter(value => value.key == "target")[0];
       game.gameArea.getPlayer().hitboxes.some(value => value.collision(target)) ? this.onSuccess(game) : undefined;
+    }
+  }
+}
+
+export class MazeIntro extends Scene {
+  name: string = "Maze Intro";
+  type: SceneType = SceneType.MAZE_INTRO;
+  levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
+
+  init(game: Game) {
+    game.gameArea.setCamera(new StaticCamera(game.gameArea));
+    let text = new Text(300, 160, 1, "blue", "80pt Calibri").isFixed(true);
+    text.text = "Level 1";
+    game.gameArea.addElement(text);
+    let text2 = new Text(310, 260, 1, "blue", "40pt Calibri").isFixed(true);
+    text2.text = "Learn to fly!";
+    game.gameArea.addElement(text2);
+    let text3 = new Text(310, 360, 1, "black", "20pt Calibri").isFixed(true);
+    text3.text = "Press SPACE to start";
+    text3.addGenericBehaviour("blink", new BlinkBehaviour(text3, game.gameTime, 50, 10));
+    game.gameArea.addElement(text3);
+
+    let spaceTask = new SpaceTask();
+    game.gameArea.addElement(spaceTask);
+  }
+}
+
+export class SpaceTask extends Task {
+  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.MAZE, 500);
+
+  update(game: Game) {
+    if(game.controls.shoot) {
+      this.onSuccess(game);
     }
   }
 }

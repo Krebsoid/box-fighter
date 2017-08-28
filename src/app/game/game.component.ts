@@ -1,15 +1,14 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GameArea} from "./service/GameArea";
 import {Game} from "./service/Game";
-import {GameScene} from "./model/scene/GameScene";
+import {GameScene, Level2Intro} from "./model/scene/GameScene";
 import {EndScene} from "./model/scene/EndScene";
-import {Level1} from "./model/scene/Level1";
+import {Level1, Level1Intro} from "./model/scene/Level1";
 import {WinningScene} from "./model/scene/WinningScene";
 import {Scene} from "./model/base/Scene";
-import {Maze} from "./model/scene/Maze";
+import {Maze, MazeIntro} from "./model/scene/Maze";
 import {ZombieScene} from "./model/scene/ZombieScene";
 import {SceneType} from "./model/scene/SceneType";
-import {Level1Intro} from "./model/scene/Level1Intro";
 
 @Component({
   templateUrl: './game.component.html',
@@ -22,14 +21,16 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addScene(new Level2Intro());
     this.addScene(new GameScene());
     this.addScene(new EndScene());
     this.addScene(new Level1());
     this.addScene(new Level1Intro());
+    this.addScene(new MazeIntro());
     this.addScene(new WinningScene());
     this.addScene(new Maze());
     this.addScene(new ZombieScene());
-    this.game.changeGameState(SceneType.LEVEL1_INTRO);
+    this.game.changeGameState(SceneType.MAZE_INTRO);
     this.game.init();
   }
 
