@@ -31,7 +31,7 @@ export class Level1Intro extends Scene {
 }
 
 export class SpaceTask extends Task {
-  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.LEVEL1);
+  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.LEVEL1, 500);
 
   update(game: Game) {
     if(game.controls.shoot) {
