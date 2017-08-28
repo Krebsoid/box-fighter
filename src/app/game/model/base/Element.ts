@@ -2,6 +2,7 @@ import {Camera} from "./Camera";
 import {Game, GameTime} from "../../service/Game";
 import {Position} from "./Position";
 import {ElementType} from "./ElementType";
+import {Behaviour} from "../behaviour/Behaviour";
 
 namespace Id {
   let index: number = 0;
@@ -28,6 +29,8 @@ export abstract class Element {
 
   key: string = "";
 
+  behaviours : Map<string, (game: Game, shape: any) => void> = new Map<string, (game: Game, shape: any) => void>();
+
   isOnScreen(camera: Camera): boolean {
     return this.x >= camera.x + camera.xOffset && this.x <= camera.x + 1024 + camera.xOffset
   }
@@ -47,7 +50,23 @@ export abstract class Element {
     this.xOffset = this.fixed ? this.x : this.x - camera.x + camera.xOffset;
     this.yOffset = this.fixed ? this.y : this.y - camera.y + camera.yOffset;
   }
-  abstract update(game: Game);
+  update(game: Game) {
+    if(this.behaviours.size > 0) {
+      this.behaviours.forEach(behaviour => behaviour(game, this));
+    }
+  }
+
+  addBehaviour<SHAPE>(name: string, behaviour: (game: Game, shape: SHAPE) => void) {
+    this.behaviours.set(name, behaviour);
+  }
+
+  addGenericBehaviour<SHAPE>(name: string, behaviour: Behaviour<SHAPE>) {
+    this.behaviours.set(name, behaviour.behaviour);
+  }
+
+  removeBehaviour(name: string) {
+    this.behaviours.delete(name);
+  }
 
   setKey(key: string) {
     this.key = key;

@@ -38,9 +38,5 @@ export class Text extends Element {
     this.textHeight = textMetrics.height;
   }
 
-  update(game: Game) {
-
-  }
-
   type: ElementType = ElementType.TEXT;
 }
