@@ -7,7 +7,6 @@ import {GenericShape} from "../base/GenericShape";
 import {Triangle} from "../shapes/Triangle";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
-import {HitBoxes} from "../mission/Mission";
 import {Fuel} from "../Fuel";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {BasicCamera} from "../base/BasicCamera";
@@ -15,6 +14,9 @@ import {Shape} from "../base/Shape";
 import {SceneType} from "./SceneType";
 import {WeaponMeter} from "../ui/WeaponMeter";
 import {Text} from "../base/Text";
+import {StrokedText} from "../base/StrokedText";
+import {Camera} from "../base/Camera";
+import {Task} from "../mission/Mission";
 
 export class Level1 extends Scene {
   name: string = "Level1";
@@ -24,8 +26,8 @@ export class Level1 extends Scene {
   init(game: Game) {
     let player = new Player();
     player.currency = 0;
-    player.setWeapon(new Weapon(0,0,0));
-    player.setEngine(new Engine(0,0,0));
+    player.setWeapon(new Weapon(0, 0, 0));
+    player.setEngine(new Engine(0, 0, 0));
     game.gameArea.addElement(player);
 
     game.gameArea.addElement(new HitBoxes());
@@ -59,4 +61,38 @@ export class Level1 extends Scene {
     game.gameArea.addElement(new CurrencyMeter(player));
   }
 
+}
+
+export class HitBoxes extends Task {
+  constructor() {
+    super();
+    this.label = new StrokedText(10, 50, 0, "red", "30pt Calibri",0,"black").isFixed(true)
+  }
+
+  description: string = "Zerstöre alle roten Kisten aber keine grünen";
+  label: StrokedText;
+
+  onSuccess: (game: Game) => void = (game: Game) => {
+    game.changeGameState(SceneType.LEVEL2);
+    this.done = true;
+  };
+  onFail: (game: Game) => void = (game: Game) => {
+    game.changeGameState(SceneType.DEAD);
+    this.done = true;
+  };
+
+  render(camera: Camera): any {
+    this.label.render(camera);
+    super.render(camera);
+  }
+
+  update(game: Game) {
+    if(!this.done) {
+      let numberOfBoxesLeft = game.gameArea.elements.filter(value => value.key == "target").length;
+      let numberOfNoTargetBoxes = game.gameArea.elements.filter(value => value.key == "no-target").length;
+      this.label.text = this.description + "(" + numberOfBoxesLeft.toString() + " Kiste(n) übrig)";
+      numberOfNoTargetBoxes < 1 ? this.onFail(game) : undefined;
+      numberOfBoxesLeft == 0 ? this.onSuccess(game) : undefined;
+    }
+  }
 }

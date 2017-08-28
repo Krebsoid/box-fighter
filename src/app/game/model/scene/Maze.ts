@@ -9,12 +9,14 @@ import {PathBehaviour} from "../behaviour/PathBehaviour";
 import {Position} from "../base/Position";
 import {Shape} from "../base/Shape";
 import {BasicCamera} from "../base/BasicCamera";
-import {EscapeMaze} from "../mission/Mission";
 import {SceneType} from "./SceneType";
 import {Weapon} from "../parts/Weapon";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {WeaponMeter} from "../ui/WeaponMeter";
 import {Text} from "../base/Text";
+import {StrokedText} from "../base/StrokedText";
+import {Task} from "../mission/Mission";
+import {Camera} from "../base/Camera";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -79,5 +81,36 @@ export class Maze extends Scene {
     game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));
+  }
+}
+
+export class EscapeMaze extends Task {
+  label: StrokedText;
+  target: Shape;
+
+  constructor(target: Shape) {
+    super();
+    target.setKey("target");
+    this.target = target;
+    this.label = new StrokedText(100, 50, 100, "red", "30pt Calibri", 0, "black").isFixed(true);
+    this.label.text = this.description;
+  }
+
+  description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
+  onSuccess: (game: Game) => void = (game: Game) => {
+    game.changeGameState(SceneType.LEVEL1);
+    this.done = true;
+  };
+
+  render(camera: Camera): any {
+    this.label.render(camera);
+    super.render(camera);
+  }
+
+  update(game: Game) {
+    if(!this.done && game.gameArea.getPlayer()) {
+      let target = <Shape>game.gameArea.elements.filter(value => value.key == "target")[0];
+      game.gameArea.getPlayer().hitboxes.some(value => value.collision(target)) ? this.onSuccess(game) : undefined;
+    }
   }
 }

@@ -1,4 +1,5 @@
 export class SceneType {
+  static LEVEL1_INTRO: string = "Level1 Intro";
   static LEVEL1: string = "Level1";
   static MAZE: string = "Maze";
   static WIN: string = "Winning";

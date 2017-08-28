@@ -18,9 +18,14 @@ import {SinusBehaviour} from "../behaviour/SinusBehaviour";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {DoubleWeapon} from "../parts/DoubleWeapon";
 import {BasicCamera} from "../base/BasicCamera";
-import {HitManyBoxes} from "../mission/Mission";
 import {SceneType} from "./SceneType";
 import {WeaponMeter} from "../ui/WeaponMeter";
+import {StrokedText} from "../base/StrokedText";
+import {Task} from "../mission/Mission";
+import {Camera} from "../base/Camera";
+import {KillEvent} from "../base/Event";
+import {ElementType} from "../base/ElementType";
+import {EventListener} from "../base/EventListener";
 
 export class GameScene extends Scene {
   name: string = "Game";
@@ -112,3 +117,39 @@ export class GameScene extends Scene {
     game.gameArea.addElement(heart);
   }
 }
+
+export class HitManyBoxes extends Task implements EventListener {
+  label: StrokedText;
+  killedBoxes: number = 0;
+
+  constructor() {
+    super();
+    this.label = new StrokedText(100, 50, 100, "red", "30pt Calibri", 0, "black").isFixed(true);
+    this.label.text = this.description;
+  }
+
+  description: string = "Zerstöre noch weitere 50 Kisten";
+  onSuccess: (game: Game) => void = (game: Game) => {
+    game.changeGameState(SceneType.WIN);
+    this.done = true;
+  };
+
+  render(camera: Camera): any {
+    this.label.render(camera);
+    super.render(camera);
+  }
+
+  update(game: Game) {
+    this.label.text = this.description + " (" + this.killedBoxes + " schon getroffen)";
+    if(!this.done) {
+      if(this.killedBoxes >= 50) {
+        this.onSuccess(game);
+      }
+    }
+  }
+
+  onEvent(event: KillEvent) {
+    this.killedBoxes = event.object.type !== ElementType.BULLET ? this.killedBoxes + 1 : this.killedBoxes;
+  }
+}
+

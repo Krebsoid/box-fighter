@@ -9,6 +9,7 @@ import {Scene} from "./model/base/Scene";
 import {Maze} from "./model/scene/Maze";
 import {ZombieScene} from "./model/scene/ZombieScene";
 import {SceneType} from "./model/scene/SceneType";
+import {Level1Intro} from "./model/scene/Level1Intro";
 
 @Component({
   templateUrl: './game.component.html',
@@ -24,10 +25,11 @@ export class GameComponent implements OnInit {
     this.addScene(new GameScene());
     this.addScene(new EndScene());
     this.addScene(new Level1());
+    this.addScene(new Level1Intro());
     this.addScene(new WinningScene());
     this.addScene(new Maze());
     this.addScene(new ZombieScene());
-    this.game.changeGameState(SceneType.MAZE);
+    this.game.changeGameState(SceneType.LEVEL1_INTRO);
     this.game.init();
   }
 
