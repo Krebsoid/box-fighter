@@ -100,6 +100,7 @@ export class EscapeMaze extends Task {
 
   description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
   onSuccess: (game: Game) => void = (game: Game) => {
+    game.pause();
     game.changeGameState(SceneType.LEVEL1_INTRO);
     this.done = true;
   };
@@ -141,7 +142,10 @@ export class MazeIntro extends Scene {
 }
 
 export class SpaceTask extends Task {
-  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.MAZE, 500);
+  onSuccess: (game: Game) => void = game => {
+    game.pause();
+    game.changeGameState(SceneType.MAZE, 500);
+  };
 
   update(game: Game) {
     if(game.controls.shoot) {

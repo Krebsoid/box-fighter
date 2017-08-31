@@ -23,6 +23,7 @@ export class Game {
   events: Array<Event> = [];
   eventListeners: Array<EventListener> = [];
   gameTime: number;
+  paused: boolean = false;
 
   controls: Controls = new Controls();
 
@@ -33,10 +34,12 @@ export class Game {
   init() {
     const self = this;
     function main() {
-      self.gameArea.repaint();
-      self.update();
-      self.render();
-      self.gameTime = GameTime.nextFrame();
+      if(!self.paused) {
+        self.gameArea.repaint();
+        self.update();
+        self.render();
+        self.gameTime = GameTime.nextFrame();
+      }
       requestAnimationFrame(main);
     }
     main();
@@ -50,6 +53,7 @@ export class Game {
       setTimeout(function() {
         oldState ? self.scenes.get(oldState).cleanUp(self) : undefined;
         self.scenes.get(newGameState).init(self);
+        self.resume();
       }, delay || 1000);
     }
   }
@@ -69,6 +73,14 @@ export class Game {
 
   update() {
     this.gameArea.elements.forEach(element => element.update(this))
+  }
+
+  pause() {
+    this.paused = true;
+  }
+
+  resume() {
+    this.paused = false;
   }
 
   render() {
