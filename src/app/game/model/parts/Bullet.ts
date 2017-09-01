@@ -39,7 +39,7 @@ export class Bullet extends ColoredShape implements Damage {
             value.onHit(game);
           }
           this.onKill(game);
-          if(instanceOfValuable(value)) {
+          if(instanceOfValuable(value) && value.life <= 0) {
             this.weapon.target && (<Player>this.weapon.target).consume(value);
           }
         }
