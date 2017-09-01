@@ -1,7 +1,5 @@
 import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
-import {Engine} from "../parts/Engine";
-import {Player} from "../base/Player";
 import {ColoredShape} from "../base/ColoredShape";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
@@ -10,7 +8,6 @@ import {Position} from "../base/Position";
 import {Shape} from "../base/Shape";
 import {BasicCamera} from "../base/BasicCamera";
 import {SceneType} from "./SceneType";
-import {Weapon} from "../parts/Weapon";
 import {ShrinkingColoredShape} from "../base/ShrinkingColoredShape";
 import {WeaponMeter} from "../ui/WeaponMeter";
 import {Text} from "../base/Text";
@@ -26,10 +23,8 @@ export class Maze extends Scene {
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
-    let player = new Player();
-    player.currency = 0;
-    player.setWeapon(new Weapon(0,0,0));
-    player.setEngine(new Engine(0,0,0));
+    let player = game.player;
+    player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     let camera = new BasicCamera(player, game.gameArea);
@@ -47,8 +42,8 @@ export class Maze extends Scene {
     game.gameArea.addElement(target);
     game.gameArea.addElement(new EscapeMaze(target));
 
-    let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30);
-    let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30);
+    let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
+    let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let pathBehaviour = new PathBehaviour(2, [
       (game: Game) => new Position(1250, 0),
       (game: Game) => new Position(600, 0),

@@ -1,8 +1,5 @@
 import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
-import {Engine} from "../parts/Engine";
-import {Weapon} from "../parts/Weapon";
-import {Player} from "../base/Player";
 import {ColoredShape} from "../base/ColoredShape";
 import {HitBox} from "../HitBox";
 import {Sprite} from "../base/Sprite";
@@ -36,9 +33,8 @@ export class GameScene extends Scene {
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
-    let player = new Player();
-    player.setWeapon(new Weapon(0,0,0));
-    player.setEngine(new Engine(0,0,0));
+    let player = game.player;
+    player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     let newWeapon = new DoubleWeapon(200,400,10);

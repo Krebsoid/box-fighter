@@ -2,7 +2,6 @@ import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
 import {Engine} from "../parts/Engine";
 import {Weapon} from "../parts/Weapon";
-import {Player} from "../base/Player";
 import {GenericShape} from "../base/GenericShape";
 import {Triangle} from "../shapes/Triangle";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
@@ -26,10 +25,8 @@ export class Level1 extends Scene {
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
   init(game: Game) {
-    let player = new Player();
-    player.currency = 0;
-    player.setWeapon(new Weapon(0, 0, 0));
-    player.setEngine(new Engine(0, 0, 0));
+    let player = game.player;
+    player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     game.gameArea.addElement(new HitBoxes());
@@ -37,13 +34,13 @@ export class Level1 extends Scene {
     let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
-    game.gameArea.addElement(new ShrinkingColoredShape(300, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(500, 400, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(700, 200, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(500, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(100, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(300, 200, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
-    game.gameArea.addElement(new ShrinkingColoredShape(700, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true));
+    game.gameArea.addElement(new ShrinkingColoredShape(300, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(500, 400, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(700, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(500, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(100, 100, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(300, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
+    game.gameArea.addElement(new ShrinkingColoredShape(700, 300, 1, 50, 50, "#ff000f").setLife(2).setKey("target").isDestructible(true).setValue(300));
 
     let noTarget = new ShrinkingColoredShape(350, 100, 1, 50, 50, "green").setKey("no-target").isDestructible(true);
     noTarget.setValue(0);

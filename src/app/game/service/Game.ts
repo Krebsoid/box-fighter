@@ -5,6 +5,7 @@ import {Scene} from "../model/base/Scene";
 import {Event} from "../model/base/Event";
 import {EventListener} from "../model/base/EventListener";
 import {SceneType} from "../model/scene/SceneType";
+import {Player} from "../model/base/Player";
 
 export class GameTime {
   static frames: number = 0;
@@ -20,6 +21,7 @@ export class GameTime {
 export class Game {
   state: SceneType;
   scenes: Map<SceneType, Scene> = new Map();
+  player: Player = new Player();
   events: Array<Event> = [];
   eventListeners: Array<EventListener> = [];
   gameTime: number;

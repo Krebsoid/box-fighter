@@ -19,7 +19,7 @@ export class Player extends Element implements ValuableConsumer {
   weapon: Weapon;
   height: number;
 
-  currency: number = 2000;
+  currency: number = 0;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -31,6 +31,28 @@ export class Player extends Element implements ValuableConsumer {
     this.hitboxes.push(hitbox);
     this.elements.push(hitbox);
     this.height = this.calculateHeight();
+    this.setWeapon(new Weapon(0,0,0));
+    this.setEngine(new Engine(0,0,0));
+  }
+
+  resetPosition(x: number, y: number, z: number) {
+    this.setPosition(x, y);
+    let weapon = this.weapon;
+    let engine = this.engine;
+    this.weapon = undefined;
+    this.engine = undefined;
+    this.elements = [];
+    this.hitboxes = [];
+    this.elements.push(new ColoredShape(x, y, z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(x+25, y, z, 25, 25, "#29ee4c"));
+    this.elements.push(new ColoredShape(x+25, y+25, z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(x, y+25, z, 25, 25, "#29ee4c"));
+    let hitbox = new Shape(x, y, z, 50, 50);
+    this.hitboxes.push(hitbox);
+    this.elements.push(hitbox);
+    this.height = this.calculateHeight();
+    this.setWeapon(weapon);
+    this.setEngine(engine);
   }
 
   isOnScreen(): boolean {
