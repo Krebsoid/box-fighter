@@ -30,11 +30,5 @@ export class HitBox extends ColoredShape {
     this.label.text = this.hits.toString();
   }
 
-  value: number = 200;
-
-  setValue(value: number) {
-    this.value = value;
-  }
-
   type: ElementType = ElementType.HITBOX;
 }

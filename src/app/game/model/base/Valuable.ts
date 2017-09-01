@@ -2,6 +2,6 @@ export interface Valuable {
 
   value: number;
 
-  setValue(value: number);
+  setValue<SHAPE>(value: number): SHAPE;
 
 }

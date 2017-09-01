@@ -57,8 +57,9 @@ export class ColoredShape extends Shape implements Valuable {
 
   value: number;
 
-  setValue(value: number) {
+  setValue(value: number) : ColoredShape {
     this.value = value;
+    return this;
   }
 
   type: ElementType = ElementType.COLORED_SHAPE;
