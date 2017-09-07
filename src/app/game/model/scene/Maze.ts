@@ -16,6 +16,7 @@ import {Task} from "../mission/Mission";
 import {Camera} from "../base/Camera";
 import {StaticCamera} from "../base/StaticCamera";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
+import {Vector} from "../base/Vector";
 
 export class Maze extends Scene {
   name: string = "Maze";
@@ -45,16 +46,16 @@ export class Maze extends Scene {
     let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let pathBehaviour = new PathBehaviour(2, [
-      (game: Game) => new Position(1250, 0),
-      (game: Game) => new Position(600, 0),
-      (game: Game) => new Position(600, 400),
-      (game: Game) => new Position(1250, 400)
+      (game: Game) => new Vector(1250, 0),
+      (game: Game) => new Vector(600, 0),
+      (game: Game) => new Vector(600, 400),
+      (game: Game) => new Vector(1250, 400)
     ]);
     let pathBehaviour2 = new PathBehaviour(2, [
-      (game: Game) => new Position(600, 400),
-      (game: Game) => new Position(1250, 400),
-      (game: Game) => new Position(1250, 0),
-      (game: Game) => new Position(600, 0)
+      (game: Game) => new Vector(600, 400),
+      (game: Game) => new Vector(1250, 400),
+      (game: Game) => new Vector(1250, 0),
+      (game: Game) => new Vector(600, 0)
     ]);
     dangerousShape1.addGenericBehaviour<ColoredShape>("path", pathBehaviour);
     dangerousShape2.addGenericBehaviour<ColoredShape>("path", pathBehaviour2);

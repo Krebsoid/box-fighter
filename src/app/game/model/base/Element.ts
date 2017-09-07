@@ -3,6 +3,7 @@ import {Game, GameTime} from "../../service/Game";
 import {Position} from "./Position";
 import {ElementType} from "./ElementType";
 import {Behaviour} from "../behaviour/Behaviour";
+import {Vector} from "./Vector";
 
 namespace Id {
   let index: number = 0;
@@ -13,8 +14,8 @@ namespace Id {
 
 export abstract class Element {
   id: number;
-  x: number;
-  y: number;
+  position: Vector;
+  velocity: Vector = new Vector(0, 0);
   z: number;
 
   birth: number;
@@ -32,23 +33,22 @@ export abstract class Element {
   behaviours : Map<string, (game: Game, shape: any) => void> = new Map<string, (game: Game, shape: any) => void>();
 
   isOnScreen(camera: Camera): boolean {
-    return this.x >= camera.x + camera.xOffset && this.x <= camera.x + 1024 + camera.xOffset
+    return this.position.x >= camera.position.x + camera.xOffset && this.position.x <= camera.position.x + 1024 + camera.xOffset
   }
 
   xOffset: number;
   yOffset: number;
 
   constructor(x: number, y: number, z: number) {
-    this.x = x;
-    this.y = y;
+    this.position = new Vector(x, y);
     this.z = z;
     this.id = Id.retrieveNextElementId();
     this.birth = GameTime.frame();
   }
 
   render(camera: Camera) {
-    this.xOffset = this.fixed ? this.x : this.x - camera.x + camera.xOffset;
-    this.yOffset = this.fixed ? this.y : this.y - camera.y + camera.yOffset;
+    this.xOffset = this.fixed ? this.position.x : this.position.x - camera.position.x + camera.xOffset;
+    this.yOffset = this.fixed ? this.position.y : this.position.y - camera.position.y + camera.yOffset;
   }
   update(game: Game) {
     if(this.behaviours.size > 0) {
@@ -93,13 +93,13 @@ export abstract class Element {
     return this;
   }
 
-  destination: Position;
+  destination: Vector;
   private percentageX: number;
   private percentageY: number;
-  setDestination(destination: Position) {
-    this.destination = destination;
-    let deltaX = this.x - destination.x;
-    let deltaY = this.y - destination.y;
+  setDestination(vector: Vector) {
+    this.destination = vector;
+    let deltaX = this.position.x - vector.x;
+    let deltaY = this.position.y - vector.y;
     let max = Math.abs(deltaX) + Math.abs(deltaY);
     this.percentageX = deltaX / max;
     this.percentageY = deltaY / max;
@@ -107,17 +107,16 @@ export abstract class Element {
   }
 
   moveTo(speed: number) {
-    this.move(-(this.percentageX * speed), -(this.percentageY * speed));
+    this.move(new Vector(-(this.percentageX * speed), -(this.percentageY * speed)));
   }
 
-  move(x: number, y: number) {
-    this.x += x;
-    this.y += y;
+  move(velocity: Vector) {
+    this.position.addTo(velocity);
   }
 
   setPosition(x: number, y: number) {
-    this.x = x;
-    this.y = y;
+    this.position.x = x;
+    this.position.y = y;
   }
 
   setLife(life: number) {
@@ -126,8 +125,8 @@ export abstract class Element {
     return this;
   }
 
-  distanceToTarget(target: Element) {
-    return Math.sqrt(Math.pow(this.x - target.x, 2) + Math.pow(this.y - target.y, 2));
+  distanceToTarget(vector: Vector) {
+    return Math.sqrt(Math.pow(this.position.x - vector.x, 2) + Math.pow(this.position.y - vector.y, 2));
   }
 
   toString() {

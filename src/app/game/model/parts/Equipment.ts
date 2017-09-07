@@ -2,6 +2,7 @@ import {Element} from "../base/Element";
 import {Game} from "../../service/Game";
 import {Camera} from "../base/Camera";
 import {Shape} from "../base/Shape";
+import {Vector} from "../base/Vector";
 
 export abstract class Equipment extends Element {
 
@@ -30,8 +31,8 @@ export abstract class Equipment extends Element {
     this.elements.forEach(value => value.update(game));
   }
 
-  move(x: number, y: number) {
-    this.elements.forEach(value => value.move(x, y));
+  move(vector: Vector) {
+    this.elements.forEach(value => value.move(vector));
   }
 
 }

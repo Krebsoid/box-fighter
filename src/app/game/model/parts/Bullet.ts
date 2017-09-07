@@ -8,6 +8,7 @@ import {Player} from "../base/Player";
 import {Position} from "../base/Position";
 import {Damage, DamageType} from "../base/Damage";
 import {ElementType} from "../base/ElementType";
+import {Vector} from "../base/Vector";
 
 export class Bullet extends ColoredShape implements Damage {
   maxRange: number = 800;
@@ -17,8 +18,8 @@ export class Bullet extends ColoredShape implements Damage {
   damageType: DamageType = DamageType.BASIC;
   weapon: Weapon;
 
-  constructor(weapon: Weapon, origin: Position) {
-    super(origin.x, origin.y, origin.z, 5, 5, "#000");
+  constructor(weapon: Weapon, origin: Vector) {
+    super(origin.x, origin.y, 0, 5, 5, "#000");
     this.weapon = weapon;
   }
 
@@ -48,7 +49,7 @@ export class Bullet extends ColoredShape implements Damage {
     if(this.maxRange <= this.travelled) {
       game.gameArea.removeElement(this);
     }
-    this.move(this.speed, 0);
+    this.move(new Vector(this.speed, 0));
     this.travelled += this.speed;
   }
 

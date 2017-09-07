@@ -4,6 +4,7 @@ import {Position} from "../base/Position";
 import {Game} from "../../service/Game";
 import {ColoredShape} from "../base/ColoredShape";
 import {ElementType} from "../base/ElementType";
+import {Vector} from "../base/Vector";
 
 export class Engine extends Equipment {
   acceleration: number = 2;
@@ -21,18 +22,18 @@ export class Engine extends Equipment {
   attach(target: Element) {
     this.elements = [];
     this.target = target;
-    this.elements.push(new ColoredShape(target.x-10, target.y+20, target.z, 10, 10, "#ee0000").isDangerous(false));
-    this.engineHole = new Position(target.x-12, target.y+24);
+    this.elements.push(new ColoredShape(target.position.x-10, target.position.y+20, target.z, 10, 10, "#ee0000").isDangerous(false));
+    this.engineHole = new Position(target.position.x-12, target.position.y+24);
   }
 
   update(game: Game) {
     super.update(game);
   }
 
-  move(x: number, y: number) {
-    super.move(x, y);
+  move(vector: Vector) {
+    super.move(vector);
     if(this.target) {
-      this.engineHole.move(x, y);
+      this.engineHole.move(vector);
     }
   }
 

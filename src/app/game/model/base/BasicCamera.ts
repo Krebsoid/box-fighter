@@ -15,6 +15,6 @@ export class BasicCamera extends Camera {
   }
 
   update() {
-    this.setPosition(this.element.x, 0);
+    this.setPosition(this.element.position.x, 0);
   }
 }

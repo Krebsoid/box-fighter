@@ -26,6 +26,7 @@ import {EventListener} from "../base/EventListener";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {StaticCamera} from "../base/StaticCamera";
 import {Text} from "../base/Text";
+import {Vector} from "../base/Vector";
 
 export class GameScene extends Scene {
   name: string = "Game";
@@ -50,13 +51,13 @@ export class GameScene extends Scene {
     let shape = new ColoredShape(50, 50, 1, 50, 50, "#00ff16").isDestructible(true);
     shape.addBehaviour<Shape>("little-forward", (game, shape) => {
       if(game.gameTime > 300) {
-        shape.move(3,0);
+        shape.move(new Vector(3, 0));
       }
     });
     shape.addBehaviour<Shape>("fast-backward", (game, shape) => {
       if(game.gameTime > 1000) {
         shape.removeBehaviour("little-forward");
-        shape.move(-10,0);
+        shape.move(new Vector(-10, 0));
       }
     });
     game.gameArea.addElement(shape);
@@ -64,7 +65,7 @@ export class GameScene extends Scene {
     let shape2 = new ColoredShape(300, 100, 1, 50, 50, "#0002ff").isDestructible(true);
     shape2.addBehaviour<Shape>("sinus-freak", (game, shape) => {
       if(game.gameTime > 100) {
-        shape.move(2, 6 * Math.sin(shape.x/10));
+        shape.move(new Vector(2, 6 * Math.sin(shape.position.x/10)));
       }
     });
     game.gameArea.addElement(shape2);
@@ -79,15 +80,15 @@ export class GameScene extends Scene {
     let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
     sprite.addGenericBehaviour<Shape>("sinus-freak", new SinusBehaviour());
     sprite.addBehaviour<Shape>("sinus-freak-backwards", (game, shape) => {
-      if(shape.x > 700) {
+      if(shape.position.x > 700) {
         shape.removeBehaviour("sinus-freak");
       }
-      if(shape.x > 500 && !shape.behaviours.has("sinus-freak")) {
-        shape.move(-2, 2 * Math.sin(shape.x/5));
+      if(shape.position.x > 500 && !shape.behaviours.has("sinus-freak")) {
+        shape.move(new Vector(-2, 2 * Math.sin(shape.position.x/5)));
       } else {
         shape.addBehaviour<Shape>("sinus-freak", (game, shape) => {
-          if(shape.x < 700) {
-            shape.move(.4, 2 * Math.sin(shape.x/5));
+          if(shape.position.x < 700) {
+            shape.move(new Vector(.4, 2 * Math.sin(shape.position.x/5)));
           }
         });
       }

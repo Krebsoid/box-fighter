@@ -12,7 +12,7 @@ export abstract class Camera extends Element {
   }
 
   shape(): Shape {
-    return new Shape(this.x, this.y, 0, 500, 1024);
+    return new Shape(this.position.x, this.position.y, 0, 500, 1024);
   }
 
   type: ElementType = ElementType.CAMERA;

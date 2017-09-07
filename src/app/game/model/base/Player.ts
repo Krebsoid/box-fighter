@@ -10,6 +10,7 @@ import {ValuableConsumer} from "./ValuableConsumer";
 import {Buyable} from "./Buyable";
 import {ElementType} from "./ElementType";
 import {SceneType} from "../scene/SceneType";
+import {Vector} from "./Vector";
 
 export class Player extends Element implements ValuableConsumer {
 
@@ -23,11 +24,11 @@ export class Player extends Element implements ValuableConsumer {
 
   constructor() {
     super(100, 500/2 - 25, 5);
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.x+25, this.y, this.z, 25, 25, "#29ee4c"));
-    this.elements.push(new ColoredShape(this.x+25, this.y+25, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.x, this.y+25, this.z, 25, 25, "#29ee4c"));
-    let hitbox = new Shape(this.x, this.y, this.z, 50, 50);
+    this.elements.push(new ColoredShape(this.position.x, this.position.y, this.z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(this.position.x+25, this.position.y, this.z, 25, 25, "#29ee4c"));
+    this.elements.push(new ColoredShape(this.position.x+25, this.position.y+25, this.z, 25, 25, "#234242"));
+    this.elements.push(new ColoredShape(this.position.x, this.position.y+25, this.z, 25, 25, "#29ee4c"));
+    let hitbox = new Shape(this.position.x, this.position.y, this.z, 50, 50);
     this.hitboxes.push(hitbox);
     this.elements.push(hitbox);
     this.height = this.calculateHeight();
@@ -89,10 +90,10 @@ export class Player extends Element implements ValuableConsumer {
   }
 
   calculateHeight(): number {
-    let minX = this.x;
-    let maxX = this.x;
-    this.elements.forEach(value => value instanceof Shape && minX >= value.x ? minX = value.x : minX);
-    this.elements.forEach(value => value instanceof Shape && maxX <= value.x + value.h ? maxX = value.x + value.h : maxX);
+    let minX = this.position.x;
+    let maxX = this.position.x;
+    this.elements.forEach(value => value instanceof Shape && minX >= value.position.x ? minX = value.position.x : minX);
+    this.elements.forEach(value => value instanceof Shape && maxX <= value.position.x + value.h ? maxX = value.position.x + value.h : maxX);
     return maxX - minX;
   }
 
@@ -135,27 +136,27 @@ export class Player extends Element implements ValuableConsumer {
       let acceleration = this.engine ? this.engine.acceleration : 0;
       let levelBorders = game.getActiveScene().levelBorders;
       if(game.controls.down) {
-        if(this.y <= levelBorders.h - this.height) {
-          this.move(0, acceleration);
-          this.elements.forEach(value => value.move(0, acceleration));
+        if(this.position.y <= levelBorders.h - this.height) {
+          this.move(new Vector(0, acceleration));
+          this.elements.forEach(value => value.move(new Vector(0, acceleration)));
         }
       }
       if(game.controls.up) {
-        if(this.y >= levelBorders.y) {
-          this.move(0, -acceleration);
-          this.elements.forEach(value => value.move(0, -acceleration));
+        if(this.position.y >= levelBorders.position.y) {
+          this.move(new Vector(0, -acceleration));
+          this.elements.forEach(value => value.move(new Vector(0, -acceleration)));
         }
       }
       if(game.controls.right) {
-        if(this.x <= levelBorders.w) {
-          this.move(acceleration, 0);
-          this.elements.forEach(value => value.move(acceleration, 0));
+        if(this.position.x <= levelBorders.w) {
+          this.move(new Vector(acceleration, 0));
+          this.elements.forEach(value => value.move(new Vector(acceleration, 0)));
         }
       }
       if(game.controls.left) {
-        if(this.x >= levelBorders.x) {
-          this.move(-acceleration, 0);
-          this.elements.forEach(value => value.move(-acceleration, 0));
+        if(this.position.x >= levelBorders.position.x) {
+          this.move(new Vector(-acceleration, 0));
+          this.elements.forEach(value => value.move(new Vector(-acceleration, 0)));
         }
       }
       if(game.controls.isMoving()) {

@@ -11,7 +11,7 @@ export class BlinkBehaviour implements Behaviour<Element> {
   private lastBlink: number = 0;
 
   constructor(element: Element, gameTime: number, visibleInterval: number, invisibleInterval: number) {
-    this.tempPosition = new Position(element.x, element.y);
+    this.tempPosition = new Position(element.position.x, element.position.y);
     this.visibleInterval = visibleInterval;
     this.invisibleInterval = invisibleInterval;
     this.lastBlink = gameTime;
@@ -19,13 +19,13 @@ export class BlinkBehaviour implements Behaviour<Element> {
 
   behaviour: (game: Game, shape: Element) => void = (game, element) => {
     if(this.blink) {
-      element.setPosition(-5000, element.y);
+      element.setPosition(-5000, element.position.y);
       if(game.gameTime - this.lastBlink >= this.invisibleInterval) {
         this.lastBlink = game.gameTime;
         this.blink = false;
       }
     } else {
-      element.setPosition(this.tempPosition.x, element.y);
+      element.setPosition(this.tempPosition.x, element.position.y);
       if(game.gameTime - this.lastBlink >= this.visibleInterval) {
         this.lastBlink = game.gameTime;
         this.blink = true

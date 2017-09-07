@@ -15,6 +15,6 @@ export class ExtendedCamera extends Camera {
   }
 
   update() {
-    this.setPosition(this.element.x, this.element.y);
+    this.setPosition(this.element.position.x, this.element.position.y);
   }
 }

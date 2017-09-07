@@ -4,6 +4,7 @@ import {Shape} from "./Shape";
 import {Valuable} from "./Valuable";
 import {KillEvent} from "./Event";
 import {ElementType} from "./ElementType";
+import {Vector} from "./Vector";
 
 export class ColoredShape extends Shape implements Valuable {
 
@@ -42,12 +43,12 @@ export class ColoredShape extends Shape implements Valuable {
   }
 
   private generateFragment(directionX: number, directionY: number) : ColoredShape {
-    let fragment = new ColoredShape(this.x + this.h / 4, this.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color);
+    let fragment = new ColoredShape(this.position.x + this.h / 4, this.position.y + this.w / 4, this.z, this.h / 2, this.w / 2, this.color);
     fragment.isDestructible(false);
     fragment.isDangerous(false);
     fragment.isCollidable(false);
     fragment.addBehaviour<Shape>("drift-off", (game, shape) => {
-      shape.move(directionX, directionY);
+      shape.move(new Vector(directionX, directionY));
       if((game.gameTime - shape.birth) > 35) {
         game.gameArea.removeElement(shape);
       }

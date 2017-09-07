@@ -16,12 +16,12 @@ export class ShapeMachine extends Element {
       let player = game.gameArea.getPlayer();
       if(player) {
         let shape = new ColoredShape(1500, Random.nextNumber(0, 300), Random.nextNumber(1, 1000), size, size, Random.nextColor());
-        shape.setDestination(player);
+        shape.setDestination(player.position);
         shape.isDestructible(true);
         let speed = Random.nextNumber(1, 7);
         shape.addBehaviour<ColoredShape>("left", (game, shape) => {
           shape.moveTo(speed);
-          if(shape.x < 0) {
+          if(shape.position.x < 0) {
             game.gameArea.removeElement(shape);
           }
         });

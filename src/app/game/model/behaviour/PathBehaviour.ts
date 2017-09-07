@@ -1,15 +1,15 @@
 import {Behaviour} from "./Behaviour";
 import {Game} from "../../service/Game";
-import {Position} from "../base/Position";
 import {ColoredShape} from "../base/ColoredShape";
+import {Vector} from "../base/Vector";
 
 export class PathBehaviour implements Behaviour<ColoredShape> {
   speed: number;
-  path: Array<(game: Game) => Position>;
+  path: Array<(game: Game) => Vector>;
   private active: number = 0;
   private needForNewTarget: boolean = true;
 
-  constructor(speed: number, path: Array<(game: Game) => Position>) {
+  constructor(speed: number, path: Array<(game: Game) => Vector>) {
     this.speed = speed;
     this.path = path;
   }

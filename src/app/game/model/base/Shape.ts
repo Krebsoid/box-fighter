@@ -18,10 +18,10 @@ export class Shape extends Element {
 
   isOnScreen(camera: Camera): boolean {
     let cameraShape: Shape = camera.shape();
-    return cameraShape.containsPosition(new Position(this.x + camera.xOffset, this.y + camera.yOffset)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset, this.y + camera.yOffset + this.h)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset + this.w, this.y + camera.yOffset)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset + this.w, this.y + camera.yOffset + this.h));
+    return cameraShape.containsPosition(new Position(this.position.x + camera.xOffset, this.position.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset, this.position.y + camera.yOffset + this.h)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + this.w, this.position.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + this.w, this.position.y + camera.yOffset + this.h));
   }
 
   render(camera: Camera) {
@@ -34,15 +34,15 @@ export class Shape extends Element {
   }
 
   containsPosition?(position: Position): boolean {
-    return position.x > this.x && position.x < this.x + this.w && position.y > this.y && position.y < this.y + this.h;
+    return position.x > this.position.x && position.x < this.position.x + this.w && position.y > this.position.y && position.y < this.position.y + this.h;
   }
 
   collision?(shape: Shape) : boolean {
     let hitBox = shape.getHitBox();
-    return shape != this && shape.collidable && this.x < hitBox.x + hitBox.w &&
-      this.x + this.w > hitBox.x &&
-      this.y < hitBox.y + hitBox.h &&
-      this.h + this.y > hitBox.y;
+    return shape != this && shape.collidable && this.position.x < hitBox.position.x + hitBox.w &&
+      this.position.x + this.w > hitBox.position.x &&
+      this.position.y < hitBox.position.y + hitBox.h &&
+      this.h + this.position.y > hitBox.position.y;
   }
 
   getHitBox(): Shape {

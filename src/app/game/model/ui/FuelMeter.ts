@@ -14,15 +14,15 @@ export class FuelMeter extends Element {
   constructor(player: Player) {
     super(300, 450, 10000);
     this.player = player;
-    this.elements.push(new ColoredShape(this.x, this.y, this.z, 30, player.engine.capacity + 6, "#000").isFixed(true));
-    this.elements.push(new ColoredShape(this.x + 3, this.y + 3, this.z + 1, 24, player.engine.capacity, "#FFF").isFixed(true));
-    this.filling = new ColoredShape(this.x + 3, this.y + 3, this.x + 2, 24, player.engine.level, "#FF0000").isFixed(true);
+    this.elements.push(new ColoredShape(this.position.x, this.position.y, this.z, 30, player.engine.capacity + 6, "#000").isFixed(true));
+    this.elements.push(new ColoredShape(this.position.x + 3, this.position.y + 3, this.z + 1, 24, player.engine.capacity, "#FFF").isFixed(true));
+    this.filling = new ColoredShape(this.position.x + 3, this.position.y + 3, this.position.x + 2, 24, player.engine.level, "#FF0000").isFixed(true);
     this.elements.push(this.filling);
   }
 
   render(camera: Camera) {
     if(this.player.engine) {
-      let gradient = camera.gameArea.getContext().createLinearGradient(this.x, this.y, this.x + this.player.engine.capacity, this.y);
+      let gradient = camera.gameArea.getContext().createLinearGradient(this.position.x, this.position.y, this.position.x + this.player.engine.capacity, this.position.y);
       gradient.addColorStop(0,"#FF0000");
       gradient.addColorStop(0.5,"#fffc00");
       gradient.addColorStop(1,"#00ff24");

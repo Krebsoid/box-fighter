@@ -5,13 +5,14 @@ import {Position} from "../base/Position";
 import {ColoredShape} from "../base/ColoredShape";
 import {StrokedText} from "../base/StrokedText";
 import {Weapon} from "./Weapon";
+import {Vector} from "../base/Vector";
 
 export class DoubleWeapon extends Weapon {
   value: number = 1500;
   reloadSpeed: number = 20;
 
-  bulletHole: Position;
-  bulletHole2: Position;
+  bulletHole: Vector;
+  bulletHole2: Vector;
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
@@ -36,19 +37,19 @@ export class DoubleWeapon extends Weapon {
     this.elements = [];
     this.label = undefined;
     this.target = target;
-    this.elements.push(new ColoredShape(target.x+50, target.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+59, target.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+68, target.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+77, target.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+50, target.position.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+59, target.position.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+68, target.position.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+77, target.position.y+10+3, target.z, 8, 8, "#0206ee").isDangerous(false));
 
-    this.elements.push(new ColoredShape(target.x+50, target.y+10+9+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+50, target.position.y+10+9+3, target.z, 8, 8, "#0206ee").isDangerous(false));
 
-    this.elements.push(new ColoredShape(target.x+50, target.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+59, target.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+68, target.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.x+77, target.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.bulletHole = new Position(target.x+80+2, target.y+28-6-8);
-    this.bulletHole2 = new Position(target.x+80+2, target.y+28-6+10);
+    this.elements.push(new ColoredShape(target.position.x+50, target.position.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+59, target.position.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+68, target.position.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x+77, target.position.y+10+18+3, target.z, 8, 8, "#0206ee").isDangerous(false));
+    this.bulletHole = new Vector(target.position.x+80+2, target.position.y+28-6-8);
+    this.bulletHole2 = new Vector(target.position.x+80+2, target.position.y+28-6+10);
   }
 
 
@@ -57,10 +58,10 @@ export class DoubleWeapon extends Weapon {
     game.gameArea.addElement(new Bullet(this, this.bulletHole2).isDangerous(false));
   }
 
-  move(x: number, y: number) {
-    super.move(x, y);
+  move(vector: Vector) {
+    super.move(vector);
     if(this.isAttached()) {
-      this.bulletHole2.move(x, y);
+      this.bulletHole2.addTo(vector);
     }
   }
 }

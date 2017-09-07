@@ -21,10 +21,10 @@ export class Text extends Element {
 
   isOnScreen(camera: Camera): boolean {
     let cameraShape: Shape = camera.shape();
-    return cameraShape.containsPosition(new Position(this.x + camera.xOffset + 50, this.y + camera.yOffset)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset + 50, this.y + camera.yOffset - this.textHeight)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset + 50 + this.textWidth, this.y + camera.yOffset)) ||
-      cameraShape.containsPosition(new Position(this.x + camera.xOffset + + 50 + this.textWidth, this.y + camera.yOffset - this.textHeight));
+    return cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + 50, this.position.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + 50, this.position.y + camera.yOffset - this.textHeight)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + 50 + this.textWidth, this.position.y + camera.yOffset)) ||
+      cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + + 50 + this.textWidth, this.position.y + camera.yOffset - this.textHeight));
   }
 
   render(camera: Camera) {
