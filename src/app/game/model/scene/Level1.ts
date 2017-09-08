@@ -1,7 +1,5 @@
 import {Scene} from "../base/Scene";
 import {Game} from "../../service/Game";
-import {Engine} from "../parts/Engine";
-import {Weapon} from "../parts/Weapon";
 import {GenericShape} from "../base/GenericShape";
 import {Triangle} from "../shapes/Triangle";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
@@ -20,11 +18,12 @@ import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {StaticCamera} from "../base/StaticCamera";
 
 export class Level1 extends Scene {
+  hasBackground: boolean = true;
   name: string = "Level1";
   type: SceneType = SceneType.LEVEL1;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     let player = game.player;
     player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
@@ -99,11 +98,12 @@ export class HitBoxes extends Task {
 
 
 export class Level1Intro extends Scene {
+  hasBackground: boolean = false;
   name: string = "Level1 Intro";
   type: SceneType = SceneType.LEVEL1_INTRO;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     game.gameArea.setCamera(new StaticCamera(game.gameArea));
     let text = new Text(300, 160, 1, "blue", "80pt Calibri").isFixed(true);
     text.text = "Level 2";

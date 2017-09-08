@@ -29,11 +29,12 @@ import {Text} from "../base/Text";
 import {Vector} from "../base/Vector";
 
 export class GameScene extends Scene {
+  hasBackground: boolean = true;
   name: string = "Game";
   type: SceneType = SceneType.LEVEL2;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     let player = game.player;
     player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
@@ -97,7 +98,7 @@ export class GameScene extends Scene {
 
     let sprite2 = new Sprite(500, 250, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true);
 
-    sprite2.addGenericBehaviour<Sprite>("circle", new CircleBehaviour(200));
+    sprite2.addGenericBehaviour<Sprite>("circle", new CircleBehaviour(200, 1, sprite2));
 
     game.gameArea.addElement(sprite2);
     game.gameArea.addElement(new ColoredShape(500, 250, 2, 2, 2, "#000000").isDestructible(true));
@@ -113,7 +114,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(new GenericShape(500, 320, 10, "green", new Triangle()));
 
     let heart = new GenericShape(700, 320, 10, "red", new Heart());
-    heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100));
+    heart.addGenericBehaviour<Shape>("circle", new CircleBehaviour(100, 1, heart));
     game.gameArea.addElement(heart);
   }
 }
@@ -155,11 +156,12 @@ export class HitManyBoxes extends Task implements EventListener {
 
 
 export class Level2Intro extends Scene {
+  hasBackground: boolean = false;
   name: string = "Level2 Intro";
   type: SceneType = SceneType.LEVEL2_INTRO;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     game.gameArea.setCamera(new StaticCamera(game.gameArea));
     let text = new Text(300, 160, 1, "blue", "80pt Calibri").isFixed(true);
     text.text = "Level 3";

@@ -4,7 +4,6 @@ import {ColoredShape} from "../base/ColoredShape";
 import {CurrencyMeter} from "../ui/CurrencyMeter";
 import {FuelMeter} from "../ui/FuelMeter";
 import {PathBehaviour} from "../behaviour/PathBehaviour";
-import {Position} from "../base/Position";
 import {Shape} from "../base/Shape";
 import {BasicCamera} from "../base/BasicCamera";
 import {SceneType} from "./SceneType";
@@ -19,11 +18,12 @@ import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {Vector} from "../base/Vector";
 
 export class Maze extends Scene {
+  hasBackground: boolean = true;
   name: string = "Maze";
   type: SceneType = SceneType.MAZE;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     let player = game.player;
     player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
@@ -115,11 +115,12 @@ export class EscapeMaze extends Task {
 }
 
 export class MazeIntro extends Scene {
+  hasBackground: boolean = false;
   name: string = "Maze Intro";
   type: SceneType = SceneType.MAZE_INTRO;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 3000);
 
-  init(game: Game) {
+  playground(game: Game) {
     game.gameArea.setCamera(new StaticCamera(game.gameArea));
     let text = new Text(300, 160, 1, "blue", "80pt Calibri").isFixed(true);
     text.text = "Level 1";

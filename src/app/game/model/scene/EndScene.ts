@@ -8,11 +8,12 @@ import {Task} from "../mission/Mission";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 
 export class EndScene extends Scene {
+  hasBackground: boolean = false;
   name: string = "End";
   type: SceneType = SceneType.DEAD;
   levelBorders: Shape = new Shape(0, 0, 0, 500, 1024);
 
-  init(game: Game) {
+  playground(game: Game) {
     game.gameArea.setCamera(new StaticCamera(game.gameArea));
     let text = new Text(250, 260, 1, "red", "80pt Calibri").isFixed(true);
     text.text = "YOU DIED!";
@@ -29,7 +30,7 @@ export class EndScene extends Scene {
 }
 
 export class SpaceTask extends Task {
-  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.MAZE_INTRO, 500);
+  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.ZOMBIE, 500);
 
   update(game: Game) {
     if(game.controls.shoot) {

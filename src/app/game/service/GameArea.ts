@@ -13,7 +13,7 @@ export class GameArea {
   context: any;
 
   elementsOnCamera(): Element[] {
-    return this.elements.filter(value => value.fixed || value.isOnScreen(this.camera));
+    return this.elements.filter(value => value.fixed || value.visible || value.isOnScreen(this.camera));
   }
 
   addElement(element: Element) {
