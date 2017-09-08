@@ -30,7 +30,7 @@ export class EndScene extends Scene {
 }
 
 export class SpaceTask extends Task {
-  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.ZOMBIE, 500);
+  onSuccess: (game: Game) => void = game => game.changeGameState(SceneType.MAZE_INTRO, 500);
 
   update(game: Game) {
     if(game.controls.shoot) {
