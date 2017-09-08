@@ -34,7 +34,7 @@ export class Shape extends Element {
   }
 
   containsPosition?(position: Position): boolean {
-    return position.x > this.position.x && position.x < this.position.x + this.w && position.y > this.position.y && position.y < this.position.y + this.h;
+    return position.x >= this.position.x && position.x <= this.position.x + this.w && position.y >= this.position.y && position.y <= this.position.y + this.h;
   }
 
   collision?(shape: Shape) : boolean {
