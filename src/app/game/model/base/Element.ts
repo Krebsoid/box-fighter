@@ -24,6 +24,7 @@ export abstract class Element {
   destructible: boolean = false;
   dangerous: boolean = true;
   fixed: boolean = false;
+  visible: boolean = false;
 
   maxLife: number = 1;
   life: number = 1;
@@ -90,6 +91,11 @@ export abstract class Element {
 
   isCollidable(collidable: boolean) {
     this.collidable = collidable;
+    return this;
+  }
+
+  isVisible(visible: boolean) {
+    this.visible = visible;
     return this;
   }
 
