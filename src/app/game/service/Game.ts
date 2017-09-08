@@ -15,6 +15,9 @@ export class GameTime {
   static frame() {
     return GameTime.frames;
   }
+  static reset() {
+    GameTime.frames = 0;
+  }
 }
 
 @Injectable()
@@ -25,7 +28,7 @@ export class Game {
   events: Array<Event> = [];
   eventListeners: Array<EventListener> = [];
   gameTime: number;
-  paused: boolean = false;
+  paused: boolean = true;
 
   controls: Controls = new Controls();
 
@@ -48,6 +51,7 @@ export class Game {
   }
 
   changeGameState(newGameState: SceneType, delay: number = 0) {
+    GameTime.reset();
     let oldState: SceneType = this.state;
     this.state = newGameState;
     if(oldState !== newGameState) {
