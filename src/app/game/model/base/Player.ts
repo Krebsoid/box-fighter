@@ -54,6 +54,7 @@ export class Player extends Element implements ValuableConsumer {
     this.height = this.calculateHeight();
     this.setWeapon(weapon);
     this.setEngine(engine);
+    this.engine.refuel(100000);
   }
 
   isOnScreen(): boolean {
