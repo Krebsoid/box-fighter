@@ -54,6 +54,11 @@ export class Weapon extends Equipment implements Buyable {
   timeTillReloaded: number;
   update(game: Game) {
     super.update(game);
+    if(game.gameTime == 0) {
+      this.reloading = false;
+      this.lastShoot = 0;
+      this.timeTillReloaded = 0;
+    }
     if(this.isAttached() && !this.reloading && game.controls.shoot) {
       this.reloading = true;
       this.lastShoot = game.gameTime;
