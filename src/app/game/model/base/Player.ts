@@ -21,6 +21,7 @@ export class Player extends Element implements ValuableConsumer {
   height: number;
 
   currency: number = 0;
+  dead: boolean = false;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -38,6 +39,7 @@ export class Player extends Element implements ValuableConsumer {
 
   resetPosition(x: number, y: number, z: number) {
     this.setPosition(x, y);
+    this.dead = false;
     let weapon = this.weapon;
     let engine = this.engine;
     this.weapon = undefined;
@@ -104,22 +106,28 @@ export class Player extends Element implements ValuableConsumer {
   }
 
   checkForHits(game: Game) {
-    let colliding = false;
-    game.gameArea.elementsOnCamera().forEach((value) => {
-      if(value instanceof ColoredShape && value.dangerous) {
-        this.hitboxes.forEach(hitbox => {
-          if(!colliding && hitbox.collision(value)) {
-            colliding = true;
-            value.onHit(game);
-            game.gameArea.removeElement(this);
-            game.changeGameState(SceneType.DEAD, 1500);
-            this.elements.forEach(colored => {
-              if(colored instanceof ColoredShape) {
-                colored.explode(game);
-              }
-            });
-          }
-        })
+    if(!this.dead) {
+      game.gameArea.elementsOnCamera().forEach((value) => {
+        if(value instanceof ColoredShape && value.dangerous) {
+          this.hitboxes.forEach(hitbox => {
+            if(hitbox.collision(value)) {
+              value.onHit(game);
+              this.dying(game);
+            }
+          })
+        }
+      });
+    }
+  }
+
+  dying(game: Game) {
+    this.dead = true;
+    this.velocity = new Vector(0, 0);
+    game.gameArea.removeElement(this);
+    game.changeGameState(SceneType.DEAD, 1500);
+    this.elements.forEach(colored => {
+      if(colored instanceof ColoredShape) {
+        colored.explode(game);
       }
     });
   }
@@ -133,34 +141,28 @@ export class Player extends Element implements ValuableConsumer {
 
   doMovement(game: Game) {
     this.elements.forEach(value => value.update(game));
-    if(this.engine.level > 0) {
+    this.velocity = new Vector(0, 0);
+    if(this.engine.level > 0 && !this.dead) {
       let acceleration = this.engine ? this.engine.acceleration : 0;
       let levelBorders = game.getActiveScene().levelBorders;
+      let xAcceleration = 0;
+      let yAcceleration = 0;
       if(game.controls.down) {
-        if(this.position.y <= levelBorders.h - this.height) {
-          this.move(new Vector(0, acceleration));
-          this.elements.forEach(value => value.move(new Vector(0, acceleration)));
-        }
+        yAcceleration = this.position.y <= levelBorders.h - this.height ? acceleration : 0;
       }
       if(game.controls.up) {
-        if(this.position.y >= levelBorders.position.y) {
-          this.move(new Vector(0, -acceleration));
-          this.elements.forEach(value => value.move(new Vector(0, -acceleration)));
-        }
+        yAcceleration = this.position.y >= levelBorders.position.y ? -acceleration : 0;
       }
       if(game.controls.right) {
-        if(this.position.x <= levelBorders.w) {
-          this.move(new Vector(acceleration, 0));
-          this.elements.forEach(value => value.move(new Vector(acceleration, 0)));
-        }
+        xAcceleration = this.position.x <= levelBorders.w ? acceleration : 0;
       }
       if(game.controls.left) {
-        if(this.position.x >= levelBorders.position.x) {
-          this.move(new Vector(-acceleration, 0));
-          this.elements.forEach(value => value.move(new Vector(-acceleration, 0)));
-        }
+        xAcceleration = this.position.x >= levelBorders.position.x ? -acceleration : 0;
       }
       if(game.controls.isMoving()) {
+        this.velocity = new Vector(xAcceleration, yAcceleration);
+        this.move(this.velocity);
+        this.elements.forEach(value => value.move(this.velocity));
         this.engine.consumeFuel(Math.abs(acceleration));
       }
     }
