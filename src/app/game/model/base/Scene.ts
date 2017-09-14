@@ -1,7 +1,8 @@
 import {Game} from "../../service/Game";
 import {Shape} from "./Shape";
 import {SceneType} from "../scene/SceneType";
-import {ColoredShape} from "./ColoredShape";
+import {Sprite} from "./Sprite";
+import {Vector} from "./Vector";
 
 export abstract class Scene {
   abstract type: SceneType;
@@ -10,27 +11,22 @@ export abstract class Scene {
   abstract hasBackground: boolean;
 
   background(game: Game) {
-    let width = this.levelBorders.w;
-    let height = this.levelBorders.h;
-    let numberOfLines = width / 50;
-    let numberOfRows = height / 50;
-    let index = 0;
-    while(numberOfLines > index) {
-      let shape = new ColoredShape(index * 50, 0, 0, this.levelBorders.h, 2, "#f4f4f4")
-        .isCollidable(false)
-        .isDangerous(false);
-      game.gameArea.addElement(shape);
-      index++;
-    }
-    index = 0;
-    while(numberOfRows > index) {
-      let shape = new ColoredShape(0, index * 50, 0, 2, this.levelBorders.w, "#f4f4f4")
-        .isCollidable(false)
-        .isVisible(true)
-        .isDangerous(false);
-      game.gameArea.addElement(shape);
-      index++;
-    }
+    let background = new Sprite(-1500, -1500, -10, 2000, 4000, "assets/background.png", () => undefined)
+      .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
+    let sun = new Sprite(300, 30, -15, 200, 200, "assets/sun.png", () => undefined)
+      .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
+    background.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
+      if(game.controls.isMoving()) {
+        shape.move(new Vector(game.player.velocity.x * .1, 0));
+      }
+    });
+    sun.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
+      if(game.controls.isMoving()) {
+        shape.move(new Vector(game.player.velocity.x * .9, 0));
+      }
+    });
+    game.gameArea.addElement(sun);
+    game.gameArea.addElement(background);
   }
   init(game: Game) {
     if(this.hasBackground) {
