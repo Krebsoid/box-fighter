@@ -10,6 +10,7 @@ export class ElementType {
   static GENERIC_SHAPE: string = "Generic Shape";
   static SHRINKING_COLORED_SHAPE: string = "Shrinking Colored Shape";
   static SPRITE: string = "Sprite";
+  static ANIMATED_SPRITE: string = "Animated Sprite";
 
   static CAMERA: string = "Camera";
 

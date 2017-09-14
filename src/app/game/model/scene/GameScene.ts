@@ -27,6 +27,7 @@ import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {StaticCamera} from "../base/StaticCamera";
 import {Text} from "../base/Text";
 import {Vector} from "../base/Vector";
+import {AnimatedSprite} from "../base/AnimatedSprite";
 
 export class GameScene extends Scene {
   hasBackground: boolean = true;
@@ -77,8 +78,8 @@ export class GameScene extends Scene {
 
     game.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7").isDestructible(true));
 
-    game.gameArea.addElement(new Sprite(500, 200, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true));
-    let sprite = new Sprite(500, 300, 1, 30, 30, true, 6, "assets/sprite.png");
+    game.gameArea.addElement(new AnimatedSprite(500, 200, 1, 30, 30, "assets/sprite.png", 200, true).isDestructible(true));
+    let sprite = new AnimatedSprite(500, 300, 1, 30, 30, "assets/sprite.png", 5, true);
     sprite.addGenericBehaviour<Shape>("sinus-freak", new SinusBehaviour());
     sprite.addBehaviour<Shape>("sinus-freak-backwards", (game, shape) => {
       if(shape.position.x > 700) {
@@ -96,7 +97,7 @@ export class GameScene extends Scene {
     });
     game.gameArea.addElement(sprite);
 
-    let sprite2 = new Sprite(500, 250, 1, 30, 30, true, 200, "assets/sprite.png").isDestructible(true);
+    let sprite2 = new AnimatedSprite(500, 250, 1, 30, 30, "assets/sprite.png", 200, true).isDestructible(true);
 
     sprite2.addGenericBehaviour<Sprite>("circle", new CircleBehaviour(200, 1, sprite2));
 
