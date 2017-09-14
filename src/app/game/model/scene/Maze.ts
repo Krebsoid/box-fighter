@@ -101,8 +101,12 @@ export class EscapeMaze extends Task {
     this.done = true;
   };
 
+  labelRendered: boolean = false;
   render(camera: Camera): any {
-    this.label.render(camera);
+    if(!this.labelRendered) {
+      this.label.render(camera, "static");
+      this.labelRendered = true;
+    }
     super.render(camera);
   }
 

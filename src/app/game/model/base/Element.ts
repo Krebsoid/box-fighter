@@ -47,7 +47,7 @@ export abstract class Element {
     this.birth = GameTime.frame();
   }
 
-  render(camera: Camera) {
+  render(camera: Camera, canvas: string = "game") {
     this.xOffset = this.fixed ? this.position.x : this.position.x - camera.position.x + camera.xOffset;
     this.yOffset = this.fixed ? this.position.y : this.position.y - camera.position.y + camera.yOffset;
   }

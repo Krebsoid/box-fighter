@@ -16,9 +16,9 @@ export class HitBox extends ColoredShape {
     this.label.text = "0";
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    this.label.render(camera);
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    this.label.render(camera, canvas);
   }
 
   update(game: Game) {

@@ -43,5 +43,6 @@ export abstract class Scene {
 
   cleanUp(game: Game) {
     game.gameArea.clear();
+    game.gameArea.repaint("static");
   }
 }

@@ -23,8 +23,8 @@ export abstract class Equipment extends Element {
     return this.elements.some(shape => shape.isOnScreen(camera));
   }
 
-  render(camera: Camera) {
-    this.elements.forEach(value => value.render(camera));
+  render(camera: Camera, canvas: string = "game") {
+    this.elements.forEach(value => value.render(camera, canvas));
   }
 
   update(game: Game) {

@@ -20,9 +20,9 @@ export class Sprite extends Shape {
     this.speed = speed;
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    camera.gameArea.getContext().drawImage(this.image, this.activeFrame * this.w, 0, this.w, this.h, this.xOffset, this.yOffset, this.w, this.h);
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    camera.gameArea.getContext(canvas).drawImage(this.image, this.activeFrame * this.w, 0, this.w, this.h, this.xOffset, this.yOffset, this.w, this.h);
   }
 
   setNumberOfFrames(numberOfFrames: number) {

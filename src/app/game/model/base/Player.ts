@@ -61,8 +61,8 @@ export class Player extends Element implements ValuableConsumer {
     return true;
   }
 
-  render(camera: Camera) {
-    this.elements.forEach(value => value.render(camera));
+  render(camera: Camera, canvas: string = "game") {
+    this.elements.forEach(value => value.render(camera, canvas));
   }
 
   setEngine(engine: Engine) {

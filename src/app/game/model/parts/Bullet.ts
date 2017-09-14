@@ -23,8 +23,8 @@ export class Bullet extends ColoredShape implements Damage {
     this.weapon = weapon;
   }
 
-  render(camera: Camera) {
-    super.render(camera);
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
   }
 
   update(game: Game) {

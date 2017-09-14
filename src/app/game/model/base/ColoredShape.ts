@@ -16,13 +16,13 @@ export class ColoredShape extends Shape implements Valuable {
     this.color = color;
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    camera.gameArea.getContext().fillStyle = this.color;
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    camera.gameArea.getContext(canvas).fillStyle = this.color;
     if(this.gradient) {
-      camera.gameArea.getContext().fillStyle = this.gradient;
+      camera.gameArea.getContext(canvas).fillStyle = this.gradient;
     }
-    camera.gameArea.getContext().fillRect(this.xOffset, this.yOffset, this.w, this.h);
+    camera.gameArea.getContext(canvas).fillRect(this.xOffset, this.yOffset, this.w, this.h);
   }
 
   update(game: Game) {

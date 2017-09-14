@@ -40,7 +40,7 @@ export class Game {
     const self = this;
     function main() {
       if(!self.paused) {
-        self.gameArea.repaint();
+        self.gameArea.repaint("game");
         self.update();
         self.render();
         self.gameTime = GameTime.nextFrame();

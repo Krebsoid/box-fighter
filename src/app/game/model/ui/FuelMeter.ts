@@ -20,14 +20,14 @@ export class FuelMeter extends Element {
     this.elements.push(this.filling);
   }
 
-  render(camera: Camera) {
+  render(camera: Camera, canvas: string = "game") {
     if(this.player.engine) {
-      let gradient = camera.gameArea.getContext().createLinearGradient(this.position.x, this.position.y, this.position.x + this.player.engine.capacity, this.position.y);
+      let gradient = camera.gameArea.getContext(canvas).createLinearGradient(this.position.x, this.position.y, this.position.x + this.player.engine.capacity, this.position.y);
       gradient.addColorStop(0,"#FF0000");
       gradient.addColorStop(0.5,"#fffc00");
       gradient.addColorStop(1,"#00ff24");
       this.filling.gradient = gradient;
-      this.elements.forEach(element => element.render(camera));
+      this.elements.forEach(element => element.render(camera, canvas));
     }
   }
 

@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {Camera} from "../model/base/Camera";
 import {Player} from "../model/base/Player";
 import {ElementType} from "../model/base/ElementType";
+import {StaticCamera} from "../model/base/StaticCamera";
 
 @Injectable()
 export class GameArea {
@@ -10,7 +11,7 @@ export class GameArea {
   elements: Element[] = [];
   graveyard: Element[] = [];
   camera: Camera;
-  context: any;
+  context: Map<string, any> = new Map();
 
   elementsOnCamera(): Element[] {
     return this.elements.filter(value => value.fixed || value.visible || value.isOnScreen(this.camera));
@@ -37,17 +38,17 @@ export class GameArea {
     return <Player>this.elementsOnCamera().find(value => value.type === ElementType.PLAYER);
   }
 
-  repaint() {
-    this.getContext().clearRect(0, 0, 1024, 500);
+  repaint(name: string) {
+    this.getContext(name).clearRect(0, 0, 1024, 500);
   }
 
-  getContext() {
-    if(this.context) {
-      return this.context;
+  getContext(name: string = "game") {
+    if(this.context.has(name)) {
+      return this.context.get(name);
     } else {
-      let canvas: any = document.getElementById('game');
-      this.context = canvas.getContext("2d");
-      return this.context;
+      let canvas: any = document.getElementById(name);
+      this.context.set(name, canvas.getContext("2d"));
+      return this.context.get(name);
     }
   }
 

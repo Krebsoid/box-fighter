@@ -18,8 +18,8 @@ export class CurrencyMeter extends Element {
     this.label = new StrokedText(50, 480, 500, "green", "40pt Calibri", 4, "black").isFixed(true);
   }
 
-  render(camera: Camera) {
-    this.label.render(camera);
+  render(camera: Camera, canvas: string = "game") {
+    this.label.render(camera, canvas);
   }
 
   update(game: Game) {

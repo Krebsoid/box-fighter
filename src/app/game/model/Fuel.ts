@@ -35,8 +35,8 @@ export class Fuel extends Element {
     return this.hitboxes.some(hitbox => hitbox.isOnScreen(camera));
   }
 
-  render(camera: Camera) {
-    this.elements.forEach((value, index, array) => value.render(camera));
+  render(camera: Camera, canvas: string = "game") {
+    this.elements.forEach((value, index, array) => value.render(camera, canvas));
   }
 
   update(game: Game) {

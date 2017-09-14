@@ -92,10 +92,10 @@ export class Weapon extends Equipment implements Buyable {
   }
 
 
-  render(camera: Camera): any {
-    super.render(camera);
+  render(camera: Camera, canvas: string = "game"): any {
+    super.render(camera, canvas);
     if(!this.isAttached()) {
-      this.label.render(camera);
+      this.label.render(camera, canvas);
     }
   }
 

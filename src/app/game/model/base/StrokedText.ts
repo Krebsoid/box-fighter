@@ -12,14 +12,14 @@ export class StrokedText extends Text {
     this.strokeColor = strokeColor;
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    camera.gameArea.getContext().font = this.style;
-    camera.gameArea.getContext().strokeStyle = this.strokeColor;
-    camera.gameArea.getContext().lineWidth = this.stroke;
-    camera.gameArea.getContext().strokeText(this.text, this.xOffset, this.yOffset);
-    camera.gameArea.getContext().fillStyle = this.color;
-    camera.gameArea.getContext().fillText(this.text, this.xOffset, this.yOffset);
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    camera.gameArea.getContext(canvas).font = this.style;
+    camera.gameArea.getContext(canvas).strokeStyle = this.strokeColor;
+    camera.gameArea.getContext(canvas).lineWidth = this.stroke;
+    camera.gameArea.getContext(canvas).strokeText(this.text, this.xOffset, this.yOffset);
+    camera.gameArea.getContext(canvas).fillStyle = this.color;
+    camera.gameArea.getContext(canvas).fillText(this.text, this.xOffset, this.yOffset);
   }
 
   type: ElementType = ElementType.STROKED_TEXT;

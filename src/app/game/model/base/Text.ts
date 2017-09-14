@@ -27,9 +27,9 @@ export class Text extends Element {
       cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + + 50 + this.textWidth, this.position.y + camera.yOffset - this.textHeight));
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    let context = camera.gameArea.getContext();
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    let context = camera.gameArea.getContext(canvas);
     context.font = this.style;
     context.fillStyle = this.color;
     context.fillText(this.text, this.xOffset, this.yOffset);

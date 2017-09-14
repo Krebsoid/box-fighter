@@ -21,9 +21,9 @@ export class WeaponMeter extends Element {
     this.elements.push(this.filling);
   }
 
-  render(camera: Camera) {
+  render(camera: Camera, canvas: string = "game") {
     if(this.player.weapon) {
-      this.elements.forEach(element => element.render(camera));
+      this.elements.forEach(element => element.render(camera, canvas));
     }
   }
 

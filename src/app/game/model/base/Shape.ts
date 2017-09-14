@@ -24,8 +24,8 @@ export class Shape extends Element {
       cameraShape.containsPosition(new Position(this.position.x + camera.xOffset + this.w, this.position.y + camera.yOffset + this.h));
   }
 
-  render(camera: Camera) {
-    super.render(camera);
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
   }
 
   update(game: Game) {

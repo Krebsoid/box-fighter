@@ -19,9 +19,9 @@ export class GenericShape extends Shape {
     return this.descriptor.some(position => camera.shape().containsPosition(new Position(this.position.x + camera.xOffset + position.x, this.position.y + camera.yOffset + position.y)));
   }
 
-  render(camera: Camera) {
-    super.render(camera);
-    let context = camera.gameArea.getContext();
+  render(camera: Camera, canvas: string = "game") {
+    super.render(camera, canvas);
+    let context = camera.gameArea.getContext(canvas);
     context.fillStyle = this.color;
     context.beginPath();
     context.moveTo(this.xOffset, this.yOffset);

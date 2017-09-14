@@ -1,8 +1,17 @@
 #content {
   text-align: center;
+  position: relative;
 }
 
-#game {
+#game, #static {
+  position: absolute;
+  left: calc(50% - 512px);
   border: 1px solid darkgray;
   -webkit-transform: translateZ(0);
+}
+
+#game-info {
+  position: absolute;
+  top:600px;
+  left: calc(50%);
 }
