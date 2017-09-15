@@ -17,12 +17,12 @@ export abstract class Scene {
       .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
     background.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
       if(game.controls.isMoving()) {
-        shape.move(new Vector(game.player.velocity.x * .1, 0));
+        shape.move(new Vector(game.player.velocity.x, 0).multiply(-.2));
       }
     });
     sun.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
       if(game.controls.isMoving()) {
-        shape.move(new Vector(game.player.velocity.x * .9, 0));
+        shape.move(new Vector(game.player.velocity.x, 0).multiply(.8));
       }
     });
     game.gameArea.addElement(sun);

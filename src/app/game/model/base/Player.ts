@@ -101,7 +101,16 @@ export class Player extends Element implements ValuableConsumer {
   }
 
   update(game: Game) {
-    this.doMovement(game);
+    if(this.destination) {
+      this.moveTo(this.engine.acceleration);
+      console.log(this.distanceToTarget(this.destination));
+      if(this.distanceToTarget(this.destination) < 5) {
+        this.destination = undefined;
+      }
+    } else {
+      this.doMovement(game);
+    }
+
     this.checkForHits(game);
   }
 
@@ -166,6 +175,11 @@ export class Player extends Element implements ValuableConsumer {
         this.engine.consumeFuel(Math.abs(acceleration));
       }
     }
+  }
+
+  moveTo(speed: number): any {
+    super.moveTo(speed);
+    this.elements.forEach(value => value.move(this.velocity));
   }
 
   type: ElementType = ElementType.PLAYER;

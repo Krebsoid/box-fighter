@@ -113,7 +113,8 @@ export abstract class Element {
   }
 
   moveTo(speed: number) {
-    this.move(new Vector(-(this.percentageX * speed), -(this.percentageY * speed)));
+    this.velocity = new Vector(-(this.percentageX * speed), -(this.percentageY * speed));
+    this.move(this.velocity);
   }
 
   move(velocity: Vector) {
@@ -123,6 +124,7 @@ export abstract class Element {
   setPosition(x: number, y: number) {
     this.position.x = x;
     this.position.y = y;
+    this.velocity = new Vector(0, 0);
   }
 
   setLife(life: number) {
