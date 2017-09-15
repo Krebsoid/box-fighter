@@ -10,6 +10,7 @@ import {Maze, MazeIntro} from "./model/scene/Maze";
 import {ZombieScene} from "./model/scene/ZombieScene";
 import {SceneType} from "./model/scene/SceneType";
 import {Vector} from "./model/base/Vector";
+import {TryAgainScene} from "./model/scene/TryAgainScene";
 
 @Component({
   templateUrl: './game.component.html',
@@ -31,6 +32,7 @@ export class GameComponent implements OnInit {
     this.addScene(new WinningScene());
     this.addScene(new Maze());
     this.addScene(new ZombieScene());
+    this.addScene(new TryAgainScene());
     this.game.changeGameState(SceneType.MAZE_INTRO);
     this.game.init();
   }

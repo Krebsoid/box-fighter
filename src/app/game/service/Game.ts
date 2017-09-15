@@ -53,6 +53,7 @@ export class Game {
   changeGameState(newGameState: SceneType, delay: number = 0) {
     GameTime.reset();
     let oldState: SceneType = this.state;
+    this.player.lastScene = this.state;
     this.state = newGameState;
     if(oldState !== newGameState) {
       let self = this;

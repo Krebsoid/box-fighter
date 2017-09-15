@@ -28,6 +28,7 @@ import {StaticCamera} from "../base/StaticCamera";
 import {Text} from "../base/Text";
 import {Vector} from "../base/Vector";
 import {AnimatedSprite} from "../base/AnimatedSprite";
+import {LifeMeter} from "../ui/LifeMeter";
 
 export class GameScene extends Scene {
   hasBackground: boolean = true;
@@ -108,6 +109,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(new Fuel(300, 300, 300));
     game.gameArea.addElement(new Fuel(1000, 300, 300));
 
+    game.gameArea.addElement(new LifeMeter(player));
     game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));

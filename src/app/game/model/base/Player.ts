@@ -22,6 +22,9 @@ export class Player extends Element implements ValuableConsumer {
 
   currency: number = 0;
   dead: boolean = false;
+  lifes: number = 3;
+
+  lastScene: SceneType;
 
   constructor() {
     super(100, 500/2 - 25, 5);
@@ -133,7 +136,8 @@ export class Player extends Element implements ValuableConsumer {
     this.dead = true;
     this.velocity = new Vector(0, 0);
     game.gameArea.removeElement(this);
-    game.changeGameState(SceneType.DEAD, 1500);
+    this.lifes -= 1;
+    game.changeGameState(this.lifes == 0 ? SceneType.DEAD : SceneType.TRY_AGAIN, 1500);
     this.elements.forEach(colored => {
       if(colored instanceof ColoredShape) {
         colored.explode(game);

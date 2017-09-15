@@ -16,6 +16,7 @@ import {Camera} from "../base/Camera";
 import {Task} from "../mission/Mission";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {StaticCamera} from "../base/StaticCamera";
+import {LifeMeter} from "../ui/LifeMeter";
 
 export class Level1 extends Scene {
   hasBackground: boolean = true;
@@ -54,6 +55,7 @@ export class Level1 extends Scene {
     textDown.text = "Leertaste zum Schießen";
     game.gameArea.addElement(textDown);
 
+    game.gameArea.addElement(new LifeMeter(player));
     game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));

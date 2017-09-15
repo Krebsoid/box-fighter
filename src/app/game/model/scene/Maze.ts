@@ -16,6 +16,7 @@ import {Camera} from "../base/Camera";
 import {StaticCamera} from "../base/StaticCamera";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {Vector} from "../base/Vector";
+import {LifeMeter} from "../ui/LifeMeter";
 
 export class Maze extends Scene {
   hasBackground: boolean = true;
@@ -25,6 +26,7 @@ export class Maze extends Scene {
 
   playground(game: Game) {
     let player = game.player;
+    player.lifes = 3;
     player.resetPosition(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
@@ -76,6 +78,7 @@ export class Maze extends Scene {
     game.gameArea.addElement(dangerousShape1);
     game.gameArea.addElement(dangerousShape2);
 
+    game.gameArea.addElement(new LifeMeter(player));
     game.gameArea.addElement(new WeaponMeter(player));
     game.gameArea.addElement(new FuelMeter(player));
     game.gameArea.addElement(new CurrencyMeter(player));

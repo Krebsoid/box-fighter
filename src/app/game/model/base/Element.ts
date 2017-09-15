@@ -1,6 +1,5 @@
 import {Camera} from "./Camera";
 import {Game, GameTime} from "../../service/Game";
-import {Position} from "./Position";
 import {ElementType} from "./ElementType";
 import {Behaviour} from "../behaviour/Behaviour";
 import {Vector} from "./Vector";
