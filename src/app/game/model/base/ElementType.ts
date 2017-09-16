@@ -25,4 +25,5 @@ export class ElementType {
   static HITBOX: string = "Hitbox";
   static SHAPE_MACHINE: string = "Shape Machine";
   static FUEL: string = "Fuel";
+  static LIFE: string = "Life";
 }

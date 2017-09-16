@@ -17,6 +17,8 @@ import {StaticCamera} from "../base/StaticCamera";
 import {BlinkBehaviour} from "../behaviour/BlinkBehaviour";
 import {Vector} from "../base/Vector";
 import {LifeMeter} from "../ui/LifeMeter";
+import {Life} from "../Life";
+import {FollowBehaviour} from "../behaviour/FollowBehaviour";
 
 export class Maze extends Scene {
   hasBackground: boolean = true;
@@ -33,6 +35,17 @@ export class Maze extends Scene {
     let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
 
+    let pathHeartBehaviour = new PathBehaviour(2, [
+      (game: Game) => new Vector(600, 450),
+      (game: Game) => new Vector(1300, 450),
+      (game: Game) => new Vector(1300, 50),
+      (game: Game) => new Vector(600, 50)
+    ]);
+
+    let life = new Life(600, 430, 100);
+    life.addGenericBehaviour("path", pathHeartBehaviour);
+    game.gameArea.addElement(life);
+
     game.gameArea.addElement(new ColoredShape(500, 0, 1, 200, 50, "black"));
     game.gameArea.addElement(new ColoredShape(500, 300, 1, 250, 50, "black"));
 
@@ -45,12 +58,9 @@ export class Maze extends Scene {
     game.gameArea.addElement(target);
     game.gameArea.addElement(new EscapeMaze(target));
 
-    let dangerousShape3 = new ShrinkingColoredShape(1250, 350, 5, 10, 10, "red").isDestructible(true).setLife(1).setValue(2000);
-    dangerousShape3.addBehaviour<Shape>("haunt", (game, shape) => {
-      shape.setDestination(player.position);
-      shape.moveTo(1);
-    });
-    game.gameArea.addElement(dangerousShape3);
+    /*let dangerousShape3 = new ShrinkingColoredShape(1250, 350, 5, 10, 10, "red").isDestructible(true).setLife(1).setValue(2000);
+    dangerousShape3.addGenericBehaviour("follow", new FollowBehaviour(player, 2));
+    game.gameArea.addElement(dangerousShape3);*/
 
     let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);

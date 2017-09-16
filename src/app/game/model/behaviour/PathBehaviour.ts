@@ -2,8 +2,9 @@ import {Behaviour} from "./Behaviour";
 import {Game} from "../../service/Game";
 import {ColoredShape} from "../base/ColoredShape";
 import {Vector} from "../base/Vector";
+import {Element} from "../base/Element";
 
-export class PathBehaviour implements Behaviour<ColoredShape> {
+export class PathBehaviour implements Behaviour<Element> {
   speed: number;
   path: Array<(game: Game) => Vector>;
   private active: number = 0;
@@ -14,7 +15,7 @@ export class PathBehaviour implements Behaviour<ColoredShape> {
     this.path = path;
   }
 
-  behaviour: (game: Game, shape: ColoredShape) => void = (game, shape) => {
+  behaviour: (game: Game, shape: Element) => void = (game, shape) => {
     if(this.needForNewTarget) {
       shape.setDestination(this.path[this.active](game));
       this.needForNewTarget = false;
