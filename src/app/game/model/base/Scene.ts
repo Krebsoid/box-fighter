@@ -11,7 +11,7 @@ export abstract class Scene {
   abstract hasBackground: boolean;
 
   background(game: Game) {
-    let background = new Sprite(-1500, -1500, -10, 2000, 4000, "assets/background.png", () => undefined)
+    let background = new Sprite(-1500, -1010, -10, 2000, 4000, "assets/background.png", () => undefined)
       .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
     let sun = new Sprite(300, 30, -15, 200, 200, "assets/sun.png", () => undefined)
       .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
