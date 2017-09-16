@@ -184,7 +184,6 @@ export class Level2Intro extends Scene {
 
 export class SpaceTask extends Task {
   onSuccess: (game: Game) => void = game => {
-    game.pause();
     game.changeGameState(SceneType.LEVEL2, 500);
   };
 

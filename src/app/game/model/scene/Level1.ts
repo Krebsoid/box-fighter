@@ -73,7 +73,6 @@ export class HitBoxes extends Task {
   label: StrokedText;
 
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.pause();
     game.changeGameState(SceneType.LEVEL2_INTRO);
     this.done = true;
   };
@@ -125,7 +124,6 @@ export class Level1Intro extends Scene {
 
 export class SpaceTask extends Task {
   onSuccess: (game: Game) => void = game => {
-    game.pause();
     game.changeGameState(SceneType.LEVEL1, 500);
   };
 

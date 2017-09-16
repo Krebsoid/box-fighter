@@ -41,7 +41,7 @@ export class Maze extends Scene {
 
     game.gameArea.addElement(new ColoredShape(1400, 0, 1, 200, 50, "black"));
     game.gameArea.addElement(new ColoredShape(1400, 300, 1, 250, 50, "black"));
-    let target = new ColoredShape(1485, 200, 1, 100, 5, "white").isDangerous(false);
+    let target = new ColoredShape(1555, 200, 1, 100, 5, "white").isDangerous(false);
     game.gameArea.addElement(target);
     game.gameArea.addElement(new EscapeMaze(target));
 
@@ -99,8 +99,7 @@ export class EscapeMaze extends Task {
 
   description: string = "Entkomme aus dem Labyrinth und erreiche das Ende";
   onSuccess: (game: Game) => void = (game: Game) => {
-    game.pause();
-    game.changeGameState(SceneType.LEVEL1_INTRO);
+    game.changeGameState(SceneType.LEVEL1_INTRO, 0);
     this.done = true;
   };
 
@@ -147,7 +146,6 @@ export class MazeIntro extends Scene {
 
 export class SpaceTask extends Task {
   onSuccess: (game: Game) => void = game => {
-    game.pause();
     game.changeGameState(SceneType.MAZE, 500);
   };
 

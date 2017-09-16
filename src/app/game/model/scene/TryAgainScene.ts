@@ -34,7 +34,6 @@ export class SpaceTask extends Task {
 
   update(game: Game) {
     if(game.controls.shoot) {
-      game.pause();
       this.onSuccess(game);
     }
   }

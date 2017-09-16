@@ -51,13 +51,14 @@ export class Game {
   }
 
   changeGameState(newGameState: SceneType, delay: number = 0) {
-    GameTime.reset();
     let oldState: SceneType = this.state;
     this.player.lastScene = this.state;
-    this.state = newGameState;
     if(oldState !== newGameState) {
       let self = this;
       setTimeout(function() {
+        GameTime.reset();
+        self.state = newGameState;
+        self.pause();
         oldState ? self.scenes.get(oldState).cleanUp(self) : undefined;
         self.scenes.get(newGameState).init(self);
         self.resume();
