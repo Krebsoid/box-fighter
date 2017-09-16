@@ -37,6 +37,10 @@ export class Engine extends Equipment {
     }
   }
 
+  reset() {
+    this.level = this.capacity;
+  }
+
   refuel(fuel: number) {
     this.level += fuel;
     if(this.level > this.capacity) {

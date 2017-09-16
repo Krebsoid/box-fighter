@@ -59,7 +59,8 @@ export class Player extends Element implements ValuableConsumer {
     this.height = this.calculateHeight();
     this.setWeapon(weapon);
     this.setEngine(engine);
-    this.engine.refuel(100000);
+    this.weapon.reset();
+    this.engine.reset();
   }
 
   isOnScreen(): boolean {
@@ -133,16 +134,18 @@ export class Player extends Element implements ValuableConsumer {
   }
 
   dying(game: Game) {
-    this.dead = true;
-    this.velocity = new Vector(0, 0);
-    game.gameArea.removeElement(this);
-    this.lifes -= 1;
-    game.changeGameState(this.lifes == 0 ? SceneType.DEAD : SceneType.TRY_AGAIN, 1500);
-    this.elements.forEach(colored => {
-      if(colored instanceof ColoredShape) {
-        colored.explode(game);
-      }
-    });
+    if(!this.dead) {
+      this.dead = true;
+      this.velocity = new Vector(0, 0);
+      game.gameArea.removeElement(this);
+      this.lifes -= 1;
+      game.changeGameState(this.lifes == 0 ? SceneType.DEAD : SceneType.TRY_AGAIN, 1500);
+      this.elements.forEach(colored => {
+        if(colored instanceof ColoredShape) {
+          colored.explode(game);
+        }
+      });
+    }
   }
 
   consume(valuable: Valuable) {
