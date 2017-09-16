@@ -45,6 +45,13 @@ export class Maze extends Scene {
     game.gameArea.addElement(target);
     game.gameArea.addElement(new EscapeMaze(target));
 
+    let dangerousShape3 = new ShrinkingColoredShape(1250, 350, 5, 10, 10, "red").isDestructible(true).setLife(1).setValue(2000);
+    dangerousShape3.addBehaviour<Shape>("haunt", (game, shape) => {
+      shape.setDestination(player.position);
+      shape.moveTo(1);
+    });
+    game.gameArea.addElement(dangerousShape3);
+
     let dangerousShape1 = new ShrinkingColoredShape(1250, 350, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let dangerousShape2 = new ShrinkingColoredShape(600, 0, 5, 100, 100, "red").isDestructible(true).setLife(30).setValue(800);
     let pathBehaviour = new PathBehaviour(2, [
