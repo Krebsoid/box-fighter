@@ -19,13 +19,13 @@ export class ShrinkingColoredShape extends ColoredShape {
       camera.gameArea.getContext(canvas).fillStyle = this.gradient;
     }
     let percentage = (this.life / this.maxLife);
-    let x = ((this.w - this.w * percentage) / 2);
-    let y = ((this.h - this.h * percentage) / 2);
+    this.shrunkW = this.w - ((this.w - (this.w * percentage)) / 2);
+    this.shrunkH = this.h - ((this.h - (this.h * percentage)) / 2);
+    let x = ((this.w - this.w * percentage) / 2) - (((this.w - this.shrunkW) / 2));
+    let y = ((this.h - this.h * percentage) / 2) - (((this.h - this.shrunkH) / 2));
     this.shrunkX = this.position.x + x;
     this.shrunkY = this.position.y + y;
-    this.shrunkW = this.w * percentage;
-    this.shrunkH = this.h * percentage;
-    camera.gameArea.getContext(canvas).fillRect(this.xOffset + x, this.yOffset + y, this.w * percentage, this.h * percentage);
+    camera.gameArea.getContext(canvas).fillRect(this.xOffset + x, this.yOffset + y, this.shrunkW, this.shrunkH);
   }
 
   getHitBox(): Shape {
