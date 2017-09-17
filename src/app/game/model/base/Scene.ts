@@ -1,11 +1,11 @@
 import {Game} from "../../service/Game";
-import {Shape} from "./Shape";
-import {SceneType} from "../scene/SceneType";
-import {Sprite} from "./Sprite";
+import {Shape} from "./shapes/Shape";
+import {Sprite} from "./shapes/Sprite";
 import {Vector} from "./Vector";
+import {SceneCatalogue} from "../catalogues/SceneCatalogue";
 
 export abstract class Scene {
-  abstract type: SceneType;
+  abstract type: SceneCatalogue;
   abstract name: string;
   abstract levelBorders: Shape;
   abstract hasBackground: boolean;

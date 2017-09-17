@@ -1,9 +1,8 @@
 import {Element} from "../model/base/Element";
 import {Injectable} from "@angular/core";
-import {Camera} from "../model/base/Camera";
-import {Player} from "../model/base/Player";
-import {ElementType} from "../model/base/ElementType";
-import {StaticCamera} from "../model/base/StaticCamera";
+import {Camera} from "../model/base/camera/Camera";
+import {Player} from "../model/player/Player";
+import {ElementCatalogue} from "../model/catalogues/ElementCatalogue";
 
 @Injectable()
 export class GameArea {
@@ -35,7 +34,7 @@ export class GameArea {
   }
 
   getPlayer(): Player {
-    return <Player>this.elementsOnCamera().find(value => value.type === ElementType.PLAYER);
+    return <Player>this.elementsOnCamera().find(value => value.type === ElementCatalogue.PLAYER);
   }
 
   repaint(name: string) {

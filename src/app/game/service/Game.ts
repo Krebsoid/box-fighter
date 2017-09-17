@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {GameArea} from "./GameArea";
-import {Controls} from "../model/base/Controls";
+import {Controls} from "../model/player/Controls";
+import {Event} from "../model/base/event/Event";
+import {EventListener} from "../model/base/event/EventListener";
+import {Player} from "../model/player/Player";
 import {Scene} from "../model/base/Scene";
-import {Event} from "../model/base/Event";
-import {EventListener} from "../model/base/EventListener";
-import {SceneType} from "../model/scene/SceneType";
-import {Player} from "../model/base/Player";
+import {SceneCatalogue} from "../model/catalogues/SceneCatalogue";
 
 export class GameTime {
   static frames: number = 0;
@@ -22,8 +22,8 @@ export class GameTime {
 
 @Injectable()
 export class Game {
-  state: SceneType;
-  scenes: Map<SceneType, Scene> = new Map();
+  state: SceneCatalogue;
+  scenes: Map<SceneCatalogue, Scene> = new Map();
   player: Player = new Player();
   events: Array<Event> = [];
   eventListeners: Array<EventListener> = [];
@@ -50,8 +50,8 @@ export class Game {
     main();
   }
 
-  changeGameState(newGameState: SceneType, delay: number = 0) {
-    let oldState: SceneType = this.state;
+  changeGameState(newGameState: SceneCatalogue, delay: number = 0) {
+    let oldState: SceneCatalogue = this.state;
     this.player.lastScene = this.state;
     if(oldState !== newGameState) {
       let self = this;

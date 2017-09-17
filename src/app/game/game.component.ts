@@ -1,16 +1,16 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GameArea} from "./service/GameArea";
 import {Game} from "./service/Game";
-import {GameScene, Level2Intro} from "./model/scene/GameScene";
-import {EndScene} from "./model/scene/EndScene";
-import {Level1, Level1Intro} from "./model/scene/Level1";
-import {WinningScene} from "./model/scene/WinningScene";
-import {Scene} from "./model/base/Scene";
-import {Maze, MazeIntro} from "./model/scene/Maze";
-import {ZombieScene} from "./model/scene/ZombieScene";
-import {SceneType} from "./model/scene/SceneType";
 import {Vector} from "./model/base/Vector";
-import {TryAgainScene} from "./model/scene/TryAgainScene";
+import {GameScene, Level2Intro} from "./model/scenes/GameScene";
+import {EndScene} from "./model/scenes/EndScene";
+import {Level1, Level1Intro} from "./model/scenes/Level1";
+import {Maze, MazeIntro} from "./model/scenes/Maze";
+import {WinningScene} from "./model/scenes/WinningScene";
+import {ZombieScene} from "./model/scenes/ZombieScene";
+import {TryAgainScene} from "./model/scenes/TryAgainScene";
+import {Scene} from "./model/base/Scene";
+import {SceneCatalogue} from "./model/catalogues/SceneCatalogue";
 
 @Component({
   templateUrl: './game.component.html',
@@ -33,7 +33,7 @@ export class GameComponent implements OnInit {
     this.addScene(new Maze());
     this.addScene(new ZombieScene());
     this.addScene(new TryAgainScene());
-    this.game.changeGameState(SceneType.MAZE_INTRO);
+    this.game.changeGameState(SceneCatalogue.MAZE_INTRO);
     this.game.init();
   }
 

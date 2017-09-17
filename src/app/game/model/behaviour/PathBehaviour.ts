@@ -1,6 +1,5 @@
-import {Behaviour} from "./Behaviour";
+import {Behaviour} from "../base/Behaviour";
 import {Game} from "../../service/Game";
-import {ColoredShape} from "../base/ColoredShape";
 import {Vector} from "../base/Vector";
 import {Element} from "../base/Element";
 

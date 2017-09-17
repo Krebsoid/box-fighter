@@ -1,6 +1,6 @@
-import {Behaviour} from "./Behaviour";
+import {Behaviour} from "../base/Behaviour";
 import {Game} from "../../service/Game";
-import {Shape} from "../base/Shape";
+import {Shape} from "../base/shapes/Shape";
 import {Vector} from "../base/Vector";
 
 export class SinusBehaviour implements Behaviour<Shape> {

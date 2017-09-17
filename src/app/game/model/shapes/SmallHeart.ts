@@ -1,5 +1,4 @@
-
-import {ShapeDescriptor} from "./ShapeDescriptor";
+import {ShapeDescriptor} from "../base/shapes/ShapeDescriptor";
 import {Position} from "../base/Position";
 
 export class SmallHeart implements ShapeDescriptor {

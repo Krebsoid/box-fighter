@@ -1,8 +1,8 @@
-import {Camera} from "./Camera";
+import {Camera} from "./camera/Camera";
 import {Game, GameTime} from "../../service/Game";
-import {ElementType} from "./ElementType";
-import {Behaviour} from "../behaviour/Behaviour";
+import {Behaviour} from "./Behaviour";
 import {Vector} from "./Vector";
+import {ElementCatalogue} from "../catalogues/ElementCatalogue";
 
 namespace Id {
   let index: number = 0;
@@ -140,5 +140,5 @@ export abstract class Element {
     return this.type + "(" + this.id + ")";
   }
 
-  type: ElementType = ElementType.ELEMENT;
+  type: ElementCatalogue = ElementCatalogue.ELEMENT;
 }

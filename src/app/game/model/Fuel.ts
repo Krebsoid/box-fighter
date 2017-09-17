@@ -1,10 +1,10 @@
 import {Element} from "./base/Element";
-import {Shape} from "./base/Shape";
-import {ColoredShape} from "./base/ColoredShape";
-import {Camera} from "./base/Camera";
+import {Shape} from "./base/shapes/Shape";
+import {ColoredShape} from "./base/shapes/ColoredShape";
+import {Camera} from "./base/camera/Camera";
 import {Game} from "../service/Game";
-import {Player} from "./base/Player";
-import {ElementType} from "./base/ElementType";
+import {Player} from "./player/Player";
+import {ElementCatalogue} from "./catalogues/ElementCatalogue";
 
 export class Fuel extends Element {
 
@@ -63,5 +63,5 @@ export class Fuel extends Element {
     });
   }
 
-  type: ElementType = ElementType.FUEL;
+  type: ElementCatalogue = ElementCatalogue.FUEL;
 }

@@ -1,8 +1,8 @@
 import {Element} from "./base/Element";
 import {Game} from "../service/Game";
 import {Random} from "../service/util/Random";
-import {ColoredShape} from "./base/ColoredShape";
-import {ElementType} from "./base/ElementType";
+import {ColoredShape} from "./base/shapes/ColoredShape";
+import {ElementCatalogue} from "./catalogues/ElementCatalogue";
 
 export class ShapeMachine extends Element {
 
@@ -30,5 +30,5 @@ export class ShapeMachine extends Element {
     }
   }
 
-  type: ElementType = ElementType.SHAPE_MACHINE;
+  type: ElementCatalogue = ElementCatalogue.SHAPE_MACHINE;
 }

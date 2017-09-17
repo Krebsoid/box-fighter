@@ -1,4 +1,4 @@
-import {Behaviour} from "./Behaviour";
+import {Behaviour} from "../base/Behaviour";
 import {Game} from "../../service/Game";
 import {Position} from "../base/Position";
 import {Element} from "../base/Element";

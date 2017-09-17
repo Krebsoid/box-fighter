@@ -1,11 +1,11 @@
 import {Element} from "./base/Element";
-import {Shape} from "./base/Shape";
-import {Camera} from "./base/Camera";
+import {Shape} from "./base/shapes/Shape";
+import {Camera} from "./base/camera/Camera";
 import {Game} from "../service/Game";
-import {Player} from "./base/Player";
-import {ElementType} from "./base/ElementType";
-import {GenericShape} from "./base/GenericShape";
+import {Player} from "./player/Player";
+import {GenericShape} from "./base/shapes/GenericShape";
 import {SmallHeart} from "./shapes/SmallHeart";
+import {ElementCatalogue} from "./catalogues/ElementCatalogue";
 
 export class Life extends Element {
 
@@ -53,5 +53,5 @@ export class Life extends Element {
     });
   }
 
-  type: ElementType = ElementType.LIFE;
+  type: ElementCatalogue = ElementCatalogue.LIFE;
 }

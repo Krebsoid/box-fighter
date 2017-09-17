@@ -1,8 +1,8 @@
 import {Game} from "../service/Game";
-import {Text} from "./base/Text";
-import {Camera} from "./base/Camera";
-import {ColoredShape} from "./base/ColoredShape";
-import {ElementType} from "./base/ElementType";
+import {Text} from "./base/text/Text";
+import {Camera} from "./base/camera/Camera";
+import {ColoredShape} from "./base/shapes/ColoredShape";
+import {ElementCatalogue} from "./catalogues/ElementCatalogue";
 
 export class HitBox extends ColoredShape {
 
@@ -30,5 +30,5 @@ export class HitBox extends ColoredShape {
     this.label.text = this.hits.toString();
   }
 
-  type: ElementType = ElementType.HITBOX;
+  type: ElementCatalogue = ElementCatalogue.HITBOX;
 }

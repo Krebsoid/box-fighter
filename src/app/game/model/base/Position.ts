@@ -1,6 +1,6 @@
 import {Element} from "./Element";
 import {Game} from "../../service/Game";
-import {ElementType} from "./ElementType";
+import {ElementCatalogue} from "../catalogues/ElementCatalogue";
 
 export class Position extends Element {
 
@@ -12,5 +12,5 @@ export class Position extends Element {
 
   }
 
-  type: ElementType = ElementType.POSITION;
+  type: ElementCatalogue = ElementCatalogue.POSITION;
 }
