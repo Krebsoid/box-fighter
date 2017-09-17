@@ -10,6 +10,14 @@ export class Controls {
     return this.down || this.left || this.right || this.up;
   }
 
+  isMovingX(): boolean {
+    return this.left || this.right;
+  }
+
+  isMovingY(): boolean {
+    return this.up || this.down;
+  }
+
   addControl(key: string) {
     if(key == "w") {
       this.up = true;

@@ -112,7 +112,7 @@ export class Player extends Element implements ValuableConsumer {
         this.destination = undefined;
       }
     } else {
-      this.doMovement(game);
+      this.doMovementAccelerated(game);
     }
 
     this.checkForHits(game);
@@ -159,7 +159,7 @@ export class Player extends Element implements ValuableConsumer {
     this.elements.forEach(value => value.update(game));
     this.velocity = new Vector(0, 0);
     if(this.engine.level > 0 && !this.dead) {
-      let acceleration = this.engine ? this.engine.acceleration : 0;
+      let acceleration = this.engine ? this.engine.maxSpeed : 0;
       let levelBorders = game.getActiveScene().levelBorders;
       let xAcceleration = 0;
       let yAcceleration = 0;
@@ -181,6 +181,65 @@ export class Player extends Element implements ValuableConsumer {
         this.elements.forEach(value => value.move(this.velocity));
         this.engine.consumeFuel(Math.abs(acceleration));
       }
+    }
+  }
+
+  accAcceleration: number = 0;
+  yAcceleration: number = 0;
+  xAcceleration: number = 0;
+  doMovementAccelerated(game: Game) {
+    this.elements.forEach(value => value.update(game));
+    if(this.engine.level > 0 && !this.dead) {
+      let acceleration = this.engine ? this.engine.acceleration : 0;
+      let levelBorders = game.getActiveScene().levelBorders;
+      if(game.controls.down) {
+        if(Math.abs(this.yAcceleration) <= this.engine.maxSpeed) {
+          this.yAcceleration += this.engine.acceleration;
+        }
+      }
+      if(game.controls.up) {
+        if(Math.abs(this.yAcceleration) <= this.engine.maxSpeed) {
+          this.yAcceleration -= this.engine.acceleration;
+        }
+      }
+      if(game.controls.right) {
+        if(Math.abs(this.xAcceleration) <= this.engine.maxSpeed) {
+          this.xAcceleration += this.engine.acceleration;
+        }
+      }
+      if(game.controls.left) {
+        if(Math.abs(this.xAcceleration) <= this.engine.maxSpeed) {
+          this.xAcceleration -= this.engine.acceleration;
+        }
+      }
+      if(game.controls.isMoving()) {
+        this.engine.consumeFuel(Math.abs(acceleration));
+      }
+      if(!game.controls.isMovingX()) {
+        if(Math.abs(this.xAcceleration) <= this.engine.acceleration) {
+          this.xAcceleration = 0;
+        }
+        if(this.xAcceleration > 0) {
+          this.xAcceleration -= acceleration;
+        } else if(this.xAcceleration < 0) {
+          this.xAcceleration += acceleration;
+        }
+      }
+      if(!game.controls.isMovingY()) {
+        if(Math.abs(this.yAcceleration) <= this.engine.acceleration) {
+          this.yAcceleration = 0;
+        }
+        if(this.yAcceleration > 0) {
+          this.yAcceleration -= acceleration;
+        } else if(this.yAcceleration < 0) {
+          this.yAcceleration += acceleration;
+        }
+      }
+
+      this.velocity = new Vector(this.xAcceleration, this.yAcceleration);
+      console.log(this.xAcceleration + " " + this.yAcceleration);
+      this.move(this.velocity);
+      this.elements.forEach(value => value.move(this.velocity));
     }
   }
 
