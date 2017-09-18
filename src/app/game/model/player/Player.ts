@@ -106,7 +106,7 @@ export class Player extends Element implements ValuableConsumer {
 
   update(game: Game) {
     if(this.destination) {
-      this.moveTo(this.engine.acceleration);
+      this.moveTo(this.engine.power);
       console.log(this.distanceToTarget(this.destination));
       if(this.distanceToTarget(this.destination) < 5) {
         this.destination = undefined;
@@ -184,62 +184,76 @@ export class Player extends Element implements ValuableConsumer {
     }
   }
 
-  accAcceleration: number = 0;
-  yAcceleration: number = 0;
-  xAcceleration: number = 0;
   doMovementAccelerated(game: Game) {
     this.elements.forEach(value => value.update(game));
     if(this.engine.level > 0 && !this.dead) {
-      let acceleration = this.engine ? this.engine.acceleration : 0;
-      let levelBorders = game.getActiveScene().levelBorders;
       if(game.controls.down) {
-        if(Math.abs(this.yAcceleration) <= this.engine.maxSpeed) {
-          this.yAcceleration += this.engine.acceleration;
+        if(this.velocity.y <= this.engine.maxSpeed) {
+          this.acceleration.y = this.engine.power;
+        } else {
+          this.acceleration.y = 0;
         }
       }
       if(game.controls.up) {
-        if(Math.abs(this.yAcceleration) <= this.engine.maxSpeed) {
-          this.yAcceleration -= this.engine.acceleration;
+        if(this.velocity.y >= -this.engine.maxSpeed) {
+          this.acceleration.y = -this.engine.power;
+        } else {
+          this.acceleration.y = 0;
         }
       }
       if(game.controls.right) {
-        if(Math.abs(this.xAcceleration) <= this.engine.maxSpeed) {
-          this.xAcceleration += this.engine.acceleration;
+        if(this.velocity.x <= this.engine.maxSpeed) {
+          this.acceleration.x = this.engine.power;
+        } else {
+          this.acceleration.x = 0;
         }
       }
       if(game.controls.left) {
-        if(Math.abs(this.xAcceleration) <= this.engine.maxSpeed) {
-          this.xAcceleration -= this.engine.acceleration;
-        }
-      }
-      if(game.controls.isMoving()) {
-        this.engine.consumeFuel(Math.abs(acceleration));
-      }
-      if(!game.controls.isMovingX()) {
-        if(Math.abs(this.xAcceleration) <= this.engine.acceleration) {
-          this.xAcceleration = 0;
-        }
-        if(this.xAcceleration > 0) {
-          this.xAcceleration -= acceleration;
-        } else if(this.xAcceleration < 0) {
-          this.xAcceleration += acceleration;
-        }
-      }
-      if(!game.controls.isMovingY()) {
-        if(Math.abs(this.yAcceleration) <= this.engine.acceleration) {
-          this.yAcceleration = 0;
-        }
-        if(this.yAcceleration > 0) {
-          this.yAcceleration -= acceleration;
-        } else if(this.yAcceleration < 0) {
-          this.yAcceleration += acceleration;
+        if(this.velocity.x >= -this.engine.maxSpeed) {
+          this.acceleration.x = -this.engine.power;
+        } else {
+          this.acceleration.x = 0;
         }
       }
 
-      this.velocity = new Vector(this.xAcceleration, this.yAcceleration);
-      console.log(this.xAcceleration + " " + this.yAcceleration);
+      if(game.controls.isMoving()) {
+        this.engine.consumeFuel(Math.abs(this.engine.maxSpeed));
+      }
+
+      this.applyFriction(game);
+
+      this.accelerate(this.acceleration);
       this.move(this.velocity);
-      this.elements.forEach(value => value.move(this.velocity));
+
+      this.elements.forEach(value => {
+        value.accelerate(this.acceleration);
+        value.move(this.velocity);
+      });
+    }
+  }
+
+  applyFriction(game: Game) {
+    if(!game.controls.isMovingX()) {
+      this.acceleration.x = 0;
+      if(Math.abs(this.velocity.x) <= this.engine.power) {
+        this.velocity.x = 0;
+      }
+      if(this.velocity.x > 0) {
+        this.velocity.x -= this.engine.power;
+      } else if(this.velocity.x < 0) {
+        this.velocity.x += this.engine.power;
+      }
+    }
+    if(!game.controls.isMovingY()) {
+      this.acceleration.y = 0;
+      if(Math.abs(this.velocity.y) <= this.engine.power) {
+        this.velocity.y = 0;
+      }
+      if(this.velocity.y > 0) {
+        this.velocity.y -= this.engine.power;
+      } else if(this.velocity.y < 0) {
+        this.velocity.y += this.engine.power;
+      }
     }
   }
 

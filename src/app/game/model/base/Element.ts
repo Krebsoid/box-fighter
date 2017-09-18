@@ -14,8 +14,10 @@ namespace Id {
 export abstract class Element {
   id: number;
   position: Vector;
-  velocity: Vector = new Vector(0, 0);
   z: number;
+  velocity: Vector = new Vector(0, 0);
+  acceleration: Vector = new Vector(0, 0);
+  mass: number = 1;
 
   birth: number;
 
@@ -118,6 +120,10 @@ export abstract class Element {
 
   move(velocity: Vector) {
     this.position.addTo(velocity);
+  }
+
+  accelerate(acceleration: Vector) {
+    this.velocity.addTo(acceleration);
   }
 
   setPosition(x: number, y: number) {

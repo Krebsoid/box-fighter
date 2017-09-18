@@ -7,7 +7,7 @@ import {Element} from "../../base/Element";
 import {ElementCatalogue} from "../../catalogues/ElementCatalogue";
 
 export class Engine extends Equipment {
-  acceleration: number = .1;
+  power: number = .1;
   maxSpeed: number = 2;
   capacity: number = 200;
   level: number;
