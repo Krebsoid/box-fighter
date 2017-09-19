@@ -28,7 +28,7 @@ export class Maze extends Scene {
   playground(game: Game) {
     let player = game.player;
     player.lifes = 3;
-    player.resetPosition(100, 500/2 - 25, 5);
+    player.reset(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     let camera = new BasicCamera(player, game.gameArea);

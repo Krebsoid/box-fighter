@@ -18,6 +18,8 @@ export class Player extends Element implements ValuableConsumer {
   hitboxes: Shape[] = [];
   engine: Engine;
   weapon: Weapon;
+  weaponSlot: Vector;
+  engineSlot: Vector;
   height: number;
 
   currency: number = 0;
@@ -28,19 +30,12 @@ export class Player extends Element implements ValuableConsumer {
 
   constructor() {
     super(100, 500/2 - 25, 5);
-    this.elements.push(new ColoredShape(this.position.x, this.position.y, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.position.x+25, this.position.y, this.z, 25, 25, "#29ee4c"));
-    this.elements.push(new ColoredShape(this.position.x+25, this.position.y+25, this.z, 25, 25, "#234242"));
-    this.elements.push(new ColoredShape(this.position.x, this.position.y+25, this.z, 25, 25, "#29ee4c"));
-    let hitbox = new Shape(this.position.x, this.position.y, this.z, 50, 50);
-    this.hitboxes.push(hitbox);
-    this.elements.push(hitbox);
-    this.height = this.calculateHeight();
-    this.setWeapon(new Weapon(0,0,0));
-    this.setEngine(new Engine(0,0,0));
+    this.weaponSlot = new Vector(50, 25);
+    this.engineSlot = new Vector(0, 25);
+    this.createModel(this.position.x, this.position.y, this.z, new Weapon(0,0,0), new Engine(0,0,0));
   }
 
-  resetPosition(x: number, y: number, z: number) {
+  reset(x: number, y: number, z: number) {
     this.setPosition(x, y);
     this.dead = false;
     let weapon = this.weapon;
@@ -49,6 +44,10 @@ export class Player extends Element implements ValuableConsumer {
     this.engine = undefined;
     this.elements = [];
     this.hitboxes = [];
+    this.createModel(x, y, z, weapon, engine);
+  }
+
+  createModel(x: number, y: number, z: number, weapon: Weapon, engine: Engine) {
     this.elements.push(new ColoredShape(x, y, z, 25, 25, "#234242"));
     this.elements.push(new ColoredShape(x+25, y, z, 25, 25, "#29ee4c"));
     this.elements.push(new ColoredShape(x+25, y+25, z, 25, 25, "#234242"));
@@ -74,9 +73,10 @@ export class Player extends Element implements ValuableConsumer {
   setEngine(engine: Engine) {
     if(this.engine) {
       let enginePosition = this.elements.indexOf(this.engine);
+      this.engine.detach();
       this.elements.splice(enginePosition, 1);
     }
-    engine.attach(this);
+    engine.attach(this, this.engineSlot);
     this.elements.push(engine);
     this.engine = engine;
   }
@@ -86,7 +86,7 @@ export class Player extends Element implements ValuableConsumer {
       this.weapon.detach();
       this.elements.splice(weaponPosition, 1);
     }
-    weapon.attach(this);
+    weapon.attach(this, this.weaponSlot);
     this.elements.push(weapon);
     weapon.elements.forEach(element => {
       if(element instanceof ColoredShape) {

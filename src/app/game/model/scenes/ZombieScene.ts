@@ -17,7 +17,7 @@ export class ZombieScene extends Scene {
 
   playground(game: Game) {
     let player = game.player;
-    player.resetPosition(100, 500/2 - 25, 5);
+    player.reset(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
     game.gameArea.setCamera(new BasicCamera(player, game.gameArea));
 
