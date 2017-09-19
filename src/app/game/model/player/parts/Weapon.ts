@@ -7,7 +7,6 @@ import {Camera} from "../../base/camera/Camera";
 import {Player} from "../Player";
 import {StrokedText} from "../../base/text/StrokedText";
 import {Vector} from "../../base/Vector";
-import {Element} from '../../base/Element';
 import {ElementCatalogue} from "../../catalogues/ElementCatalogue";
 
 export class Weapon extends Equipment implements Buyable {
@@ -19,29 +18,25 @@ export class Weapon extends Equipment implements Buyable {
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
-    this.elements.push(new ColoredShape(x, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 9, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 18, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 27, y, z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(x, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(x + 9, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(x + 18, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(x + 27, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
     if(!this.isAttached()) {
       this.label = new StrokedText(x + 40, y + 8, z, "green", "14pt Calibri", 1, "black");
       this.label.text = "Mini-Wumme " + this.value + " §";
     }
   }
 
-  attach(target: Element) {
+  attach(target: Player, slot: Vector) {
     this.elements = [];
     this.label = undefined;
     this.target = target;
-    this.elements.push(new ColoredShape(target.position.x+50, target.position.y+20+1, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.position.x+59, target.position.y+20+1, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.position.x+68, target.position.y+20+1, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(target.position.x+77, target.position.y+20+1, target.z, 8, 8, "#0206ee").isDangerous(false));
-    this.bulletHole = new Vector(target.position.x+80+2, target.position.y+28-6);
-  }
-
-  detach() {
-    this.target = undefined;
+    this.elements.push(new ColoredShape(target.position.x + slot.x, target.position.y + slot.y - 4, target.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x + slot.x + 9, target.position.y + slot.y - 4, target.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x + slot.x + 18, target.position.y + slot.y - 4, target.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(target.position.x + slot.x + 27, target.position.y + slot.y - 4, target.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.bulletHole = new Vector(target.position.x + slot.x + 32, target.position.y + slot.y - 2);
   }
 
   isOnScreen(camera: Camera): boolean {

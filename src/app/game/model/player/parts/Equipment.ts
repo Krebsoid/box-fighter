@@ -3,6 +3,7 @@ import {Game} from "../../../service/Game";
 import {Camera} from "../../base/camera/Camera";
 import {Shape} from "../../base/shapes/Shape";
 import {Vector} from "../../base/Vector";
+import {Player} from "../Player";
 
 export abstract class Equipment extends Element {
 
@@ -13,7 +14,11 @@ export abstract class Equipment extends Element {
     super(x, y, z);
   }
 
-  abstract attach(target: Element);
+  abstract attach(target: Player, slot: Vector);
+
+  detach() {
+    this.target = undefined;
+  }
 
   isAttached() : boolean {
     return !!this.target;
