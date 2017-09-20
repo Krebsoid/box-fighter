@@ -37,7 +37,7 @@ export class Player extends Element implements ValuableConsumer {
 
   reset(x: number, y: number, z: number) {
     this.setPosition(x, y);
-    this.dead = false;
+
     let weapon = this.weapon;
     let engine = this.engine;
     this.weapon = undefined;
@@ -45,6 +45,13 @@ export class Player extends Element implements ValuableConsumer {
     this.elements = [];
     this.hitboxes = [];
     this.createModel(x, y, z, weapon, engine);
+  }
+
+  revive(x: number, y: number, z: number) {
+    this.reset(x, y, z);
+    this.dead = false;
+    this.weapon.reset();
+    this.engine.reset();
   }
 
   createModel(x: number, y: number, z: number, weapon: Weapon, engine: Engine) {
@@ -58,8 +65,6 @@ export class Player extends Element implements ValuableConsumer {
     this.height = this.calculateHeight();
     this.setWeapon(weapon);
     this.setEngine(engine);
-    this.weapon.reset();
-    this.engine.reset();
   }
 
   isOnScreen(): boolean {
@@ -187,34 +192,9 @@ export class Player extends Element implements ValuableConsumer {
   doMovementAccelerated(game: Game) {
     this.elements.forEach(value => value.update(game));
     if(this.engine.level > 0 && !this.dead) {
-      if(game.controls.down) {
-        if(this.velocity.y <= this.engine.maxSpeed) {
-          this.acceleration.y = this.engine.power;
-        } else {
-          this.acceleration.y = 0;
-        }
-      }
-      if(game.controls.up) {
-        if(this.velocity.y >= -this.engine.maxSpeed) {
-          this.acceleration.y = -this.engine.power;
-        } else {
-          this.acceleration.y = 0;
-        }
-      }
-      if(game.controls.right) {
-        if(this.velocity.x <= this.engine.maxSpeed) {
-          this.acceleration.x = this.engine.power;
-        } else {
-          this.acceleration.x = 0;
-        }
-      }
-      if(game.controls.left) {
-        if(this.velocity.x >= -this.engine.maxSpeed) {
-          this.acceleration.x = -this.engine.power;
-        } else {
-          this.acceleration.x = 0;
-        }
-      }
+      if(this.checkBorderHit(game)) return;
+
+      this.applyAcceleration(game);
 
       if(game.controls.isMoving()) {
         this.engine.consumeFuel(Math.abs(this.engine.maxSpeed));
@@ -232,7 +212,67 @@ export class Player extends Element implements ValuableConsumer {
     }
   }
 
-  applyFriction(game: Game) {
+  private checkBorderHit(game: Game): boolean {
+    let levelBorders = game.getActiveScene().levelBorders;
+    if(this.position.y > levelBorders.h - this.height) {
+      this.velocity = new Vector(0, 0);
+      this.acceleration = new Vector(0, 0);
+      this.reset(this.position.x, levelBorders.h - this.height, this.z);
+      return true;
+    }
+    if(this.position.y < levelBorders.position.y) {
+      this.velocity = new Vector(0, 0);
+      this.acceleration = new Vector(0, 0);
+      this.reset(this.position.x, 0, this.z);
+      return true;
+    }
+    if(this.position.x > levelBorders.w) {
+      this.velocity = new Vector(0, 0);
+      this.acceleration = new Vector(0, 0);
+      this.reset(levelBorders.w, this.position.y, this.z);
+      return true;
+    }
+    if(this.position.x < levelBorders.position.x) {
+      this.velocity = new Vector(0, 0);
+      this.acceleration = new Vector(0, 0);
+      this.reset(0, this.position.y, this.z);
+      return true;
+    }
+    return false;
+  }
+
+  private applyAcceleration(game: Game) {
+    if(game.controls.down) {
+      if(this.velocity.y <= this.engine.maxSpeed) {
+        this.acceleration.y = this.engine.power;
+      } else {
+        this.acceleration.y = 0;
+      }
+    }
+    if(game.controls.up) {
+      if(this.velocity.y >= -this.engine.maxSpeed) {
+        this.acceleration.y = -this.engine.power;
+      } else {
+        this.acceleration.y = 0;
+      }
+    }
+    if(game.controls.right) {
+      if(this.velocity.x <= this.engine.maxSpeed) {
+        this.acceleration.x = this.engine.power;
+      } else {
+        this.acceleration.x = 0;
+      }
+    }
+    if(game.controls.left) {
+      if(this.velocity.x >= -this.engine.maxSpeed) {
+        this.acceleration.x = -this.engine.power;
+      } else {
+        this.acceleration.x = 0;
+      }
+    }
+  }
+
+  private applyFriction(game: Game) {
     if(!game.controls.isMovingX()) {
       this.acceleration.x = 0;
       if(Math.abs(this.velocity.x) <= this.engine.power) {
