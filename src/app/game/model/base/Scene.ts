@@ -16,12 +16,12 @@ export abstract class Scene {
     let sun = new Sprite(300, 30, -15, 200, 200, "assets/sun.png", () => undefined)
       .isVisible(true).isCollidable(false).isDangerous(false).isDestructible(false);
     background.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
-      if(game.controls.isMoving()) {
+      if(game.controls.isMoving() && game.player.engine.level > 0) {
         shape.move(new Vector(game.player.velocity.x, 0).multiply(-.2));
       }
     });
     sun.addBehaviour("playerMoving", (game: Game, shape: Sprite) => {
-      if(game.controls.isMoving()) {
+      if(game.controls.isMoving() && game.player.engine.level > 0) {
         shape.move(new Vector(game.player.velocity.x, 0).multiply(.8));
       }
     });
