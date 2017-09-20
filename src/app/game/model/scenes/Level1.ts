@@ -26,7 +26,7 @@ export class Level1 extends Scene {
 
   playground(game: Game) {
     let player = game.player;
-    player.reset(100, 500/2 - 25, 5);
+    player.revive(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     game.gameArea.addElement(new HitBoxes());

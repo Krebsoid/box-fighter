@@ -15,21 +15,26 @@ export class DoubleWeapon extends Weapon {
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
-    this.elements.push(new ColoredShape(x, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 9, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 18, y, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 27, y, z, 8, 8, "#0206ee").isDangerous(false));
 
-    this.elements.push(new ColoredShape(x, y + 9, z, 8, 8, "#0206ee").isDangerous(false));
+  }
 
-    this.elements.push(new ColoredShape(x, y + 18, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 9, y + 18, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 18, y + 18, z, 8, 8, "#0206ee").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 27, y + 18, z, 8, 8, "#0206ee").isDangerous(false));
+  putOnPlayground() {
+    this.elements.push(new ColoredShape(this.position.x, this.position.y, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 9, this.position.y, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 18, this.position.y, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 27, this.position.y, this.z, 8, 8, "#0206ee").isDangerous(false));
+
+    this.elements.push(new ColoredShape(this.position.x, this.position.y + 9, this.z, 8, 8, "#0206ee").isDangerous(false));
+
+    this.elements.push(new ColoredShape(this.position.x, this.position.y + 18, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 9, this.position.y + 18, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 18, this.position.y + 18, this.z, 8, 8, "#0206ee").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 27, this.position.y + 18, this.z, 8, 8, "#0206ee").isDangerous(false));
     if(!this.isAttached()) {
-      this.label = new StrokedText(x + 40, y + 18, z, "green", "14pt Calibri", 1, "black");
+      this.label = new StrokedText(this.position.x + 40, this.position.y + 18, this.z, "green", "14pt Calibri", 1, "black");
       this.label.text = "Doppel-Wumme " + this.value + " §";
     }
+    return this;
   }
 
   attach(target: Element) {

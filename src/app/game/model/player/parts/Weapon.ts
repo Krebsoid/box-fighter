@@ -18,14 +18,18 @@ export class Weapon extends Equipment implements Buyable {
 
   constructor(x: number, y: number, z: number) {
     super(x, y, z);
-    this.elements.push(new ColoredShape(x, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 9, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 18, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
-    this.elements.push(new ColoredShape(x + 27, y, z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+  }
+
+  putOnPlayground() {
+    this.elements.push(new ColoredShape(this.position.x, this.position.y, this.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 9, this.position.y, this.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 18, this.position.y, this.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
+    this.elements.push(new ColoredShape(this.position.x + 27, this.position.y, this.z, 8, 8, "#0206ee").setKey("player-weapon").isDangerous(false));
     if(!this.isAttached()) {
-      this.label = new StrokedText(x + 40, y + 8, z, "green", "14pt Calibri", 1, "black");
+      this.label = new StrokedText(this.position.x + 40, this.position.y + 8, this.z, "green", "14pt Calibri", 1, "black");
       this.label.text = "Mini-Wumme " + this.value + " §";
     }
+    return this;
   }
 
   attach(target: Player, slot: Vector) {

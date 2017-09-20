@@ -18,6 +18,9 @@ import {Vector} from "../base/Vector";
 import {LifeMeter} from "../player/ui/LifeMeter";
 import {Life} from "../Life";
 import {SceneCatalogue} from "../catalogues/SceneCatalogue";
+import {Engine} from "../player/parts/Engine";
+import {FasterEngine} from "../player/parts/FasterEngine";
+import {Fuel} from "../Fuel";
 
 export class Maze extends Scene {
   hasBackground: boolean = true;
@@ -28,11 +31,21 @@ export class Maze extends Scene {
   playground(game: Game) {
     let player = game.player;
     player.lifes = 3;
-    player.reset(100, 500/2 - 25, 5);
+    player.revive(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
     let camera = new BasicCamera(player, game.gameArea);
     game.gameArea.setCamera(camera);
+
+    //let newEngine = new Engine(200,400,10).putOnPlayground();
+    //game.gameArea.addElement(newEngine);
+
+    //game.gameArea.addElement(new Fuel(200, 50, 5));
+    //game.gameArea.addElement(new Fuel(300, 50, 5));
+    //game.gameArea.addElement(new Fuel(400, 50, 5));
+
+    //let betterEngine = new FasterEngine(200,300,10).putOnPlayground();
+    //game.gameArea.addElement(betterEngine);
 
     let pathHeartBehaviour = new PathBehaviour(2, [
       (game: Game) => new Vector(600, 450),
