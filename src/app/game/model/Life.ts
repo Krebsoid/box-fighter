@@ -38,13 +38,15 @@ export class Life extends Element {
     this.checkForHits(game);
   }
 
+  consumed: boolean = false;
   checkForHits(game: Game) {
     game.gameArea.elementsOnCamera().forEach((value) => {
       if(value instanceof Player) {
         this.hitboxes.forEach((hitbox) => {
           value.hitboxes.forEach(hitboxPlayer => {
-            if(hitbox.collision(hitboxPlayer)) {
+            if(!this.consumed && hitbox.collision(hitboxPlayer)) {
               value.lifes += 1;
+              this.consumed = true;
               game.gameArea.removeElement(this);
             }
           });
