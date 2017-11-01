@@ -18,9 +18,6 @@ import {Vector} from "../base/Vector";
 import {LifeMeter} from "../player/ui/LifeMeter";
 import {Life} from "../Life";
 import {SceneCatalogue} from "../catalogues/SceneCatalogue";
-import {Engine} from "../player/parts/Engine";
-import {FasterEngine} from "../player/parts/FasterEngine";
-import {Fuel} from "../Fuel";
 
 export class Maze extends Scene {
   hasBackground: boolean = true;

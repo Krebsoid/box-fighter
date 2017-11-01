@@ -41,7 +41,7 @@ export class GameScene extends Scene {
     player.revive(100, 500/2 - 25, 5);
     game.gameArea.addElement(player);
 
-    let newWeapon = new DoubleWeapon(200,400,10).putOnPlayground();
+    let newWeapon = new DoubleWeapon(200,350,10).putOnPlayground();
     game.gameArea.addElement(newWeapon);
 
     let hitManyBoxes = new HitManyBoxes();
@@ -77,7 +77,7 @@ export class GameScene extends Scene {
     game.gameArea.addElement(coloredShape);
     game.gameArea.addElement(new ColoredShape(3000, 0, 3, 2, 500, "#000000").isDestructible(true));
 
-    game.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7").isDestructible(true));
+    //game.gameArea.addElement(new HitBox(100, 100, 3, 100, 100, "#98ffb7").isDestructible(true));
 
     game.gameArea.addElement(new AnimatedSprite(500, 200, 1, 30, 30, "assets/sprite.png", 200, true).isDestructible(true));
     let sprite = new AnimatedSprite(500, 300, 1, 30, 30, "assets/sprite.png", 5, true);
